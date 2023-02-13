@@ -40,7 +40,8 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {"space-before-function-paren": "off",
+    "vue/multi-word-component-names": "off"}
   },
   "browserslist": [
     "> 1%",

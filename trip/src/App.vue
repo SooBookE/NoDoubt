@@ -1,8 +1,8 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/slider">slider</router-link> |
+  <nav style="display: none">
+    <router-link to="/" style="display: none">Home</router-link>
+    <router-link to="/about" style="display: none">About</router-link>
+    <router-link to="/slider" style="display: none">slider</router-link>
   </nav>
   <router-view />
 </template>

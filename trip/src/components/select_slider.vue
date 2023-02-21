@@ -34,13 +34,25 @@
       <div class="out_container">
         <div class="container">
           <div class="image_slide">
+            <button class="left_button" @click="left_button_click()">왼</button>
             <img :src="image[0]" alt="" style="width: 100%" />
+            <button class="right_button" @click="right_button_click()">
+              오
+            </button>
           </div>
           <div class="image_slide">
+            <button class="left_button">왼</button>
             <img :src="image[1]" alt="" style="width: 100%" />
+            <button class="right_button" @click="right_button_click()">
+              오
+            </button>
           </div>
           <div class="image_slide">
+            <button class="left_button">왼</button>
             <img :src="image[0]" alt="" style="width: 100%" />
+            <button class="right_button" @click="right_button_click()">
+              오
+            </button>
           </div>
         </div>
       </div>
@@ -57,48 +69,67 @@
 <script>
 /* eslint-disable */
 export default {
-  name: "app",
+  name: 'app',
   data() {
     return {
       image: [
-        "https://i.pinimg.com/564x/d9/c5/2c/d9c52ca87991a593a29b2b78d87d57a2.jpg",
-        "https://i.pinimg.com/564x/09/62/5f/09625f00408ecdfb00a8f633f7fe8a8f.jpg",
-      ],
-    };
+        'https://i.pinimg.com/564x/d9/c5/2c/d9c52ca87991a593a29b2b78d87d57a2.jpg',
+        'https://i.pinimg.com/564x/09/62/5f/09625f00408ecdfb00a8f633f7fe8a8f.jpg'
+      ]
+    }
   },
+
+  mounted() {},
+
   methods: {
     button_click_slide1: function () {
-      document.querySelector(".button1").addEventListener("click", function () {
-        document.querySelector(".container").style.transform =
-          "translate(400px)";
-      });
+      document.querySelector('.button1').addEventListener('click', function () {
+        document.querySelector('.container').style.transform =
+          'translate(700px)'
+      })
     },
     button_click_slide2: function () {
-      document.querySelector(".button2").addEventListener("click", function () {
-        document.querySelector(".container").style.transform =
-          "translate(-0px)";
-      });
+      document.querySelector('.button2').addEventListener('click', function () {
+        document.querySelector('.container').style.transform = 'translate(-0px)'
+      })
     },
 
     button_click_slide3: function () {
-      document.querySelector(".button3").addEventListener("click", function () {
-        document.querySelector(".container").style.transform =
-          "translate(-400px)";
-      });
+      document.querySelector('.button3').addEventListener('click', function () {
+        document.querySelector('.container').style.transform =
+          'translate(-700px)'
+      })
     },
-  },
-};
+
+    left_button_click: function () {
+      document
+        .querySelector('.left_button')
+        .addEventListener('click', function () {
+          document.querySelector('.container').style.transform =
+            'translate(+1px)'
+        })
+    },
+    right_button_click: function () {
+      document
+        .querySelector('.right_button')
+        .addEventListener('click', function () {
+          document.querySelector('.container').style.transform =
+            'translate(-1px)'
+        })
+    }
+  }
+}
 </script>
 
 <style>
 @font-face {
-  font-family: "jua";
-  src: url("../../public/font/BMJUA_ttf.ttf");
+  font-family: 'jua';
+  src: url('../../public/font/BMJUA_ttf.ttf');
 }
 
 @font-face {
-  font-family: "dohyeon";
-  src: url("../../public/font/BMDOHYEON_ttf.ttf");
+  font-family: 'dohyeon';
+  src: url('../../public/font/BMDOHYEON_ttf.ttf');
 }
 
 .AI_slider_container {
@@ -129,7 +160,7 @@ export default {
 }
 
 select {
-  font-family: "jua";
+  font-family: 'jua';
   font-size: larger;
   margin: 10px 0px;
   width: 200px;
@@ -155,7 +186,7 @@ option:hover {
   border: none;
   cursor: pointer;
   margin: 10px;
-  font-family: "jua";
+  font-family: 'jua';
   font-size: larger;
   color: rgb(124, 213, 240);
   border-radius: 20px;
@@ -180,25 +211,23 @@ option:hover {
 
 .out_container {
   overflow: hidden;
-  width: 400px;
-  height: 400px;
+  width: 700px;
   display: flex;
   justify-content: center;
   margin: 10px;
   margin-left: 10px;
   border-radius: 20px;
+  box-shadow: 0px 8px 5px 0px gray;
 }
 .container {
-  width: 1200px;
-  height: 400px;
+  width: 2100px;
   display: flex;
   justify-content: center;
   transition: linear 0.3s;
-  padding: 0px;
 }
 
 .image_slide {
-  width: 400px;
+  width: 700px;
   justify-content: center;
 }
 .slide_button_box {
@@ -214,5 +243,28 @@ option:hover {
   cursor: pointer;
   color: gray;
   margin: 5px;
+}
+
+.left_button {
+  position: relative;
+  bottom: -50%;
+  right: 40%;
+}
+
+.right_button {
+  position: relative;
+  bottom: 47%;
+  left: 40%;
+}
+.left_button1 {
+  position: relative;
+  bottom: -50%;
+  right: 40%;
+}
+
+.right_button1 {
+  position: relative;
+  bottom: 47%;
+  left: 40%;
 }
 </style>

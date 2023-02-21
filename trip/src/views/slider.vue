@@ -32,6 +32,11 @@ export default {
     return {};
   },
 
+  mounted() {
+    // this.scroll_move();
+    // this.scroll_move1();
+  },
+
   methods: {},
   components: {
     search_login,
@@ -70,6 +75,10 @@ body {
 .home_main {
   width: 100%;
   background-color: aliceblue;
+}
+
+#scroll1 {
+  height: 200px;
 }
 
 video {

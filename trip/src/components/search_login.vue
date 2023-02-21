@@ -1,8 +1,8 @@
-<!-- eslint-disable -->
 <template>
   <div class="top_container">
     <!-- 검색창 -->
     <div class="search_bar_container">
+      <h2 class="h2_1 animate-text">가고 싶은 여행지를 검색해보세요!</h2>
       <div class="search_bar">
         <form action="" class="search_bar_inner">
           <input
@@ -20,7 +20,7 @@
     <!-- 로그인 -->
     <div class="login_container">
       <button id="login_button" class="login_button">login</button>
-      <div>&nbsp&nbsp|&nbsp&nbsp</div>
+      <div>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
       <button id="join_button" class="join_button">join</button>
     </div>
   </div>
@@ -29,26 +29,39 @@
 <script>
 /* eslint-disable */
 export default {
-  name: "app",
+  name: 'app',
   data() {
-    return {};
+    return {
+      search: '',
+      AI_search: ''
+    }
+  },
+  mounted() {
+    this.scroll_move1()
   },
   methods: {
-    search: "",
-    AI_search: "",
-  },
-};
+    scroll_move1: function () {
+      let scrollpos = window.scrollY
+      const h2_1 = document.querySelector('.h2_1')
+      const add_class_on_scroll = (dom) => dom.classList.add('come-in')
+      window.addEventListener('scroll', function () {
+        scrollpos = window.scrollY
+        if (scrollpos >= h2_1.offsetHeight - 400) add_class_on_scroll(h2_1)
+      })
+    }
+  }
+}
 </script>
 
 <style>
 @font-face {
-  font-family: "jua";
-  src: url("../../public/font/BMJUA_ttf.ttf");
+  font-family: 'jua';
+  src: url('../../public/font/BMJUA_ttf.ttf');
 }
 
 @font-face {
-  font-family: "dohyeon";
-  src: url("../../public/font/BMDOHYEON_ttf.ttf");
+  font-family: 'dohyeon';
+  src: url('../../public/font/BMDOHYEON_ttf.ttf');
 }
 
 .top_container {
@@ -59,6 +72,11 @@ export default {
   height: 200px;
 }
 
+.h2_1 {
+  margin-top: 30px;
+  font-family: 'dohyeon';
+}
+
 /*search_bar container*/
 .search_bar_inner {
   display: flex;
@@ -66,18 +84,19 @@ export default {
 
 .search_bar {
   margin: 50px;
-  width: 500px;
+  width: 700px;
 }
 
 .search_input_box {
   width: 100%;
   height: 70px;
   padding: 0px 10px;
-  font-family: "jua";
+  font-family: 'jua';
+  font-size: large;
 }
 
 .search_img {
-  width: 30px;
+  width: 50px;
   background-color: transparent;
 }
 
@@ -99,8 +118,8 @@ export default {
   border: none;
   background-color: transparent;
   cursor: pointer;
-  font-family: "jua";
-  font-size: medium;
+  font-family: 'jua';
+  font-size: xx-large;
 }
 .login_button:hover {
   transform: translateY(-5px) scale(1.2);
@@ -118,5 +137,21 @@ export default {
 .login_container {
   display: flex;
   justify-content: right;
+}
+
+/*scroll_move CSS*/
+.animate-text {
+  opacity: 0;
+  transform: translateY(70px);
+  -webkit-transition: all 3.7s cubic-bezier(0.23, 1, 0.03, 1);
+  -webkit-transition: all 3.7s cubic-bezier(0.23, 1, 0.03, 1.005);
+  -moz-transition: all 3.7s cubic-bezier(0.23, 1, 0.03, 1.005);
+  -o-transition: all 3.7s cubic-bezier(0.23, 1, 0.03, 1.005);
+  transition: all 3.7s cubic-bezier(0.23, 1, 0.03, 1.005);
+}
+
+.come-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>

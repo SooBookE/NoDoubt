@@ -2,55 +2,54 @@
   <!-- eslint-disable -->
   <div id="scroll2"></div>
   <div class="AI_slider_container">
-    <form action="" class="AI_form">
-      <div class="inputbox_design">
-        <div class="AI_search_container">
-          <select class="AI_search_select" placeholder="성별을 선택해주세요.">
-            <option value="성별">성별</option>
-            <option value="성별">남성</option>
-            <option value="성별">여성</option>
-          </select>
-          <select class="AI_search_select" placeholder="연령대를 선택해주세요.">
-            <option value="연령대">연령대</option>
-            <option value="연령대">20대</option>
-            <option value="연령대">30대</option>
-            <option value="연령대">40대</option>
-            <option value="연령대">50대</option>
-            <option value="연령대">60대 이상</option>
-          </select>
-          <select
-            class="AI_search_select"
-            placeholder="선호활동을 선택해주세요."
-          >
-            <option value="선호활동">선호활동</option>
-            <option value="선호활동">집</option>
-            <option value="선호활동">집 밖</option>
-          </select>
-          <button type="submit" class="AI_submit_button">입력</button>
-        </div>
-      </div>
-    </form>
+    <div class="home">
+      <input
+        id="tab1"
+        type="radio"
+        name="tabs"
+        @click="select = 'AI_recommand'"
+      />
+
+      <input
+        id="tab2"
+        type="radio"
+        name="tabs"
+        @click="select = 'normal_recommand'"
+      />
+      <label for="tab1" class="label1">AI</label>
+      <label for="tab2" class="label2">normal</label>
+
+      <keep-alive>
+        <component :is="select"></component>
+      </keep-alive>
+    </div>
     <div class="image_button_container">
       <div class="out_container">
         <div class="container">
           <div class="image_slide">
-            <button class="left_button" @click="left_button_click()">왼</button>
+            <button class="left_button" @click="left_button_click1()">
+              왼
+            </button>
             <img :src="image[0]" alt="" style="width: 100%" />
-            <button class="right_button" @click="right_button_click()">
+            <button class="right_button" @click="right_button_click1()">
               오
             </button>
           </div>
           <div class="image_slide">
-            <button class="left_button">왼</button>
+            <button class="left_button" @click="left_button_click2()">
+              왼
+            </button>
             <img :src="image[1]" alt="" style="width: 100%" />
-            <button class="right_button" @click="right_button_click()">
+            <button class="right_button" @click="right_button_click2()">
               오
             </button>
           </div>
           <div class="image_slide">
-            <button class="left_button">왼</button>
+            <button class="left_button" @click="left_button_click3()">
+              왼
+            </button>
             <img :src="image[0]" alt="" style="width: 100%" />
-            <button class="right_button" @click="right_button_click()">
+            <button class="right_button" @click="right_button_click3()">
               오
             </button>
           </div>
@@ -68,6 +67,9 @@
 
 <script>
 /* eslint-disable */
+import AI_recommand from './AI_recommand.vue'
+import normal_recommand from './normal_recommand.vue'
+
 export default {
   name: 'app',
   data() {
@@ -75,7 +77,8 @@ export default {
       image: [
         'https://i.pinimg.com/564x/d9/c5/2c/d9c52ca87991a593a29b2b78d87d57a2.jpg',
         'https://i.pinimg.com/564x/09/62/5f/09625f00408ecdfb00a8f633f7fe8a8f.jpg'
-      ]
+      ],
+      select: 'AI_recommand'
     }
   },
 
@@ -101,27 +104,40 @@ export default {
       })
     },
 
-    left_button_click: function () {
-      document
-        .querySelector('.left_button')
-        .addEventListener('click', function () {
-          document.querySelector('.container').style.transform =
-            'translate(+1px)'
-        })
+    left_button_click1: function () {
+      document.querySelector('.container').style.transform = 'translate(-700px)'
+      console.log(document.querySelector('.container').style.transform)
     },
-    right_button_click: function () {
-      document
-        .querySelector('.right_button')
-        .addEventListener('click', function () {
-          document.querySelector('.container').style.transform =
-            'translate(-1px)'
-        })
+    left_button_click2: function () {
+      document.querySelector('.container').style.transform = 'translate(700px)'
+      console.log(document.querySelector('.container').style.transform)
+    },
+    left_button_click3: function () {
+      document.querySelector('.container').style.transform = 'translate(0px)'
+      console.log(document.querySelector('.container').style.transform)
+    },
+
+    right_button_click1: function () {
+      document.querySelector('.container').style.transform = 'translate(0px)'
+      console.log(document.querySelector('.container').style.transform)
+    },
+    right_button_click2: function () {
+      document.querySelector('.container').style.transform = 'translate(-700px)'
+      console.log(document.querySelector('.container').style.transform)
+    },
+    right_button_click3: function () {
+      document.querySelector('.container').style.transform = 'translate(700px)'
+      console.log(document.querySelector('.container').style.transform)
     }
+  },
+  components: {
+    AI_recommand,
+    normal_recommand
   }
 }
 </script>
 
-<style>
+<style scoped>
 @font-face {
   font-family: 'jua';
   src: url('../../public/font/BMJUA_ttf.ttf');
@@ -134,25 +150,79 @@ export default {
 
 .AI_slider_container {
   width: 100%;
-  height: 600px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 10px;
 }
 
-/*AI 검색*/
-.inputbox_design {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 400px;
-  width: 400px;
-  border: 5px double black;
-  border-radius: 30px;
-  margin-right: 10px;
+/*라디오버튼 숨김*/
+input {
+  display: none;
 }
 
+/* .home {
+  width: 402px;
+} */
+
+label {
+  display: inline-flex;
+  width: 49%;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  font-family: 'dohyeon';
+  font-weight: 600;
+  text-align: center;
+  color: black;
+  /* border-bottom: none; */
+}
+
+label:hover {
+  border: 1px solid black;
+  box-shadow: 5px 3px 3px gray;
+  color: #7c7c7c;
+  cursor: pointer;
+}
+
+/*input 클릭시, label 스타일*/
+/* input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 3px solid #004a79;
+  border-left: 2px solid #000000;
+  border-right: 2px solid #000000;
+  box-shadow: 5px 2px 3px gray;
+} */
+
+#tab1:checked ~ .label2 {
+  border-bottom: 1px solid #000000;
+  box-shadow: 0px 2px 0px rgb(168, 168, 168);
+}
+#tab1:checked ~ .label1 {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 3px solid #004a79;
+  border-left: 2px solid #000000;
+  border-right: 2px solid #000000;
+  box-shadow: 5px 2px 3px gray;
+}
+
+#tab2:checked ~ .label1 {
+  border-bottom: 1px solid #000000;
+  box-shadow: 0px 2px 0px rgb(168, 168, 168);
+}
+#tab2:checked ~ .label2 {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 3px solid #004a79;
+  border-left: 2px solid #000000;
+  border-right: 2px solid #000000;
+  box-shadow: 5px 2px 3px gray;
+}
+
+/*AI 검색*/
 .AI_search_container {
   display: flex;
   flex-direction: column;
@@ -172,11 +242,6 @@ select {
 
 option {
   background-color: transparent;
-}
-
-option:hover {
-  background-color: #64bac9;
-  border: none;
 }
 
 .AI_submit_button {

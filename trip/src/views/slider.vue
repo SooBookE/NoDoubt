@@ -17,47 +17,71 @@
     <select_slider></select_slider>
     <sidebar></sidebar>
   </div>
+
+  <img id="mainImage" src="../../public/lotteworld.jpg" alt="#" />
 </template>
 
 <script>
 /* eslint-disable */
-import categories from "../components/categories.vue";
-import painpoint from "../components/painpoint.vue";
-import search_login from "../components/search_login.vue";
-import select_slider from "../components/select_slider.vue";
-import sidebar from "../components/sidebar.vue";
+import categories from '../components/categories.vue'
+import painpoint from '../components/painpoint.vue'
+import search_login from '../components/search_login.vue'
+import select_slider from '../components/select_slider.vue'
+import sidebar from '../components/sidebar.vue'
+
 export default {
-  name: "app",
+  name: 'app',
   data() {
-    return {};
+    return {
+      imageArray: [
+        '../../public/lotteworld.jpg',
+        '../../public/palace.jpg',
+        '../../public/ight.jpg',
+        '../../public/lotte_tower.jpg'
+      ],
+      imageIndex: 0
+    }
   },
 
   mounted() {
-    // this.scroll_move();
-    // this.scroll_move1();
+    setInterval(this.changeImage, 3000)
   },
 
-  methods: {},
+  methods: {
+    changeImage: function () {
+      const myImage = document.querySelector('#mainImage')
+      myImage.setAttribute('src', this.imageArray[imageIndex])
+      this.imageIndex++
+      if (this.imageIndex >= this.imageArray.length) {
+        this.imageIndex = 0
+      }
+    }
+  },
   components: {
     search_login,
     select_slider,
     sidebar,
     painpoint,
-    categories,
-  },
-};
+    categories
+  }
+}
 </script>
 
 <style>
 /*font*/
 @font-face {
-  font-family: "jua";
-  src: url("../../public/font/BMJUA_ttf.ttf");
+  font-family: 'jua';
+  src: url('../../public/font/BMJUA_ttf.ttf');
 }
 
 @font-face {
-  font-family: "dohyeon";
-  src: url("../../public/font/BMDOHYEON_ttf.ttf");
+  font-family: 'dohyeon';
+  src: url('../../public/font/BMDOHYEON_ttf.ttf');
+}
+
+#mainImage {
+  width: 100%;
+  height: auto;
 }
 
 body {

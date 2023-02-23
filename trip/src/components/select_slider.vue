@@ -8,6 +8,7 @@
         type="radio"
         name="tabs"
         @click="select = 'AI_recommand'"
+        checked
       />
 
       <input
@@ -28,29 +29,43 @@
         <div class="container">
           <div class="image_slide">
             <button class="left_button" @click="left_button_click1()">
-              왼
+              <img class="left_button_img" src="../../public/left.png" alt="" />
             </button>
             <img :src="image[0]" alt="" style="width: 100%" />
             <button class="right_button" @click="right_button_click1()">
-              오
+              <img
+                class="right_button_img"
+                src="../../public/right.png"
+                alt=""
+              />
             </button>
           </div>
+
           <div class="image_slide">
             <button class="left_button" @click="left_button_click2()">
-              왼
+              <img class="left_button_img" src="../../public/left.png" alt="" />
             </button>
             <img :src="image[1]" alt="" style="width: 100%" />
             <button class="right_button" @click="right_button_click2()">
-              오
+              <img
+                class="right_button_img"
+                src="../../public/right.png"
+                alt=""
+              />
             </button>
           </div>
+
           <div class="image_slide">
             <button class="left_button" @click="left_button_click3()">
-              왼
+              <img class="left_button_img" src="../../public/left.png" alt="" />
             </button>
             <img :src="image[0]" alt="" style="width: 100%" />
             <button class="right_button" @click="right_button_click3()">
-              오
+              <img
+                class="right_button_img"
+                src="../../public/right.png"
+                alt=""
+              />
             </button>
           </div>
         </div>
@@ -162,10 +177,6 @@ input {
   display: none;
 }
 
-/* .home {
-  width: 402px;
-} */
-
 label {
   display: inline-flex;
   width: 49%;
@@ -176,7 +187,6 @@ label {
   font-weight: 600;
   text-align: center;
   color: black;
-  /* border-bottom: none; */
 }
 
 label:hover {
@@ -186,27 +196,15 @@ label:hover {
   cursor: pointer;
 }
 
-/*input 클릭시, label 스타일*/
-/* input:checked + label {
-  color: #555;
-  border: 1px solid #ddd;
-  border-top: 3px solid #004a79;
-  border-left: 2px solid #000000;
-  border-right: 2px solid #000000;
-  box-shadow: 5px 2px 3px gray;
-} */
-
 #tab1:checked ~ .label2 {
   border-bottom: 1px solid #000000;
   box-shadow: 0px 2px 0px rgb(168, 168, 168);
 }
 #tab1:checked ~ .label1 {
   color: #555;
-  border: 1px solid #ddd;
   border-top: 3px solid #004a79;
-  border-left: 2px solid #000000;
   border-right: 2px solid #000000;
-  box-shadow: 5px 2px 3px gray;
+  box-shadow: 0px 3px 5px 2px gray;
 }
 
 #tab2:checked ~ .label1 {
@@ -215,10 +213,8 @@ label:hover {
 }
 #tab2:checked ~ .label2 {
   color: #555;
-  border: 1px solid #ddd;
   border-top: 3px solid #004a79;
   border-left: 2px solid #000000;
-  border-right: 2px solid #000000;
   box-shadow: 5px 2px 3px gray;
 }
 
@@ -266,6 +262,38 @@ option {
 }
 
 /*이미지 슬라이더*/
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+/* .img1 {
+  width: 700px;
+  display: flex;
+  justify-content: center;
+}
+
+.img2 {
+  width: 700px;
+  display: flex;
+  justify-content: center;
+}
+
+.img3 {
+  width: 700px;
+  display: flex;
+  justify-content: center;
+} */
+
+.left_button_img {
+  width: 30px;
+}
+
+.right_button_img {
+  width: 30px;
+}
+
 .image_button_container {
   display: flex;
   position: relative;
@@ -293,6 +321,7 @@ option {
 
 .image_slide {
   width: 700px;
+  display: flex;
   justify-content: center;
 }
 .slide_button_box {
@@ -308,28 +337,5 @@ option {
   cursor: pointer;
   color: gray;
   margin: 5px;
-}
-
-.left_button {
-  position: relative;
-  bottom: -50%;
-  right: 40%;
-}
-
-.right_button {
-  position: relative;
-  bottom: 47%;
-  left: 40%;
-}
-.left_button1 {
-  position: relative;
-  bottom: -50%;
-  right: 40%;
-}
-
-.right_button1 {
-  position: relative;
-  bottom: 47%;
-  left: 40%;
 }
 </style>

@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 @font-face {
   font-family: 'jua';
   src: url('../../public/font/BMJUA_ttf.ttf');
@@ -65,7 +65,6 @@ export default {
   color: black;
   border: 2px solid black;
   border-top: none;
-  border-bottom: none;
   box-shadow: 5px 3px 3px gray;
 }
 

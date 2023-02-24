@@ -2,7 +2,7 @@
   <!-- eslint-disable -->
   <div id="scroll2"></div>
   <div class="AI_slider_container">
-    <div class="home">
+    <div class="select_container">
       <input
         id="tab1"
         type="radio"
@@ -25,23 +25,28 @@
       </keep-alive>
     </div>
     <div class="image_button_container">
+      <button class="left_button" @click="left_button_click1()">
+        <img class="left_button_img" src="../../public/left.png" alt="" />
+      </button>
       <div class="out_container">
         <div class="container">
           <div class="image_slide">
-            <button class="left_button" @click="left_button_click1()">
-              <img class="left_button_img" src="../../public/left.png" alt="" />
-            </button>
-            <img :src="image[0]" alt="" style="width: 100%" />
-            <button class="right_button" @click="right_button_click1()">
-              <img
-                class="right_button_img"
-                src="../../public/right.png"
-                alt=""
-              />
-            </button>
+            <img
+              class="slide_imageArray"
+              v-for="i in slide_imageArray"
+              :key="i"
+              :src="i"
+              alt=""
+              style="width: 100%"
+            />
           </div>
+        </div>
+      </div>
+      <button class="right_button" @click="right_button_click1()">
+        <img class="right_button_img" src="../../public/right.png" alt="" />
+      </button>
 
-          <div class="image_slide">
+      <!-- <div class="image_slide">
             <button class="left_button" @click="left_button_click2()">
               <img class="left_button_img" src="../../public/left.png" alt="" />
             </button>
@@ -53,9 +58,9 @@
                 alt=""
               />
             </button>
-          </div>
+          </div> -->
 
-          <div class="image_slide">
+      <!-- <div class="image_slide">
             <button class="left_button" @click="left_button_click3()">
               <img class="left_button_img" src="../../public/left.png" alt="" />
             </button>
@@ -67,9 +72,7 @@
                 alt=""
               />
             </button>
-          </div>
-        </div>
-      </div>
+          </div> -->
       <div class="slide_button_box">
         <!-- 2번 사진이 1번 사진이 됨 -->
         <button class="button1" @click="button_click_slide1()">ㅡ</button>
@@ -89,15 +92,26 @@ export default {
   name: 'app',
   data() {
     return {
-      image: [
+      slide_imageArray: [
         'https://i.pinimg.com/564x/d9/c5/2c/d9c52ca87991a593a29b2b78d87d57a2.jpg',
-        'https://i.pinimg.com/564x/09/62/5f/09625f00408ecdfb00a8f633f7fe8a8f.jpg'
+        'https://i.pinimg.com/564x/09/62/5f/09625f00408ecdfb00a8f633f7fe8a8f.jpg',
+        'https://i.pinimg.com/564x/d9/c5/2c/d9c52ca87991a593a29b2b78d87d57a2.jpg'
       ],
-      select: 'AI_recommand'
+      select: 'AI_recommand',
+      slide_imageIndex: 0,
+      plugin: null,
+      options: {
+        autoplay: false,
+        items: 1,
+        startPosition: 2,
+        autoplayTimeout: 1000
+      }
     }
   },
 
-  mounted() {},
+  mounted() {
+    setInterval(this.slide_changeImage, 2000)
+  },
 
   methods: {
     button_click_slide1: function () {
@@ -121,28 +135,46 @@ export default {
 
     left_button_click1: function () {
       document.querySelector('.container').style.transform = 'translate(-700px)'
-      console.log(document.querySelector('.container').style.transform)
     },
     left_button_click2: function () {
       document.querySelector('.container').style.transform = 'translate(700px)'
-      console.log(document.querySelector('.container').style.transform)
     },
     left_button_click3: function () {
       document.querySelector('.container').style.transform = 'translate(0px)'
-      console.log(document.querySelector('.container').style.transform)
     },
 
     right_button_click1: function () {
       document.querySelector('.container').style.transform = 'translate(0px)'
-      console.log(document.querySelector('.container').style.transform)
     },
     right_button_click2: function () {
       document.querySelector('.container').style.transform = 'translate(-700px)'
-      console.log(document.querySelector('.container').style.transform)
     },
     right_button_click3: function () {
       document.querySelector('.container').style.transform = 'translate(700px)'
-      console.log(document.querySelector('.container').style.transform)
+    },
+    left_button_click: function () {
+      const container = document.querySelector('.container')
+      // const imageArray = document.querySelector('.slide_imageArray')
+      if (this.slide_imageArray[1]) {
+        if (e.target.click) {
+          container.style.transform = 'translate(-700px)'
+        }
+      } else if (this.slide_imageArray[0]) {
+        if (e.target.click) {
+          container.style.transform = 'translate(0px)'
+        }
+      } else if (this.slide_imageArray[2]) {
+        container.style.transform = 'translate(700px)'
+      }
+    },
+
+    slide_changeImage: function () {
+      if (this.slide_imageArray[3] >= this.slide_imageArray.length) {
+        this.slide_imageIndex = 0
+      }
+      // const myImage = document.querySelector('.slide_imageArray')
+      // myImage.setAttribute('src', this.slide_imageArray[this.slide_imageIndex])
+      // this.slide_imageIndex++
     }
   },
   components: {
@@ -163,6 +195,17 @@ export default {
   src: url('../../public/font/BMDOHYEON_ttf.ttf');
 }
 
+/*carousel*/
+.test-wrap {
+  border: 1px solid #000;
+  height: auto;
+}
+
+.carousel-wrap {
+  width: 100%;
+  margin: 0 auto;
+}
+
 .AI_slider_container {
   width: 100%;
   height: auto;
@@ -170,6 +213,12 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 10px;
+  position: absolute;
+  top: 200px;
+}
+
+.select_container {
+  margin-right: 100px;
 }
 
 /*라디오버튼 숨김*/
@@ -219,72 +268,17 @@ label:hover {
 }
 
 /*AI 검색*/
-.AI_search_container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-select {
-  font-family: 'jua';
-  font-size: larger;
-  margin: 10px 0px;
-  width: 200px;
-  height: 50px;
-  text-align: center;
-  background-color: transparent;
-  border: none;
-}
-
-option {
-  background-color: transparent;
-}
-
-.AI_submit_button {
-  width: 150px;
-  height: 50px;
-  background-color: white;
-  border: none;
-  cursor: pointer;
-  margin: 10px;
-  font-family: 'jua';
-  font-size: larger;
-  color: rgb(124, 213, 240);
-  border-radius: 20px;
-}
-
-.AI_submit_button:hover {
-  transform: translateY(-5px) scale(1.1);
-  background-color: rgb(124, 213, 240);
-  border-radius: 10px;
-  color: white;
-  transition: linear 0.2s;
-}
 
 /*이미지 슬라이더*/
+
+.slide_imageArray {
+  transition: 0.3s linear;
+}
 
 button {
   background-color: transparent;
   border: none;
 }
-
-/* .img1 {
-  width: 700px;
-  display: flex;
-  justify-content: center;
-}
-
-.img2 {
-  width: 700px;
-  display: flex;
-  justify-content: center;
-}
-
-.img3 {
-  width: 700px;
-  display: flex;
-  justify-content: center;
-} */
 
 .left_button_img {
   width: 30px;
@@ -304,23 +298,23 @@ button {
 
 .out_container {
   overflow: hidden;
-  width: 700px;
+  width: 600px;
   display: flex;
   justify-content: center;
   margin: 10px;
-  margin-left: 10px;
+  margin-left: 100px;
   border-radius: 20px;
   box-shadow: 0px 8px 5px 0px gray;
 }
 .container {
-  width: 2100px;
+  width: 1800px;
   display: flex;
   justify-content: center;
   transition: linear 0.3s;
 }
 
 .image_slide {
-  width: 700px;
+  width: 600px;
   display: flex;
   justify-content: center;
 }

@@ -3,11 +3,17 @@
   <div class="categorie_container">
     <div class="categorie_innerbox">
       <button class="categorie_button" @click="scroll()">홈</button>
-      <div style="color: white">&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp</div>
+      <div style="color: white">
+        &nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp
+      </div>
       <button class="categorie_button" @click="scroll2()">여행지 추천</button>
-      <div style="color: white">&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp</div>
+      <div style="color: white">
+        &nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp
+      </div>
       <button class="categorie_button">서비스 소개</button>
-      <div style="color: white">&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp</div>
+      <div style="color: white">
+        &nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp
+      </div>
       <button class="categorie_button">고객센터</button>
     </div>
   </div>
@@ -16,32 +22,32 @@
 <script>
 /*eslint-disable*/
 export default {
-  name: "app",
+  name: 'app',
   data() {
-    return {};
+    return {}
   },
   methods: {
     scroll: function () {
-      const scroll1 = document.getElementById("scroll1");
-      scroll1.scrollIntoView({ behavior: "smooth" });
+      const scroll1 = document.getElementById('scroll1')
+      scroll1.scrollIntoView({ behavior: 'smooth' })
     },
     scroll2: function () {
-      const scroll2 = document.getElementById("scroll2");
-      scroll2.scrollIntoView({ behavior: "smooth" });
-    },
-  },
-};
+      const scroll2 = document.getElementById('scroll2')
+      scroll2.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+}
 </script>
 
 <style>
 @font-face {
-  font-family: "jua";
-  src: url("../../public/font/BMJUA_ttf.ttf");
+  font-family: 'jua';
+  src: url('../../public/font/BMJUA_ttf.ttf');
 }
 
 @font-face {
-  font-family: "dohyeon";
-  src: url("../../public/font/BMDOHYEON_ttf.ttf");
+  font-family: 'dohyeon';
+  src: url('../../public/font/BMDOHYEON_ttf.ttf');
 }
 
 /* categorie */
@@ -50,8 +56,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgb(91, 172, 102);
-  height: 50px;
+  background-color: #5bc2e7;
+  height: 120px;
 }
 
 .categorie_innerbox {
@@ -65,16 +71,16 @@ export default {
   background-color: white;
   color: white;
   cursor: pointer;
-  font-family: "dohyeon";
-  font-size: larger;
-  background-color: rgb(91, 172, 102);
+  font-family: 'dohyeon';
+  font-size: xx-large;
+  background-color: #5bc2e7;
 }
 
 .categorie_button:hover {
-  color: rgb(91, 172, 102);
+  color: #5bc2e7;
   background-color: white;
   border-radius: 5px;
-  transform: scale(1.2);
+  transform: translateY(-5px) scale(1.2);
   transition: linear 0.2s;
 }
 </style>

@@ -3,6 +3,7 @@
     <router-link to="/" style="display: none">Home</router-link>
     <router-link to="/about" style="display: none">About</router-link>
     <router-link to="/slider" style="display: none">slider</router-link>
+    <router-link to="/login" style="display: none">login</router-link>
   </nav>
   <router-view />
 </template>

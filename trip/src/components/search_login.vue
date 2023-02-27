@@ -19,7 +19,14 @@
     </div>
     <!-- 로그인 -->
     <div class="login_container">
-      <button id="login_button" class="login_button">login</button>
+      <button
+        id="login_button"
+        class="login_button"
+        @click="$router.push('/login')"
+      >
+        login
+      </button>
+
       <div>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
       <button id="join_button" class="join_button">join</button>
     </div>
@@ -28,12 +35,14 @@
 
 <script>
 /* eslint-disable */
+
 export default {
   name: 'app',
   data() {
     return {
       search: '',
-      AI_search: ''
+      AI_search: '',
+      sel: false
     }
   },
   mounted() {
@@ -49,7 +58,8 @@ export default {
         if (scrollpos >= h2_1.offsetHeight - 400) add_class_on_scroll(h2_1)
       })
     }
-  }
+  },
+  components: {}
 }
 </script>
 

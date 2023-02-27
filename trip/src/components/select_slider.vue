@@ -24,28 +24,29 @@
         <component :is="select"></component>
       </keep-alive>
     </div>
-    <div class="image_button_container">
-      <button class="left_button" @click="left_button_click1()">
-        <img class="left_button_img" src="../../public/left.png" alt="" />
-      </button>
-      <div class="out_container">
-        <div class="container">
-          <div class="image_slide">
-            <img
-              class="slide_imageArray"
-              v-for="i in slide_imageArray"
-              :key="i"
-              :src="i"
-              alt=""
-              style="width: 100%"
-            />
+    <div class="image_bottom_button_container">
+      <div class="image_side_button_container">
+        <button class="left_button" @click="left_button_click()">
+          <img class="left_button_img" src="../../public/left.png" alt="" />
+        </button>
+        <div class="out_container">
+          <div class="container">
+            <div class="image_slide">
+              <img
+                class="slide_imageArray"
+                v-for="i in slide_imageArray"
+                :key="i"
+                :src="i"
+                alt=""
+                style="width: 600px"
+              />
+            </div>
           </div>
         </div>
+        <button class="right_button" @click="right_button_click()">
+          <img class="right_button_img" src="../../public/right.png" alt="" />
+        </button>
       </div>
-      <button class="right_button" @click="right_button_click1()">
-        <img class="right_button_img" src="../../public/right.png" alt="" />
-      </button>
-
       <!-- <div class="image_slide">
             <button class="left_button" @click="left_button_click2()">
               <img class="left_button_img" src="../../public/left.png" alt="" />
@@ -117,7 +118,7 @@ export default {
     button_click_slide1: function () {
       document.querySelector('.button1').addEventListener('click', function () {
         document.querySelector('.container').style.transform =
-          'translate(700px)'
+          'translate(600px)'
       })
     },
     button_click_slide2: function () {
@@ -129,15 +130,15 @@ export default {
     button_click_slide3: function () {
       document.querySelector('.button3').addEventListener('click', function () {
         document.querySelector('.container').style.transform =
-          'translate(-700px)'
+          'translate(-600px)'
       })
     },
 
     left_button_click1: function () {
-      document.querySelector('.container').style.transform = 'translate(-700px)'
+      document.querySelector('.container').style.transform = 'translate(-600px)'
     },
     left_button_click2: function () {
-      document.querySelector('.container').style.transform = 'translate(700px)'
+      document.querySelector('.container').style.transform = 'translate(600px)'
     },
     left_button_click3: function () {
       document.querySelector('.container').style.transform = 'translate(0px)'
@@ -147,24 +148,34 @@ export default {
       document.querySelector('.container').style.transform = 'translate(0px)'
     },
     right_button_click2: function () {
-      document.querySelector('.container').style.transform = 'translate(-700px)'
+      document.querySelector('.container').style.transform = 'translate(-600px)'
     },
     right_button_click3: function () {
-      document.querySelector('.container').style.transform = 'translate(700px)'
+      document.querySelector('.container').style.transform = 'translate(600px)'
     },
     left_button_click: function () {
       const container = document.querySelector('.container')
       // const imageArray = document.querySelector('.slide_imageArray')
-      if (this.slide_imageArray[1]) {
-        if (e.target.click) {
-          container.style.transform = 'translate(-700px)'
-        }
-      } else if (this.slide_imageArray[0]) {
-        if (e.target.click) {
-          container.style.transform = 'translate(0px)'
-        }
+      if (this.slide_imageArray[0]) {
+        container.style.transform = 'translate(-600px)'
+      } else if (this.slide_imageArray[1]) {
+        container.style.transform = 'translate(600px)'
       } else if (this.slide_imageArray[2]) {
-        container.style.transform = 'translate(700px)'
+        container.style.transform = 'translate(0px)'
+      }
+    },
+
+    right_button_click: function () {
+      const container = document.querySelector('.container')
+      const imageArray = document.querySelector('.slide_imageArray')
+      if (this.slide_imageArray[0]) {
+        imageArray.getAttribute =
+          ('src',
+          'https://i.pinimg.com/564x/09/62/5f/09625f00408ecdfb00a8f633f7fe8a8f.jpg')
+      } else if (this.slide_imageArray[1]) {
+        container.style.transform = 'translate(-600px)'
+      } else if (this.slide_imageArray[2]) {
+        container.style.transform = 'translate(600px)'
       }
     },
 
@@ -288,12 +299,17 @@ button {
   width: 30px;
 }
 
-.image_button_container {
+.image_side_button_container {
   display: flex;
   position: relative;
-  flex-direction: column;
   align-items: center;
   bottom: -15px;
+}
+
+.image_bottom_button_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .out_container {
@@ -302,7 +318,6 @@ button {
   display: flex;
   justify-content: center;
   margin: 10px;
-  margin-left: 100px;
   border-radius: 20px;
   box-shadow: 0px 8px 5px 0px gray;
 }
@@ -315,6 +330,7 @@ button {
 
 .image_slide {
   width: 600px;
+  height: 600px;
   display: flex;
   justify-content: center;
 }
@@ -322,6 +338,7 @@ button {
   width: 50%;
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 .button1,
 .button2,

@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "@tensorflow/tfjs": "^4.2.0",
+    "@tensorflow/tfjs-vis": "^1.5.1",
     "api": "^5.0.7",
     "dotenv": "^16.0.3"
-  }
+  },
+  "type": "commonjs"
 }

@@ -7,6 +7,7 @@ const HOBBY_CLASSES = [
   "인구밀집지역",
 ];
 const HOBBY_NUM_CLASSES = HOBBY_CLASSES.length;
+// const tf = require("@tensorflow/tfjs");
 
 // CJS 모듈 불러오기.
 const source = require("./dataMerge.js");
@@ -94,4 +95,6 @@ function getHobbyData(testSplit) {
     ];
   });
 }
-exports.data = { HOBBY_CLASSES, HOBBY_NUM_CLASSES, getHobbyData };
+exports.HOBBY_CLASSES = HOBBY_CLASSES;
+exports.HOBBY_NUM_CLASSES = HOBBY_NUM_CLASSES;
+exports.getHobbyData = getHobbyData;

@@ -86,7 +86,7 @@ for (const ar of arr) {
     ar.target = 0;
   }
 }
-// console.log(arr); // 4개의 데이터와 1개 타겟 추출 및 변환 완료.
+console.log(arr); // 4개의 데이터와 1개 타겟 추출 및 변환 완료.
 
 // 데이터 CJS 모듈로 내보내기.
 exports.data = arr;

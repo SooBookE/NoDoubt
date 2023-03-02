@@ -7,11 +7,12 @@ const HOBBY_CLASSES = [
   "인구밀집지역",
 ];
 const HOBBY_NUM_CLASSES = HOBBY_CLASSES.length;
-// const tf = require("@tensorflow/tfjs");
-
+import * as tf from "@tensorflow/tfjs";
+// console.log(tf);
 // CJS 모듈 불러오기.
-const source = require("./dataMerge.js");
-const HOBBY_DATA = source.data;
+import source from "./dataMerge.js";
+// const HOBBY_DATA = source.data;
+const HOBBY_DATA = source;
 // console.log(HOBBY_DATA);
 
 // 텐서 변환 함수 작성.
@@ -42,15 +43,23 @@ function convertToTensors(data, targets, testSplit) {
 
   // 특성 데이터 2D 텐서로 변환.
   const xs = tf.tensor2d(shuffledData, [numExamples, xDims]);
+  // console.log(xs);
 
   // 레이블 원핫 인코딩 이용 텐서로 변환.
+  // const ys_label = [];
   const ys = tf.oneHot(tf.tensor1d(shuffledTargets).toInt(), HOBBY_NUM_CLASSES);
+  // ys_label.push();
+  // for (let i = 0; i < shuffledTargets.length; i++) {}
+  // console.log(ys_label);
+  // console.log(ys);
+  // const ys = tf.tensor2d(ys_label, [numExamples, xDims]);
 
   // slice로 훈련/테스트 세트 분리.
   const xTrain = xs.slice([0, 0], [numTrainExamples, xDims]);
   const xTest = xs.slice([numTrainExamples, 0], [numTestExamples, xDims]);
   const yTrain = ys.slice([0, 0], [numTrainExamples, HOBBY_NUM_CLASSES]);
   const yTest = ys.slice([0, 0], [numTestExamples, HOBBY_NUM_CLASSES]);
+  // console.log([xTrain, yTrain, xTest, yTest]);
   return [xTrain, yTrain, xTest, yTest];
 }
 
@@ -59,42 +68,44 @@ function getHobbyData(testSplit) {
   return tf.tidy(() => {
     const dataByClass = [];
     const targetsByClass = [];
-    for (let i = 0; i < HOBBY_CLASSES.length; ++i) {
-      dataByClass.push([]);
-      targetsByClass.push([]);
-    }
+    // for (let i = 0; i < HOBBY_CLASSES.length; ++i) {
+    //   dataByClass.push([]);
+    //   targetsByClass.push([]);
+    // }
     for (const example of HOBBY_DATA) {
-      const target = example[example.length - 1];
-      const data = example.slice(0, example.length - 1);
-      dataByClass[target].push(data);
-      targetsByClass[target].push(target);
+      const target = example.target;
+      delete example.target;
+      // console.log(example);
+      const data = example;
+      const arr = [];
+      arr.push(data.gen);
+      arr.push(data.age);
+      arr.push(data.pay);
+      arr.push(data.exper);
+      dataByClass.push(arr);
+      targetsByClass.push(target);
     }
+    // console.log(dataByClass);
+    // console.log(targetsByClass);
+    // const xTrains = [];
+    // const yTrains = [];
+    // const xTests = [];
+    // const yTests = [];
+    const [xTrain, yTrain, xTest, yTest] = convertToTensors(
+      dataByClass,
+      targetsByClass,
+      testSplit
+    );
+    // for (let i = 0; i < dataByClass.length; ++i) {
+    //   xTrains.push(xTrain);
+    //   yTrains.push(yTrain);
+    //   xTests.push(xTest);
+    //   yTests.push(yTest);
+    // }
 
-    const xTrains = [];
-    const yTrains = [];
-    const xTests = [];
-    const yTests = [];
-    for (let i = 0; i < HOBBY_CLASSES.length; ++i) {
-      const [xTrain, yTrain, xTest, yTest] = convertToTensors(
-        dataByClass[i],
-        targetsByClass[i],
-        testSplit
-      );
-      xTrains.push(xTrain);
-      yTrains.push(yTrain);
-      xTests.push(xTest);
-      yTests.push(yTest);
-    }
-
-    const concatAxis = 0;
-    return [
-      tf.concat(xTrains, concatAxis),
-      tf.concat(yTrains, concatAxis),
-      tf.concat(xTests, concatAxis),
-      tf.concat(yTests, concatAxis),
-    ];
+    // const concatAxis = 0;
+    return [xTrain, yTrain, xTest, yTest];
   });
 }
-exports.HOBBY_CLASSES = HOBBY_CLASSES;
-exports.HOBBY_NUM_CLASSES = HOBBY_NUM_CLASSES;
-exports.getHobbyData = getHobbyData;
+// getHobbyData(0.15);
+export { HOBBY_CLASSES, HOBBY_NUM_CLASSES, getHobbyData };

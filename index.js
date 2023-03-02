@@ -1,10 +1,10 @@
-const { HOBBY_CLASSES, HOBBY_NUM_CLASSES, getHobbyData } = require("./data.js");
-// const tf = require("@tensorflow/tfjs");
-// const tfvis = require("@tensorflow/tfjs-vis");
+import { HOBBY_CLASSES, HOBBY_NUM_CLASSES, getHobbyData } from "./data.js";
+import * as tf from "@tensorflow/tfjs";
+import * as tfvis from "@tensorflow/tfjs-vis";
 
-// console.log(HOBBY_CLASSES);
-// console.log(HOBBY_NUM_CLASSES);
-// console.log(getHobbyData);
+console.log(HOBBY_CLASSES);
+console.log(HOBBY_NUM_CLASSES);
+console.log(getHobbyData);
 
 const [xTrains, yTrains, xTests, yTests] = getHobbyData(0.15);
 console.log(xTrains);

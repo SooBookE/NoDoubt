@@ -1,7 +1,7 @@
 // 3개의 데이터 병합.
-import data_1 from "./data/hobby_202210.json" assert { type: "json" };
-import data_2 from "./data/hobby_202211.json" assert { type: "json" };
-import data_3 from "./data/hobby_202212.json" assert { type: "json" };
+const data_1 = require("./data/hobby_202210.json");
+const data_2 = require("./data/hobby_202211.json");
+const data_3 = require("./data/hobby_202212.json");
 
 const data = [...data_1, ...data_2, ...data_3];
 
@@ -89,4 +89,4 @@ for (const ar of arr) {
 // console.log(arr); // 4개의 데이터와 1개 타겟 추출 및 변환 완료.
 
 // 데이터 CJS 모듈로 내보내기.
-export default arr;
+exports.data = arr;

@@ -318,9 +318,9 @@ export default {
       password_string_confirm_message: '',
       id_check_message: '',
       telecom_option: '',
-      phoneNumber1: '',
-      phoneNumber2: '',
-      phoneNumber3: ''
+      phoneNumber1: 0,
+      phoneNumber2: 0,
+      phoneNumber3: 0
     }
   },
 

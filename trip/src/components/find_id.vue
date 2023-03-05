@@ -1,7 +1,7 @@
 <template>
   <div>
     <article class="resquick_content resquick_service">
-      <table>
+      <table class="find_id_table">
         <tr
           style="
             display: flex;
@@ -149,8 +149,15 @@ export default {
 </script>
 
 <style>
+/*테이블 정렬*/
+.find_id_table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 /*버튼 효과*/
 .resquick_content {
+  border: 2px solid #3165dd;
   letter-spacing: -1px;
   width: 500px;
   margin: 0 auto;

@@ -1,13 +1,21 @@
 <template>
-  <img
-    id="mainImage"
-    src="https://img.freepik.com/premium-vector/seoul-korea-city-skyline-with-color-buildings-isolated-on-white-background-vector-illustration-business-travel-and-tourism-concept-with-modern-architecture-seoul-cityscape-with-landmarks_119523-4352.jpg?w=1380"
-    alt="#"
-  />
+  <keep-alive>
+    <img
+      id="mainImage"
+      src="https://cdn.pixabay.com/photo/2016/11/02/14/32/lotte-world-tower-1791802_960_720.jpg"
+      alt="#"
+    />
+  </keep-alive>
+  <div class="select_slider_container">
+    <select_slider> </select_slider>
+  </div>
 </template>
 
 <script>
 /* eslint-disable */
+import router from '@/router'
+import select_slider from '../components/select_slider.vue'
+
 export default {
   name: 'app',
   data() {
@@ -24,7 +32,11 @@ export default {
   },
 
   mounted() {
-    setInterval(this.changeImage, 5000)
+    setInterval(this.changeImage, 3000)
+  },
+
+  beforeUnmount() {
+    clearInterval(this.changeImage())
   },
 
   methods: {
@@ -32,10 +44,13 @@ export default {
       const myImage = document.querySelector('#mainImage')
       myImage.setAttribute('src', this.imageArray[this.imageIndex])
       this.imageIndex++
-      if (this.imageIndex >= this.imageArray.length) {
+      if (this.imageIndex == this.imageArray.length) {
         this.imageIndex = 0
       }
     }
+  },
+  components: {
+    select_slider
   }
 }
 </script>
@@ -46,5 +61,10 @@ export default {
   height: 960px;
   opacity: 0.4;
   transition: 1s linear;
+}
+
+.select_slider_container {
+  position: absolute;
+  bottom: 50px;
 }
 </style>

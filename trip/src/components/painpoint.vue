@@ -1,4 +1,5 @@
 <template>
+  <div id="scroll3"></div>
   <div class="painpoint_container">
     <div class="img1">
       <img
@@ -30,48 +31,48 @@
 <script>
 /*eslint-disable*/
 export default {
-  name: "app",
+  name: 'app',
   data() {
-    return {};
+    return {}
   },
 
   mounted() {
-    this.scroll_move();
+    this.scroll_move()
   },
 
   methods: {
     scroll_move: function () {
-      let scrollpos = window.scrollY;
-      const img_1 = document.querySelector(".img_1");
-      const img_2 = document.querySelector(".img_2");
-      const img_3 = document.querySelector(".img_3");
-      const h1_1 = document.querySelector(".h1_1");
-      const h1_2 = document.querySelector(".h1_2");
-      const h1_3 = document.querySelector(".h1_3");
-      const add_class_on_scroll = (dom) => dom.classList.add("come-in");
-      window.addEventListener("scroll", function () {
-        scrollpos = window.scrollY;
-        if (scrollpos >= img_1.offsetHeight - 200) add_class_on_scroll(img_1);
-        if (scrollpos >= img_2.offsetHeight + 200) add_class_on_scroll(img_2);
-        if (scrollpos >= img_3.offsetHeight + 600) add_class_on_scroll(img_3);
-        if (scrollpos >= h1_1.offsetHeight + 400) add_class_on_scroll(h1_1);
-        if (scrollpos >= h1_2.offsetHeight + 600) add_class_on_scroll(h1_2);
-        if (scrollpos >= h1_3.offsetHeight + 1000) add_class_on_scroll(h1_3);
-      });
-    },
-  },
-};
+      let scrollpos = window.scrollY
+      const img_1 = document.querySelector('.img_1')
+      const img_2 = document.querySelector('.img_2')
+      const img_3 = document.querySelector('.img_3')
+      const h1_1 = document.querySelector('.h1_1')
+      const h1_2 = document.querySelector('.h1_2')
+      const h1_3 = document.querySelector('.h1_3')
+      const add_class_on_scroll = (dom) => dom.classList.add('come-in')
+      window.addEventListener('scroll', function () {
+        scrollpos = window.scrollY
+        if (scrollpos >= img_1.offsetHeight - 200) add_class_on_scroll(img_1)
+        if (scrollpos >= img_2.offsetHeight + 200) add_class_on_scroll(img_2)
+        if (scrollpos >= img_3.offsetHeight + 600) add_class_on_scroll(img_3)
+        if (scrollpos >= h1_1.offsetHeight + 400) add_class_on_scroll(h1_1)
+        if (scrollpos >= h1_2.offsetHeight + 600) add_class_on_scroll(h1_2)
+        if (scrollpos >= h1_3.offsetHeight + 1000) add_class_on_scroll(h1_3)
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>
 @font-face {
-  font-family: "jua";
-  src: url("../../public/font/BMJUA_ttf.ttf");
+  font-family: 'jua';
+  src: url('../../public/font/BMJUA_ttf.ttf');
 }
 
 @font-face {
-  font-family: "dohyeon";
-  src: url("../../public/font/BMDOHYEON_ttf.ttf");
+  font-family: 'dohyeon';
+  src: url('../../public/font/BMDOHYEON_ttf.ttf');
 }
 
 .painpoint_container {
@@ -114,7 +115,7 @@ h3 {
   margin-top: 180px;
   margin-left: 30px;
   color: black;
-  font-family: "dohyeon";
+  font-family: 'dohyeon';
 }
 
 .animate-text {

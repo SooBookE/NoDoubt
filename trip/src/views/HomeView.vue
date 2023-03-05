@@ -1,22 +1,21 @@
 <template>
-  <!-- 제일 바깥 쪽 컨테이너 -->
   <!-- eslint-disable -->
+  <!-- 제일 바깥 쪽 컨테이너 -->
   <div class="main_container">
-    <!-- 홈페이지 메인 -->
-    <!-- <div class="home_main"> -->
     <!-- 카테고리 -->
     <categories></categories>
-    <!-- <video src="./result.mp4" autoplay muted loop></video> -->
-    <mainImage class="mainImage_component"> </mainImage>
-    <select_slider></select_slider>
-    <!-- </div> -->
-    <!-- 검색창&로그인 컨테이너 -->
     <div id="scroll1"></div>
-    <search_login></search_login>
-    <painpoint>></painpoint>
-    <!-- 슬라이더 -->
-    <div id="scroll2"></div>
+    <keep-alive>
+      <mainImage class="mainImage_component"> </mainImage>
+    </keep-alive>
 
+    <!-- 검색창&로그인 컨테이너 -->
+    <search_login></search_login>
+
+    <!-- 서비스 소개 -->
+    <painpoint></painpoint>
+
+    <!-- 사이드 바 -->
     <sidebar></sidebar>
   </div>
 </template>
@@ -29,21 +28,25 @@ import search_login from '../components/search_login.vue'
 import select_slider from '../components/select_slider.vue'
 import sidebar from '../components/sidebar.vue'
 import mainImage from '../components/mainImage.vue'
+import side_categories from '../components/side_categories.vue'
 
 export default {
   name: 'app',
   data() {
-    return {}
+    return {
+      select: 'side_categories_button'
+    }
   },
 
   methods: {},
   components: {
+    categories,
     search_login,
     select_slider,
     sidebar,
     painpoint,
-    categories,
-    mainImage
+    mainImage,
+    side_categories
   }
 }
 </script>
@@ -76,10 +79,6 @@ body {
   width: 100%;
   background-color: aliceblue;
 } */
-
-#scroll1 {
-  height: 200px;
-}
 
 /* video {
   width: 100%;

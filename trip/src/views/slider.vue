@@ -5,19 +5,31 @@
     <!-- 홈페이지 메인 -->
     <!-- <div class="home_main"> -->
     <!-- 카테고리 -->
-    <categories></categories>
+    <keep-alive>
+      <categories></categories>
+    </keep-alive>
     <!-- <video src="./result.mp4" autoplay muted loop></video> -->
-    <mainImage class="mainImage_component"> </mainImage>
-    <select_slider></select_slider>
+    <keep-alive>
+      <mainImage class="mainImage_component"> </mainImage>
+    </keep-alive>
+    <div id="categories_scroll"></div>
+    <keep-alive>
+      <select_slider></select_slider>
+    </keep-alive>
     <!-- </div> -->
     <!-- 검색창&로그인 컨테이너 -->
     <div id="scroll1"></div>
-    <search_login></search_login>
-    <painpoint>></painpoint>
+    <keep-alive>
+      <search_login></search_login>
+    </keep-alive>
+    <keep-alive>
+      <painpoint></painpoint>
+    </keep-alive>
     <!-- 슬라이더 -->
     <div id="scroll2"></div>
-
-    <sidebar></sidebar>
+    <keep-alive>
+      <sidebar></sidebar>
+    </keep-alive>
   </div>
 </template>
 

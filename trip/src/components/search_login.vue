@@ -1,4 +1,5 @@
 <template>
+  <div id="scroll2"></div>
   <div class="top_container">
     <!-- 검색창 -->
     <div class="search_bar_container">
@@ -28,7 +29,13 @@
       </button>
 
       <div>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
-      <button id="join_button" class="join_button">join</button>
+      <button
+        id="join_button"
+        class="join_button"
+        @click="$router.push('/join')"
+      >
+        join
+      </button>
     </div>
   </div>
 </template>
@@ -81,6 +88,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 200px;
+  margin-top: 50px;
 }
 
 .h2_1 {

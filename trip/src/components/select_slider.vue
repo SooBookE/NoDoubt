@@ -1,6 +1,5 @@
 <template>
   <!-- eslint-disable -->
-  <div id="scroll2"></div>
   <div class="AI_slider_container">
     <div class="select_container">
       <input
@@ -224,8 +223,6 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 10px;
-  position: absolute;
-  top: 200px;
 }
 
 .select_container {

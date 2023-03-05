@@ -1,8 +1,8 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 const Vschemas = require('./schema.cjs')
-const USER = process.env.mkid_admin
-const PWD = process.env.mkpwd_admin
+const USER = 'mk'
+const PWD = 'mk1234'
 const HOST = '127.0.0.1:27017' //localhost접속이 불가
 const DB = 'admin'
 

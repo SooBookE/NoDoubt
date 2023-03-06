@@ -117,29 +117,97 @@ function getHobbyData(testSplit) {
 // exports.HOBBY_CLASSES = HOBBY_CLASSES;
 // exports.HOBBY_NUM_CLASSES = HOBBY_NUM_CLASSES;
 // exports.getHobbyData = getHobbyData;
-const [xTrain, yTrain, xTest, yTest] = getHobbyData(0.15);
 
-const input = tf.input({ shape: [4] });
-const A = tf.layers.dense({ units: 200, activation: "relu" }).apply(input);
-const B = tf.layers.dense({ units: 200, activation: "relu" }).apply(A);
-const C = tf.layers.dense({ units: 5, activation: "relu" }).apply(B);
+(async function () {
+  const [xTrain, yTrain, xTest, yTest] = await getHobbyData(0.15);
 
-const model = tf.model({ inputs: input, outputs: C });
+  const input = tf.input({
+    shape: [4],
+    activation: "relu",
+    kernelInitializer: "varianceScaling",
+  });
+  const A = tf.layers
+    .dense({
+      units: 200,
+      activation: "sigmoid",
+      kernelInitializer: "varianceScaling",
+    })
+    .apply(input);
+  // const B = tf.layers
+  //   .dense({
+  //     units: 100,
+  //     activation: "relu",
+  //   })
+  //   .apply(A);
+  const C = tf.layers
+    .dense({
+      units: 5,
+      activation: "softmax",
+      kernelInitializer: "varianceScaling",
+    })
+    .apply(A);
 
-model.compile({
-  optimizer: tf.train.adam(),
-  loss: "categoricalCrossentropy",
-  metrics: ["accuracy"],
-});
+  const model = tf.model({ inputs: input, outputs: C });
 
-const fitParam = {
-  epochs: 1,
-  callbacks: {
-    onEpochEnd: function (epoch, logs) {
-      console.log("epoch : ", epoch, logs, "RMSE => ", Math.sqrt(logs.loss));
+  model.compile({
+    optimizer: tf.train.adam(),
+    loss: "categoricalCrossentropy",
+    metrics: ["accuracy"],
+  });
+
+  const fitParam = {
+    epochs: 600,
+    batchSize: 256,
+    callbacks: {
+      onEpochEnd: function (epoch, logs) {
+        console.log("epoch : ", epoch, logs, "RMSE => ", Math.sqrt(logs.loss));
+      },
     },
-  },
-};
-model.fit(xTrain, yTrain, fitParam).then((_) => {
-  console.log("ㅎㅇ");
-});
+  };
+  let pred_array = [];
+  let pred_arr = [];
+  model.fit(xTrain, yTrain, fitParam).then((_) => {
+    // console.log("ㅎㅇ");
+    model
+      .predict(xTest)
+      .array()
+      .then((array) => (pred_array = [...array]))
+      .then((_) => {
+        pred_array.map((v) => {
+          // console.log(v);
+          // console.log(Math.max(...v));
+          v[v.indexOf(Math.max(...v))] = 1;
+          // console.log(v);
+          for (let val of v) {
+            if (val != 1) {
+              v[v.indexOf(val)] = 0;
+            }
+          }
+          // console.log(v);
+          pred_arr.push(v);
+        });
+        // console.log(pred_arr.length);
+      })
+      .then((_) => {
+        let real_arr = [];
+        const total_num = pred_arr.length;
+        let coinci_num = 0;
+        yTest
+          .array()
+          .then((array) => (real_arr = [...array]))
+          .then((_) => {
+            pred_arr.forEach((v, i) => {
+              if (JSON.stringify(v) == JSON.stringify(real_arr[i]))
+                coinci_num++;
+            });
+            // console.log(coinci_num);
+            // console.log(real_arr);
+            const predict_per =
+              (coinci_num / total_num).toFixed(2) * 100 + " %";
+            console.log(predict_per);
+          });
+      });
+    // .then((_) => console.log(pred_array));
+  });
+  // console.log(pred_array);
+})();

@@ -56,10 +56,12 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if (to.path !== from.path && to.path === '/') {
+      if (to.path !== from.path) {
         // console.log(to.path, from.path)
-        // if (to.path === '/') this.$router.go()
-        this.$router.go()
+        if (to.path === '/') {
+          this.$router.go()
+        }
+        window.scroll(0, 0)
       }
     }
   },

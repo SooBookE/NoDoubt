@@ -12,14 +12,14 @@
         >
           <th style="width: 120px">
             <label for="" class="name_input_label" style="color: #007fff"
-              >이름</label
+              >아이디</label
             >
           </th>
           <td>
             <input
               type="text"
-              v-model="find_name"
-              placeholder="이름을 입력해주세요."
+              v-model="find_id"
+              placeholder="아이디를 입력해주세요."
               class="find_id_name_input"
             />
           </td>
@@ -106,7 +106,6 @@
                 max="9"
                 onlyNumber
                 required
-                @keyup="PhoneNumber_length3()"
                 style="
                   width: 80px;
                   background-color: transparent;
@@ -127,7 +126,7 @@
           ><strong>'{{ server_find_id }}'</strong></mark
         >입니다.
       </div>
-      <button class="a" @click="id_find()">아이디 찾기</button>
+      <button class="a" @click="pwd_find()">비밀번호 찾기</button>
     </article>
   </div>
 </template>
@@ -139,16 +138,16 @@ export default {
   name: 'app',
   data() {
     return {
-      find_name: '',
+      find_id: '',
       find_telecom_option: 'none',
       phoneNumber1: '',
       phoneNumber2: '',
       phoneNumber3: '',
-      server_find_id: ''
+      randomly_pwd: ''
     }
   },
   methods: {
-    id_find: function () {
+    pwd_find: function () {
       axios
         .post('/find_id', {
           name: this.find_name,
@@ -174,52 +173,11 @@ export default {
       if (this.phoneNumber1.length >= 3) {
         phoneNumber2_input.focus()
       }
-      let keyID = event.target.keyCode
-      if (
-        (keyID >= 48 && keyID <= 57) ||
-        (keyID >= 96 && keyID <= 105) ||
-        keyID == 8 ||
-        keyID == 46 ||
-        keyID == 37 ||
-        keyID == 39
-      )
-        return
-      else {
-        event.target.value = event.target.value.replace(/[^0-9]/g, '')
-      }
     },
     PhoneNumber_length2: function () {
       const phoneNumber3_input = document.querySelector('.find_phoneNumber3')
       if (this.phoneNumber2.length >= 4) {
         phoneNumber3_input.focus()
-      }
-      let keyID = event.target.keyCode
-      if (
-        (keyID >= 48 && keyID <= 57) ||
-        (keyID >= 96 && keyID <= 105) ||
-        keyID == 8 ||
-        keyID == 46 ||
-        keyID == 37 ||
-        keyID == 39
-      )
-        return
-      else {
-        event.target.value = event.target.value.replace(/[^0-9]/g, '')
-      }
-    },
-    PhoneNumber_length3: function () {
-      let keyID = event.target.keyCode
-      if (
-        (keyID >= 48 && keyID <= 57) ||
-        (keyID >= 96 && keyID <= 105) ||
-        keyID == 8 ||
-        keyID == 46 ||
-        keyID == 37 ||
-        keyID == 39
-      )
-        return
-      else {
-        event.target.value = event.target.value.replace(/[^0-9]/g, '')
       }
     }
   }
@@ -270,8 +228,6 @@ export default {
   color: #3165dd;
   padding: 90px 0;
   display: block;
-  top: -100px;
-  position: relative;
 }
 
 .resquick_content > .a {

@@ -107,6 +107,40 @@ app.post('/login_check', async (req, res) => {
   })()
 })
 
+/*아이디 찾기*/
+app.post('/find_id', async (req, res) => {
+  const find_name = req.body.name
+  const find_phoneNumber = req.body.phoneNumber
+  ;(async () => {
+    const name = await VSchema.find(
+      { name: find_name, PhoneNumber: find_phoneNumber },
+      { __v: 0 }
+    )
+    if (name.length > 0) {
+      res.send(name)
+    } else {
+      res.send('1')
+    }
+  })()
+})
+
+/*비밀번호 찾기*/
+app.post('/find_pwd', async (req, res) => {
+  const find_pwd = req.body.id
+  const find_phoneNumber_pwd = req.body.phoneNumber
+  ;(async () => {
+    const pwd = await VSchema.find(
+      { name: find_pwd, PhoneNumber: find_phoneNumber_pwd },
+      { __v: 0 }
+    )
+    if (pwd.length > 0) {
+      res.send('2')
+    } else {
+      res.send('1')
+    }
+  })()
+})
+
 app.listen(port, () => {
   console.log(port + '에서 서버동작 완료.')
 })

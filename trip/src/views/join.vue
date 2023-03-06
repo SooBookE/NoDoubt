@@ -136,7 +136,7 @@
               style="width: 80px"
             >
               <option id="telecom_option" value="">통신사</option>
-              <option id="telecom_option" value="SKT">SKT</option>
+              <option id="telecom_option" value="SKT" selected>SKT</option>
               <option id="telecom_option" value="KT">KT</option>
               <option id="telecom_option" value="LG">LG</option>
             </select>
@@ -318,9 +318,9 @@ export default {
       password_string_confirm_message: '',
       id_check_message: '',
       telecom_option: '',
-      phoneNumber1: 0,
-      phoneNumber2: 0,
-      phoneNumber3: 0
+      phoneNumber1: '',
+      phoneNumber2: '',
+      phoneNumber3: ''
     }
   },
 

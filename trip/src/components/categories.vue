@@ -67,7 +67,7 @@ export default {
 }
 
 .absolute_fixed {
-  z-index: 50;
+  z-index: 1;
   width: 100%;
   display: flex;
   flex-direction: column;

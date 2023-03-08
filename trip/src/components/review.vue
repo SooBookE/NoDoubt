@@ -31,19 +31,17 @@
         class="review_img2_innerbox"
         style="display: flex; flex-direction: column; justify-content: center"
       >
-        <h2 class="review_h2_1 animate-text">프로 여행가 A씨</h2>
+        <h2 class="review_h2_1 animate-text">프로 여행가 B씨</h2>
         <div class="review_h2_innerbox">
           <h3 class="review_h2_2 animate-text">
-            저는 처음부터 프로 여행가가 아니었어요. No-Doubt를 만난 이후로 제
-            여행에 의심이 사라졌죠.
+            저는 완전 극 P성향을 가진 계획없는 사람이었어요.
           </h3>
           <h3 class="review_h2_3 animate-text">
-            제가 어떤 여행을 좋아할지, 어느 장소를 좋아할지 쏙쏙 골라주는
-            No-Doubt 덕분에 지금은 여행을 떠날 날짜만 정해요.
+            그래서 여자친구와 여행을 갈 때마다 싸운 적이 한 두번이 아니었어요.
           </h3>
           <h3 class="review_h2_4 animate-text">
-            가끔은 날짜마저도 정하지 않는 날도 있어요. 사람이 많이 없는 날을
-            추천받아 가는 것도 좋더라구요.
+            하지만 No-doubt를 만난 이후로 여자친구가 어떻게 이런 여행 계획을
+            짜왔냐고 칭찬만 해요! No-doubt는 사랑입니다!
           </h3>
         </div>
       </div>
@@ -200,6 +198,7 @@ img {
 
 .review_img_2 {
   width: 300px;
+  margin-bottom: 50px;
 }
 
 .review_h2_1 {

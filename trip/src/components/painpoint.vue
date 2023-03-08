@@ -46,7 +46,7 @@
   </div>
   <h3
     class="h4_1 animate-text"
-    style="font-family: 'dohyeon'; margin-top: 50px"
+    style="font-family: 'dohyeon'; margin-top: 80px"
   >
     이제 더이상 의심하지 마세요.
   </h3>

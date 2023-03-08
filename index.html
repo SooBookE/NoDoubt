@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.0.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
-    <script src="./index.js" type="commonjs"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script> -->
+    <script src="./data.js" type="commonjs"></script>
   </head>
   <body>
-    <canvas id="lossCanvas"></canvas>
+    <button onclick="start()">시작</button>
+    <!-- <script type="module">
+      const btn = document.querySelector("button");
+      import func from "./data.js";
+      btn.addEventListener("click", func.start());
+    </script> -->
+    <!-- <canvas id="lossCanvas"></canvas>
     <canvas id="accuracyCanvas"></canvas>
-    <div id="confusionMatrix"></div>
+    <div id="confusionMatrix"></div> -->
   </body>
 </html>

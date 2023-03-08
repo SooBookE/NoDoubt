@@ -118,7 +118,7 @@ function getHobbyData(testSplit) {
 // exports.HOBBY_NUM_CLASSES = HOBBY_NUM_CLASSES;
 // exports.getHobbyData = getHobbyData;
 
-(async function () {
+const func = async function () {
   const [xTrain, yTrain, xTest, yTest] = await getHobbyData(0.15);
 
   const input = tf.input({
@@ -210,4 +210,7 @@ function getHobbyData(testSplit) {
     // .then((_) => console.log(pred_array));
   });
   // console.log(pred_array);
-})();
+};
+const start = function () {
+  func();
+};

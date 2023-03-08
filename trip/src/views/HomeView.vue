@@ -3,17 +3,23 @@
   <!-- 제일 바깥 쪽 컨테이너 -->
   <div class="main_container">
     <!-- 카테고리 -->
+    <div id="scroll"></div>
     <categories></categories>
+    <main_sub_categoriebar></main_sub_categoriebar>
     <div id="scroll1"></div>
     <keep-alive>
       <mainImage class="mainImage_component"> </mainImage>
     </keep-alive>
 
     <!-- 검색창&로그인 컨테이너 -->
+    <div id="scroll2"></div>
     <search_login></search_login>
 
     <!-- 서비스 소개 -->
+    <div id="scroll3"></div>
     <painpoint></painpoint>
+
+    <review></review>
 
     <!-- 사이드 바 -->
     <sidebar></sidebar>
@@ -29,6 +35,8 @@ import select_slider from '../components/select_slider.vue'
 import sidebar from '../components/sidebar.vue'
 import mainImage from '../components/mainImage.vue'
 import side_categories from '../components/side_categories.vue'
+import review from '../components/review.vue'
+import main_sub_categoriebar from '../components/main_sub_categoriebar.vue'
 
 export default {
   name: 'app',
@@ -46,7 +54,9 @@ export default {
     sidebar,
     painpoint,
     mainImage,
-    side_categories
+    side_categories,
+    review,
+    main_sub_categoriebar
   }
 }
 </script>

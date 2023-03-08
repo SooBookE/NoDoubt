@@ -4,17 +4,17 @@
   <div class="categorie_container">
     <div class="categorie_innerbox">
       <button class="categorie_button" @click="$router.push('/')">홈</button>
-      <div style="color: #23565a">
+      <div style="color: white">
         &nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp
       </div>
-      <button class="categorie_button">회사 소개</button>
-      <div style="color: #23565">
+      <button class="categorie_button" @click="scroll2()">회사 소개</button>
+      <div style="color: white">
         &nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp
       </div>
       <button class="categorie_button" @click="$router.push('/notice')">
         공지사항
       </button>
-      <div style="color: #23565">
+      <div style="color: white">
         &nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp
       </div>
       <button
@@ -62,7 +62,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 @font-face {
   font-family: 'jua';
   src: url('../../public/font/BMJUA_ttf.ttf');
@@ -78,9 +78,8 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: static;
   background-color: transparent;
-  flex-direction: column;
   justify-content: center;
   font-family: 'dohyeon';
 }
@@ -104,6 +103,7 @@ export default {
 .categorie_innerbox {
   display: flex;
   justify-content: right;
+  margin-right: 10%;
 }
 
 .categorie_button {

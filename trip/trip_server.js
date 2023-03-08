@@ -117,7 +117,9 @@ app.post('/find_id', async (req, res) => {
       { __v: 0 }
     )
     if (name.length > 0) {
+      console.log(name)
       res.send(name)
+      console.log(name[0].id)
     } else {
       res.send('1')
     }
@@ -126,17 +128,82 @@ app.post('/find_id', async (req, res) => {
 
 /*비밀번호 찾기*/
 app.post('/find_pwd', async (req, res) => {
-  const find_pwd = req.body.id
+  const find_pwd_id = req.body.id
   const find_phoneNumber_pwd = req.body.phoneNumber
+  console.log(find_pwd_id)
+  console.log(find_phoneNumber_pwd)
   ;(async () => {
     const pwd = await VSchema.find(
-      { name: find_pwd, PhoneNumber: find_phoneNumber_pwd },
+      { id: find_pwd_id, PhoneNumber: find_phoneNumber_pwd },
       { __v: 0 }
     )
+    console.log(pwd)
     if (pwd.length > 0) {
-      res.send('2')
+      let temp_pw = ''
+
+      let ranValue1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+      let ranValue2 = [
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'S',
+        'T',
+        'U',
+        'V'
+      ]
+      let ranValue3 = [
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z'
+      ]
+      let ranValue4 = ['!', '@', '#', '$', '%', '^', '&', '*']
+
+      for (let i = 0; i < 2; i++) {
+        temp_pw += ranValue1[Math.floor(Math.random() * ranValue1.length)]
+        temp_pw += ranValue2[Math.floor(Math.random() * ranValue2.length)]
+        temp_pw += ranValue3[Math.floor(Math.random() * ranValue3.length)]
+        temp_pw += ranValue4[Math.floor(Math.random() * ranValue4.length)]
+      }
+      const new_password = temp_pw
+      res.send(new_password)
+
+      const update_pwd = await VSchema.updateOne(
+        { id: find_pwd_id },
+        {
+          $set: {
+            pwd: new_password
+          }
+        },
+        { upsert: true }
+      )
+      console.log(update_pwd)
     } else {
-      res.send('1')
+      ;('1')
     }
   })()
 })

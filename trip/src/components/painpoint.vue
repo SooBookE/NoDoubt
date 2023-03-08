@@ -54,7 +54,8 @@
     class="h4_2 animate-text"
     style="font-family: 'dohyeon'; margin-left: 30px"
   >
-    여행은 역시 <strong style="color: #3165dd">'No-doubt' </strong>
+    여행은 역시
+    <strong style="color: #3165dd">'No-doubt' </strong>
   </h1>
 </template>
 
@@ -82,6 +83,8 @@ export default {
       const h2_1 = document.querySelector('.h2_1')
       const h2_2 = document.querySelector('.h2_2')
       const h2_3 = document.querySelector('.h2_3')
+
+      //여기서부터 움직임 부자연스러움
       const h3_1 = document.querySelector('.h3_1')
       const h3_2 = document.querySelector('.h3_2')
       const h3_3 = document.querySelector('.h3_3')
@@ -92,19 +95,19 @@ export default {
       window.addEventListener('scroll', function () {
         scrollpos = window.scrollY
         if (scrollpos >= img_1.offsetHeight - 200) add_class_on_scroll(img_1)
-        if (scrollpos >= img_2.offsetHeight + 200) add_class_on_scroll(img_2)
-        if (scrollpos >= img_3.offsetHeight + 600) add_class_on_scroll(img_3)
+        if (scrollpos >= img_2.offsetHeight + 400) add_class_on_scroll(img_2)
+        if (scrollpos >= img_3.offsetHeight + 1000) add_class_on_scroll(img_3)
         if (scrollpos >= h1_1.offsetHeight + 400) add_class_on_scroll(h1_1)
-        if (scrollpos >= h1_2.offsetHeight + 430) add_class_on_scroll(h1_2)
-        if (scrollpos >= h1_3.offsetHeight + 460) add_class_on_scroll(h1_3)
-        if (scrollpos >= h2_1.offsetHeight + 600) add_class_on_scroll(h2_1)
-        if (scrollpos >= h2_2.offsetHeight + 630) add_class_on_scroll(h2_2)
-        if (scrollpos >= h2_3.offsetHeight + 660) add_class_on_scroll(h2_3)
-        if (scrollpos >= h3_1.offsetHeight + 1000) add_class_on_scroll(h3_1)
-        if (scrollpos >= h3_2.offsetHeight + 1030) add_class_on_scroll(h3_2)
-        if (scrollpos >= h3_3.offsetHeight + 1060) add_class_on_scroll(h3_3)
-        if (scrollpos >= h4_1.offsetHeight + 1300) add_class_on_scroll(h4_1)
-        if (scrollpos >= h4_2.offsetHeight + 1330) add_class_on_scroll(h4_2)
+        if (scrollpos >= h1_2.offsetHeight + 500) add_class_on_scroll(h1_2)
+        if (scrollpos >= h1_3.offsetHeight + 700) add_class_on_scroll(h1_3)
+        if (scrollpos >= h2_1.offsetHeight + 800) add_class_on_scroll(h2_1)
+        if (scrollpos >= h2_2.offsetHeight + 900) add_class_on_scroll(h2_2)
+        if (scrollpos >= h2_3.offsetHeight + 1000) add_class_on_scroll(h2_3)
+        if (scrollpos >= h3_1.offsetHeight + 1100) add_class_on_scroll(h3_1)
+        if (scrollpos >= h3_2.offsetHeight + 1200) add_class_on_scroll(h3_2)
+        if (scrollpos >= h3_3.offsetHeight + 1300) add_class_on_scroll(h3_3)
+        if (scrollpos >= h4_1.offsetHeight + 1600) add_class_on_scroll(h4_1)
+        if (scrollpos >= h4_2.offsetHeight + 1700) add_class_on_scroll(h4_2)
       })
     }
   }
@@ -128,6 +131,7 @@ export default {
   width: 100%;
   height: auto;
   align-items: center;
+  background-color: white;
 }
 
 img {

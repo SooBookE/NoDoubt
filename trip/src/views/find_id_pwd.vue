@@ -1,6 +1,6 @@
 <template>
   <div class="AI_slider_container">
-    <div class="select_container">
+    <div class="find_select_container">
       <input
         id="find_id"
         type="radio"
@@ -55,7 +55,7 @@ export default {
   margin: 10px;
 }
 
-.select_container {
+.find_select_container {
   position: relative;
   top: 100px;
 }
@@ -87,12 +87,13 @@ label:hover {
 #find_id:checked ~ .find_pwd_label {
   border-bottom: 1px solid #000000;
   box-shadow: 0px 2px 0px rgb(168, 168, 168);
+  color: #7c7c7c;
+  text-shadow: 1px 1px 0.3px #a2a2a2;
 }
 #find_id:checked ~ .find_id_label {
   font-weight: 100;
   color: #002376;
   border-top: 3px solid #002376;
-  text-shadow: 1px 1px 1px #001d61;
   border-right: 2px solid #000000;
   box-shadow: 0px 3px 5px 2px gray;
 }
@@ -100,12 +101,13 @@ label:hover {
 #find_pwd:checked ~ .find_id_label {
   border-bottom: 1px solid #000000;
   box-shadow: 0px 2px 0px rgb(168, 168, 168);
+  color: #7c7c7c;
+  text-shadow: 1px 1px 0.3px #a2a2a2;
 }
 #find_pwd:checked ~ .find_pwd_label {
   font-weight: 100;
   color: #002376;
   border-top: 3px solid #002376;
-  text-shadow: 1px 1px 1px #001d61;
   border-left: 2px solid #000000;
   box-shadow: 5px 2px 3px gray;
 }

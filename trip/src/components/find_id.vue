@@ -1,6 +1,7 @@
 <template>
   <div class="find_id_container">
     <article class="resquick_content resquick_service">
+      <div class="find_id_notice">여행가님, 정보를 잊으셨나요?</div>
       <table class="find_id_table">
         <tr
           style="
@@ -10,7 +11,7 @@
             margin-bottom: 10px;
           "
         >
-          <th style="width: 120px">
+          <th style="width: 140px; text-align: right; padding-right: 20px">
             <label for="" class="name_input_label" style="color: #007fff"
               >이름</label
             >
@@ -241,6 +242,15 @@ export default {
 .find_id_container {
   margin: 100px 0px;
 }
+
+.find_id_notice {
+  font-family: 'dohyeon';
+  font-size: large;
+  font-weight: 400;
+  color: #3165dd;
+  margin-bottom: 50px;
+}
+
 /*테이블 정렬*/
 .find_id_table {
   display: flex;

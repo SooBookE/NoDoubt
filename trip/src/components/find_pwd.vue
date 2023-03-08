@@ -1,6 +1,10 @@
 <template>
   <div class="find_id_container">
     <article class="resquick_content resquick_service">
+      <div class="find_pwd_notice">여행가님, 정보를 잊으셨나요?</div>
+      <div class="find_pwd_notice_information">
+        임시 비밀번호가 발급되니, 로그인 이후 비밀번호 변경부탁드립니다.
+      </div>
       <table class="find_id_table">
         <tr
           style="
@@ -10,7 +14,7 @@
             margin-bottom: 10px;
           "
         >
-          <th style="width: 120px">
+          <th style="width: 140px; text-align: right; padding-right: 20px">
             <label for="" class="name_input_label" style="color: #007fff"
               >아이디</label
             >
@@ -118,12 +122,12 @@
         </tr>
       </table>
       <div
-        v-if="server_find_id.length"
-        class="server_find_id"
-        :v-bind="server_find_id"
+        v-if="randomly_pwd.length"
+        class="randomly_pwd"
+        :v-bind="randomly_pwd"
       >
-        여행가님의 아이디는, <br /><mark
-          ><strong>'{{ server_find_id }}'</strong></mark
+        여행가님의 임시 비밀번호는, <br /><mark
+          ><strong>'{{ randomly_pwd }}'</strong></mark
         >입니다.
       </div>
       <button class="a" @click="pwd_find()">비밀번호 찾기</button>
@@ -149,8 +153,8 @@ export default {
   methods: {
     pwd_find: function () {
       axios
-        .post('/find_id', {
-          name: this.find_name,
+        .post('/find_pwd', {
+          id: this.find_id,
           phoneNumber:
             this.find_telecom_option +
             this.phoneNumber1 +
@@ -159,12 +163,63 @@ export default {
         })
         .then((res) => {
           console.log(res.data)
-          if (res.data !== 1) {
-            const id = res.data[0].id
-            const new_id = id.slice(0, -4) + '****'
-            this.server_find_id = `${new_id}`
+          if (res.data !== '1') {
+            this.randomly_pwd = res.data
+            // let temp_pw = ''
+
+            // let ranValue1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+            // let ranValue2 = [
+            //   'A',
+            //   'B',
+            //   'C',
+            //   'D',
+            //   'E',
+            //   'F',
+            //   'G',
+            //   'H',
+            //   'I',
+            //   'J',
+            //   'K',
+            //   'L',
+            //   'M',
+            //   'N',
+            //   'S',
+            //   'T',
+            //   'U',
+            //   'V'
+            // ]
+            // let ranValue3 = [
+            //   'a',
+            //   'b',
+            //   'c',
+            //   'd',
+            //   'e',
+            //   'j',
+            //   'k',
+            //   'l',
+            //   'm',
+            //   'n',
+            //   'o',
+            //   'p',
+            //   'v',
+            //   'w',
+            //   'x',
+            //   'y',
+            //   'z'
+            // ]
+            // let ranValue4 = ['!', '@', '#', '$', '%', '^', '&', '*']
+
+            // for (let i = 0; i < 2; i++) {
+            //   temp_pw += ranValue1[Math.floor(Math.random() * ranValue1.length)]
+            //   temp_pw += ranValue2[Math.floor(Math.random() * ranValue2.length)]
+            //   temp_pw += ranValue3[Math.floor(Math.random() * ranValue3.length)]
+            //   temp_pw += ranValue4[Math.floor(Math.random() * ranValue4.length)]
+            // }
+            // const new_password = temp_pw
+            // console.log(new_password)
+            // this.randomly_pwd = `${new_password}`
           } else {
-            this.server_find_id = ''
+            this.randomly_pwd = ''
           }
         })
     },
@@ -198,6 +253,24 @@ export default {
 /*가장 바깥 container*/
 .find_id_container {
   margin: 100px 0px;
+}
+
+.find_pwd_notice {
+  font-family: 'dohyeon';
+  font-size: large;
+  font-weight: 400;
+  color: #3165dd;
+}
+
+.find_pwd_notice_information {
+  font-family: 'dohyeon';
+  font-size: small;
+  font-weight: 100;
+  color: black;
+  margin-top: 5px;
+  margin-bottom: 50px;
+  border-bottom: 2px solid rgb(255, 61, 61);
+  display: inline-block;
 }
 /*테이블 정렬*/
 .find_id_table {
@@ -288,7 +361,7 @@ export default {
   background-color: transparent;
 }
 
-.server_find_id {
+.randomly_pwd {
   font-family: 'jua';
   margin-bottom: 15px;
   font-size: larger;

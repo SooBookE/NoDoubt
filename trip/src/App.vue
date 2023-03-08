@@ -115,7 +115,7 @@ nav a.router-link-exact-active {
 }
 
 .footer_container {
-  width: 100%;
+  width: 95%;
   margin-top: 30px;
   padding: 30px;
   background-color: rgb(142, 140, 138);

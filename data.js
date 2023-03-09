@@ -60,7 +60,10 @@ function convertToTensors(data, targets, testSplit) {
   const xTrain = xs.slice([0, 0], [numTrainExamples, xDims]);
   const xTest = xs.slice([numTrainExamples, 0], [numTestExamples, xDims]);
   const yTrain = ys.slice([0, 0], [numTrainExamples, HOBBY_NUM_CLASSES]);
-  const yTest = ys.slice([0, 0], [numTestExamples, HOBBY_NUM_CLASSES]);
+  const yTest = ys.slice(
+    [numTrainExamples, 0],
+    [numTestExamples, HOBBY_NUM_CLASSES]
+  );
   // console.log([xTrain, yTrain, xTest, yTest]);
   return [xTrain, yTrain, xTest, yTest];
 }
@@ -118,46 +121,46 @@ function getHobbyData(testSplit) {
 // exports.HOBBY_NUM_CLASSES = HOBBY_NUM_CLASSES;
 // exports.getHobbyData = getHobbyData;
 
-const func = async function () {
+(func = async function () {
   const [xTrain, yTrain, xTest, yTest] = await getHobbyData(0.15);
+  // console.log(xTrain);
+  // console.log(xTest);
+  // console.log(yTrain);
+  // console.log(yTest);
 
   const input = tf.input({
     shape: [4],
-    activation: "relu",
-    kernelInitializer: "varianceScaling",
   });
   const A = tf.layers
     .dense({
       units: 200,
-      activation: "sigmoid",
-      kernelInitializer: "varianceScaling",
+      activation: "relu",
     })
     .apply(input);
   // const B = tf.layers
   //   .dense({
-  //     units: 100,
-  //     activation: "relu",
+  //     units: 50,
+  //     activation: "sigmoid",
   //   })
   //   .apply(A);
   const C = tf.layers
     .dense({
       units: 5,
       activation: "softmax",
-      kernelInitializer: "varianceScaling",
     })
     .apply(A);
 
   const model = tf.model({ inputs: input, outputs: C });
 
   model.compile({
-    optimizer: tf.train.adam(),
+    optimizer: "adam",
     loss: "categoricalCrossentropy",
     metrics: ["accuracy"],
   });
 
   const fitParam = {
-    epochs: 600,
-    batchSize: 256,
+    epochs: 200,
+    batchSize: 64,
     callbacks: {
       onEpochEnd: function (epoch, logs) {
         console.log("epoch : ", epoch, logs, "RMSE => ", Math.sqrt(logs.loss));
@@ -210,7 +213,7 @@ const func = async function () {
     // .then((_) => console.log(pred_array));
   });
   // console.log(pred_array);
-};
-const start = function () {
-  func();
-};
+})();
+// const start = function () {
+//   func();
+// };

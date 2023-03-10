@@ -140,7 +140,7 @@ function getHobbyData(testSplit) {
   // const B = tf.layers
   //   .dense({
   //     units: 50,
-  //     activation: "sigmoid",
+  //     activation: "relu",
   //   })
   //   .apply(A);
   const C = tf.layers
@@ -151,7 +151,7 @@ function getHobbyData(testSplit) {
     .apply(A);
 
   const model = tf.model({ inputs: input, outputs: C });
-
+  /* 1. validationData 2. 데이터 정규화로 최종 실험 해보고 안 되면 80~84%로 만족! */
   model.compile({
     optimizer: "adam",
     loss: "categoricalCrossentropy",
@@ -159,8 +159,8 @@ function getHobbyData(testSplit) {
   });
 
   const fitParam = {
-    epochs: 200,
-    batchSize: 64,
+    epochs: 600,
+    batchSize: 32,
     callbacks: {
       onEpochEnd: function (epoch, logs) {
         console.log("epoch : ", epoch, logs, "RMSE => ", Math.sqrt(logs.loss));

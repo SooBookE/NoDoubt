@@ -9,7 +9,7 @@ const VSchema = new Schema({
   age: String,
   hobby: String,
   PhoneNumber: String,
-  identification: Number
+  identification: String
 })
 
 module.exports = mongoose.model('vdb', VSchema, 'vdb')

@@ -9,8 +9,10 @@
 
   <div class="footer_container">
     <div class="notice_box">
-      <div class="notice">공지사항</div>
-      <div class="notice_content">{{ notice_message }}</div>
+      <div class="notice" @click="$router.push('/notice')">공지사항</div>
+      <div class="notice_content" @click="$router.push('/notice')">
+        {{ notice_message }}
+      </div>
     </div>
     <div class="inner_container">
       <div class="introduce_container" style="text-align: left">
@@ -58,7 +60,7 @@ export default {
     $route(to, from) {
       if (to.path !== from.path) {
         // console.log(to.path, from.path)
-        if (to.path === '/') {
+        if (to.path === '/' || to.paht === '/notice_write') {
           this.$router.go()
         }
         window.scroll(0, 0)

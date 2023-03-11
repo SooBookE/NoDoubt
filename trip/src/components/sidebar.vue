@@ -1,10 +1,17 @@
 <template>
   <!-- eslint-disable -->
   <div class="sidebar_container">
-    <div class="chat_help">채팅상담</div>
-    <button id="target" @click="handleScroll()">
-      <img id="top_arrow" src="../../public/arrow.png" alt="" />
-    </button>
+    <div class="chat_container">
+      <label class="chat_label" for="">
+        <img class="chat_img" src="../../public/chat.png" alt="" />
+        <button class="chat_help">채팅상담</button>
+      </label>
+    </div>
+    <label for="">
+      <button id="target" @click="handleScroll()">
+        <img id="top_arrow" src="../../public/arrow.png" alt="" />
+      </button>
+    </label>
   </div>
 </template>
 
@@ -56,6 +63,20 @@ export default {
   cursor: pointer;
   background-color: transparent;
   border: none;
+}
+
+.chat_container {
+  display: flex;
+}
+
+.chat_img {
+  width: 40%;
+}
+
+.chat_label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #top_arrow {

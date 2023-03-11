@@ -5,6 +5,8 @@ const path = require('path')
 const logger = require('morgan')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 const VSchema = require('./mdb.cjs')
+const Counter_Schema = require('./mdb.cjs')
+const Board_Schema = require('./board_db.js')
 const app = express()
 
 app.use(history())
@@ -205,6 +207,69 @@ app.post('/find_pwd', async (req, res) => {
     } else {
       ;('1')
     }
+  })()
+})
+
+/*게시판 글번호 불러오기*/
+app.get('/numbering', (req, res) => {
+  ;(async () => {
+    const number = await Counter_Schema.find(
+      { name: '총 게시물 개수' },
+      { __v: 0 }
+    )
+
+    res.send(number)
+
+    const notice_number = number[0].totalPosts
+    const update_totalPosts = await Counter_Schema.updateOne(
+      { name: '총 게시물 개수' },
+      {
+        $set: {
+          totalPosts: notice_number + 1
+        }
+      },
+      { upsert: true }
+    )
+    console.log(update_totalPosts)
+  })()
+})
+
+/*mongoDB 게시글 작성 저장*/
+app.post('/write', (req, res) => {
+  const title = req.body.title
+  const writer = req.body.writer
+  const content = req.body.content
+  const date = req.body.date
+  ;(async () => {
+    const counter_num = await Counter_Schema.find(
+      { name: '총 게시물 개수' },
+      { __v: 0 }
+    )
+
+    const No = counter_num[0].totalPosts
+
+    console.log(No, title, writer, content, date)
+
+    const _data = {
+      No,
+      title,
+      writer,
+      content,
+      date
+    }
+
+    const vs = await new Board_Schema(_data)
+    const t = await vs.save()
+    res.send('1')
+    console.log(t)
+  })()
+})
+
+/*board_read*/
+app.get('/get_board', (req, res) => {
+  ;(async () => {
+    const get = await Board_Schema.find({})
+    res.send(get)
   })()
 })
 

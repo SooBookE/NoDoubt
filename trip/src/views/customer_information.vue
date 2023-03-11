@@ -3,7 +3,7 @@
   <!-- 제일 바깥 쪽 컨테이너 -->
   <div class="main_container">
     <!-- 카테고리 -->
-    <FAQ_maincategories></FAQ_maincategories>
+    <categorie></categorie>
     <FAQ_sub_categoriebar></FAQ_sub_categoriebar>
     <div id="scroll1"></div>
     <FAQ></FAQ>
@@ -12,6 +12,7 @@
 
 <script>
 /* eslint-disable */
+import categorie from '../components/categories.vue'
 import FAQ_maincategories from '../components/FAQ_maincategories.vue'
 import FAQ from '../components/FAQ.vue'
 import FAQ_sub_categoriebar from '../components/main_sub_categoriebar.vue'
@@ -28,7 +29,8 @@ export default {
   components: {
     FAQ_maincategories,
     FAQ,
-    FAQ_sub_categoriebar
+    FAQ_sub_categoriebar,
+    categorie
   }
 }
 </script>

@@ -45,6 +45,7 @@ function convertToTensors(data, targets, testSplit) {
 
   // 특성 데이터 2D 텐서로 변환.
   const xs = tf.tensor2d(shuffledData);
+  // 해당 매개변수 자리에 null이나 undefined 등을 넣으면 기본매개변수로 건너뛰고 다음 매개변수를 입력할 수 있다.
   // console.log(xs.array().then((array) => console.log(array)));
 
   // 레이블 원핫 인코딩 이용 텐서로 변환.
@@ -166,6 +167,7 @@ function getHobbyData(testSplit) {
         console.log("epoch : ", epoch, logs, "RMSE => ", Math.sqrt(logs.loss));
       },
     },
+    validationData: [xTest, yTest],
   };
   let pred_array = [];
   let pred_arr = [];

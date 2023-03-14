@@ -5,6 +5,7 @@ const VSchema = new Schema({
   name: String,
   id: String,
   pwd: String,
+  Nickname: String,
   gender: String,
   age: String,
   hobby: String,

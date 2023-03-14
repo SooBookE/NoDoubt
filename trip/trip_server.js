@@ -1,17 +1,28 @@
 require('dotenv').config()
+const { Server } = require('socket.io')
 const express = require('express')
 const history = require('connect-history-api-fallback')
 const path = require('path')
 const logger = require('morgan')
+const http = require('http')
+const cookieParser = require('cookie-parser')
+// const VueCookies = require('vue-cookies')
 const { createProxyMiddleware } = require('http-proxy-middleware')
+const request = require('request')
 const VSchema = require('./mdb.cjs')
 const Counter_Schema = require('./mdb.cjs')
 const Board_Schema = require('./board_db.js')
 const app = express()
 
+const server = http.createServer(app)
+const io = new Server(server)
+
 app.use(history())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+// app.use(VueCookies())
+// app.$cookies.config('7d')
 
 app.use(
   createProxyMiddleware('/v1', {
@@ -25,6 +36,60 @@ const _path = path.join(__dirname, './dist')
 
 app.use('/', express.static(_path))
 app.use(logger('tiny'))
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.set('view engine', 'ejs')
+app.set('views', './views')
+app.use(cookieParser())
+
+/*cookie*/
+app.post('/cookie', (req, res) => {
+  const login_id = req.body.id
+  res.cookie('login_id', login_id)
+  // console.log(req.cookies.login_id)
+  res.render('Cookie', { login_id: login_id })
+})
+
+app.get('/login_confirm_cookie', (req, res) => {
+  ;(async () => {
+    const login_id = req.cookies.login_id
+    console.log(login_id)
+    res.send(login_id)
+  })()
+})
+
+/*cookie delete*/
+app.get('/cookie_del', (req, res) => {
+  ;(async () => {
+    // const login_id = req.cookies.login_id
+    res.clearCookie('login_id')
+  })()
+})
+
+/*gpt 연결*/
+const TelegramBot = require('node-telegram-bot-api')
+const cheerio = require('cheerio')
+let botid = '5964337605:AAEml_YxFqm7TY_IG0eDrsXgrhCCUS1WyQg'
+const token = botid
+const bot = new TelegramBot(token, { polling: true })
+
+/*chating 연결*/
+io.on('connection', (socket) => {
+  socket.on('first_message', (msg) => {
+    io.emit('first_message', msg)
+  })
+  socket.on('chat_message', (msg) => {
+    let A = msg + console.log(A)
+    io.emit('chat_message', A)
+  })
+})
+
+/*chating socket 연결*/
+// io.on('connection', (socket) => {
+// })
+
+/*카카오톡 채널톡*/
 
 /*MongoDB CRUD*/
 /*회원가입 시 DB에 고객 정보 저장*/
@@ -74,6 +139,35 @@ app.post('/id_check', async (req, res) => {
   })()
 })
 
+/*랜덤 닉네임 생성*/
+app.get('/nick', async (res, req) => {
+  const url = 'https://nickname.hwanmoo.kr/?format=json&count=1'
+  let nick
+  let nickname_confirm
+
+  let nick_get = request(url, function (error, response, body) {
+    const rst = JSON.parse(body)
+    // console.log(rst)
+    nick = rst.words[0]
+    // console.log(nick)
+  })
+
+  nickname_confirm = await VSchema.find({ Nickname: nick }, { _id: 0, __v: 0 })
+  console.log(nickname_confirm)
+
+  if (nickname_confirm.length == 0) {
+    res.send(nick)
+    return
+  } else {
+    nick_get = request(url, function (error, response, body) {
+      const rst = JSON.parse(body)
+      // console.log(rst)
+      nick = rst.words[0]
+      // console.log(nick)
+    })
+  }
+})
+
 /*로그인 아이디 존재 여부*/
 app.post('/id_confirm', async (req, res) => {
   const confirm_id = req.body.id
@@ -94,18 +188,14 @@ app.post('/id_confirm', async (req, res) => {
 app.post('/login_check', async (req, res) => {
   const login_id = req.body.id
   const login_pwd = req.body.pwd
-  // console.log(login_pwd)
   ;(async () => {
-    const find_login = await VSchema.find(
-      { id: login_id },
-      { _id: 0, __v: 0 }
-    ).then((find_login) => {
-      if (find_login[0].pwd == login_pwd) {
-        res.send('2')
-      } else {
-        res.send('1')
-      }
-    })
+    const find_login = await VSchema.find({ id: login_id }, { _id: 0, __v: 0 })
+    console.log(find_login)
+    if (find_login[0].pwd == login_pwd) {
+      res.send('2')
+    } else {
+      res.send('1')
+    }
   })()
 })
 

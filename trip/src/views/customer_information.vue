@@ -15,7 +15,7 @@
 import categorie from '../components/categories.vue'
 import FAQ_maincategories from '../components/FAQ_maincategories.vue'
 import FAQ from '../components/FAQ.vue'
-import FAQ_sub_categoriebar from '../components/main_sub_categoriebar.vue'
+import FAQ_sub_categoriebar from '../components/FAQ_sub_categoriebar.vue'
 
 export default {
   name: 'app',

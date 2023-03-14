@@ -92,7 +92,9 @@
       </li>
     </ul>
   </div>
-  <div class="FAQ_text">다른 도움이 필요하신가요?</div>
+  <div class="FAQ_text" style="margin-top: 100px">
+    다른 도움이 필요하신가요?
+  </div>
   <div class="another_help_container">
     <div class="another_help_box">
       <h3 style="font-family: 'jua'">고객센터 상담하기</h3>
@@ -137,7 +139,6 @@ export default {
 }
 
 .FAQ_text {
-  margin-top: 150px;
   display: inline-block;
   font-family: 'dohyeon';
   font-size: xx-large;

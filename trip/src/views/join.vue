@@ -189,6 +189,11 @@
             </div>
           </td>
         </tr>
+        <tr>
+          <td><button @click="nickname_made">입력</button></td>
+        </tr>
+
+        <div class="nickname">{{ nickname }}</div>
 
         <div class="select_container">
           <div class="travel_message">여행가님의 정보를 주세요!</div>
@@ -259,30 +264,35 @@
               type="radio"
               v-model="hobby"
               value="cafe"
+              @click="join_confirm"
             />카페에서 놀기
             <input
               id="hobby_input_radio"
               type="radio"
               v-model="hobby"
               value="running"
+              @click="join_confirm"
             />산책, 조깅
             <input
               id="hobby_input_radio"
               type="radio"
               v-model="hobby"
               value="small_talk"
+              @click="join_confirm"
             />수다떨기
             <input
               id="hobby_input_radio"
               type="radio"
               v-model="hobby"
               value="reading"
+              @click="join_confirm"
             />책 읽기
             <input
               id="hobby_input_radio"
               type="radio"
               v-model="hobby"
               value="exercising"
+              @click="join_confirm"
             />운동
           </div>
         </div>
@@ -320,7 +330,8 @@ export default {
       telecom_option: '',
       phoneNumber1: '',
       phoneNumber2: '',
-      phoneNumber3: ''
+      phoneNumber3: '',
+      Nickname: ''
     }
   },
 
@@ -356,6 +367,7 @@ export default {
             name: this.name,
             id: this.id,
             pwd: this.pwd,
+            Nickname: this.Nickname,
             gender: this.gender,
             age: this.age,
             hobby: this.hobby,
@@ -423,6 +435,12 @@ export default {
       if (this.phoneNumber2.length >= 4) {
         phoneNumber3_input.focus()
       }
+    },
+    nickname_made: function () {
+      axios.get('/nick').then((res) => {
+        console.log(res.data)
+        this.Nickname = res.data
+      })
     }
   }
 }

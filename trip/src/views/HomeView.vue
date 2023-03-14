@@ -32,6 +32,7 @@ import categories from '../components/categories.vue'
 import painpoint from '../components/painpoint.vue'
 import search_login from '../components/search_login.vue'
 import select_slider from '../components/select_slider.vue'
+import chating from '../components/chating.vue'
 import sidebar from '../components/sidebar.vue'
 import mainImage from '../components/mainImage.vue'
 import side_categories from '../components/side_categories.vue'
@@ -42,15 +43,30 @@ export default {
   name: 'app',
   data() {
     return {
-      select: 'side_categories_button'
+      select: 'side_categories_button',
+      chating_screen: false
     }
   },
 
-  methods: {},
+  methods: {
+    handleScroll: function () {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    },
+    openchat_screen: function () {
+      this.chating_screen = true
+    },
+    closechat_screen: function () {
+      this.chating_screen = false
+    }
+  },
   components: {
     categories,
     search_login,
     select_slider,
+    chating,
     sidebar,
     painpoint,
     mainImage,

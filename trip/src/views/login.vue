@@ -3,7 +3,7 @@
   <div class="login_out_container">
     <div class="join_container">
       <div class="login_title">여행가님, 환영합니다.</div>
-      <div class="Eng_title">Welcome, Traveler</div>
+      <div class="Eng_title">Wellcome, Traveler</div>
       <table class="login_form_table">
         <tr
           style="
@@ -57,6 +57,7 @@
               placeholder="비밀번호를 입력해주세요."
               required
               @blur="id_password_message = ''"
+              @keyup.enter="password_check_confirm"
             />
           </td>
         </tr>
@@ -132,11 +133,17 @@ export default {
           if (res.data == '2') {
             this.id_password_message = '아이디와 비밀번호가 일치합니다.'
             alert(`${this.id}님, 반갑습니다.`)
+            axios.get('/setCookie' + this.id)
+
             this.$router.push('/')
           } else {
             this.id_password_message = '비밀번호가 일치하지 않습니다.'
           }
         })
+
+      axios.post('/cookie', {
+        id: this.id
+      })
     }
   }
 }

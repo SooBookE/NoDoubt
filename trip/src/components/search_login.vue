@@ -19,7 +19,7 @@
       </div>
     </div>
     <!-- 로그인 -->
-    <div class="login_container">
+    <div class="login_container" v-if="cookie">
       <button
         id="login_button"
         class="login_button"
@@ -37,11 +37,26 @@
         join
       </button>
     </div>
+    <div class="mypage_container">
+      <div
+        class="customer_nickname"
+        v-if="nickname_true"
+        @click="openchat_screen()"
+      >
+        {{ login }}님,
+      </div>
+      <div class="mypage_text" v-if="nickname_true">
+        오늘은 어디로 떠나시나요?
+      </div>
+    </div>
   </div>
+  <chating @close="closechat_screen" v-if="chating_screen"> </chating>
 </template>
 
 <script>
 /* eslint-disable */
+import axios from 'axios'
+import chating from '../components/chating.vue'
 
 export default {
   name: 'app',
@@ -49,11 +64,16 @@ export default {
     return {
       search: '',
       AI_search: '',
-      sel: false
+      sel: false,
+      login: '',
+      cookie: true,
+      nickname_true: false,
+      chating_screen: false
     }
   },
   mounted() {
     this.scroll_move1()
+    this.login_cookie()
   },
   methods: {
     scroll_move1: function () {
@@ -64,9 +84,26 @@ export default {
         scrollpos = window.scrollY
         if (scrollpos >= h2_1.offsetHeight - 400) add_class_on_scroll(h2_1)
       })
+    },
+    login_cookie: function () {
+      axios.get('/login_confirm_cookie').then((res) => {
+        this.login = res.data
+        if (this.login.length >= 1) {
+          this.cookie = false
+          this.nickname_true = true
+        }
+      })
+    },
+    openchat_screen: function () {
+      this.chating_screen = true
+    },
+    closechat_screen: function () {
+      this.chating_screen = false
     }
   },
-  components: {}
+  components: {
+    chating
+  }
 }
 </script>
 
@@ -172,5 +209,9 @@ export default {
 .come-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+.customer_nickname {
+  cursor: pointer;
 }
 </style>

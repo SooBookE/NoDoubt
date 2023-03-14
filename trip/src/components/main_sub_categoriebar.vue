@@ -58,7 +58,7 @@ export default {
 /* categorie */
 .moving_categoriebar_container {
   /* opacity: 0; */
-  z-index: 30;
+  z-index: 20;
   width: 100%;
   display: flex;
   flex-direction: column;

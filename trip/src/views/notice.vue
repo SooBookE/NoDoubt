@@ -47,20 +47,18 @@
           <th class="notice_date">작성일자</th>
         </tr>
       </thead>
-      <tbody>
-        <template v-for="a in paginatedData" :key="a">
-          <tr
-            v-for="i in board"
-            :key="i"
-            class="notice_tr"
-            style="margin-left: 8px"
-          >
-            <th class="notice_number">{{ i.No }}</th>
-            <th class="notice_title" @click="openModal">{{ i.title }}</th>
-            <th class="notice_id">{{ i.writer }}</th>
-            <th class="notice_date">{{ i.date }}</th>
-          </tr>
-        </template>
+      <tbody class="board_table_container">
+        <tr
+          v-for="i in paginatedData"
+          :key="i"
+          class="notice_tr"
+          style="margin-left: 8px"
+        >
+          <th class="notice_number">{{ i.No }}</th>
+          <th class="notice_title" @click="openModal">{{ i.title }}</th>
+          <th class="notice_id">{{ i.writer }}</th>
+          <th class="notice_date">{{ i.date }}</th>
+        </tr>
       </tbody>
     </table>
     <div class="pagination d-flex justify-content-center align-items-center">
@@ -100,7 +98,7 @@ export default {
       writer: '',
       date: '',
       pageNum: 0,
-      pageSize: 5
+      pageSize: 10
     }
   },
   props() {},
@@ -172,9 +170,12 @@ export default {
 }
 
 .notice_table {
+  height: 605px;
   border: none;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .notice_title {

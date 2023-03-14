@@ -1,6 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const VSchema = require('./schema.cjs')
+const Counter_Schema = require('./Counter_Schema.cjs')
 const USER = 'mk'
 const PWD = 'mk1234'
 const HOST = '127.0.0.1:27017' //localhost접속이 불가
@@ -18,4 +18,4 @@ mongoose
     )
   )
   .catch((e) => console.error(e))
-module.exports = VSchema
+module.exports = Counter_Schema

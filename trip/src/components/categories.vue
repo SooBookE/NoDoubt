@@ -5,17 +5,17 @@
     <div class="categorie_innerbox">
       <button class="categorie_button" @click="$router.push('/')">홈</button>
       <div style="color: #23565a">
-        &nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
       </div>
       <button class="categorie_button">회사 소개</button>
       <div style="color: #23565">
-        &nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
       </div>
       <button class="categorie_button" @click="$router.push('/notice')">
         공지사항
       </button>
       <div style="color: #23565">
-        &nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
       </div>
       <button
         class="categorie_button"
@@ -23,16 +23,38 @@
       >
         고객센터
       </button>
+      <div style="color: #23565">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      </div>
+      <div class="mypage_container" v-if="nickname_false">
+        <div class="customer_nickname" @click="mypage_screen()">
+          <button class="categorie_button">{{ customer_nickname }}</button>
+          님,
+        </div>
+        <div class="mypage_text">오늘은 어디로 떠나시나요?</div>
+      </div>
     </div>
+    <chating @close="closemypage_screen" v-if="chating_screen"> </chating>
   </div>
 </template>
 
 <script>
 /*eslint-disable*/
+import axios from 'axios'
+import chating from '../components/chating.vue'
+
 export default {
   name: 'app',
   data() {
-    return {}
+    return {
+      customer_nickname: '',
+      nickname_false: false,
+      chating_screen: false
+    }
+  },
+
+  mounted() {
+    this.nickname()
   },
   methods: {
     scroll: function () {
@@ -57,7 +79,25 @@ export default {
         if (scrollpos >= categorie_container.offsetHeight + 300)
           add_categories_class_scroll(categorie_container)
       })
+    },
+    nickname: function () {
+      axios.get('/login_confirm_cookie').then((res) => {
+        console.log(res.data)
+        this.customer_nickname = res.data
+        if (res.data) {
+          this.nickname_false = true
+        }
+      })
+    },
+    mypage_screen: function () {
+      this.chating_screen = true
+    },
+    closemypage_screen: function () {
+      this.chating_screen = false
     }
+  },
+  components: {
+    chating
   }
 }
 </script>

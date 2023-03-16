@@ -18,7 +18,8 @@ for (const da of data) {
   } = da;
   // 수입 항목 "무응답" 데이터 제외하기.
   if (pay !== "무응답") {
-    arr.push({ gen, age, pay, exper, target });
+    arr.push({ gen, age, exper, target });
+    // arr.push({ gen, age, pay, exper, target });
   }
 }
 
@@ -42,15 +43,15 @@ for (const ar of arr) {
     ar.age = 0;
   }
 
-  if (ar.pay == "700만원 이상") {
-    ar.pay = 3;
-  } else if (ar.pay == "500이상700만원 미만") {
-    ar.pay = 2;
-  } else if (ar.pay == "300이상500만원 미만") {
-    ar.pay = 1;
-  } else if (ar.pay == "300만원 미만") {
-    ar.pay = 0;
-  }
+  // if (ar.pay == "700만원 이상") {
+  //   ar.pay = 3;
+  // } else if (ar.pay == "500이상700만원 미만") {
+  //   ar.pay = 2;
+  // } else if (ar.pay == "300이상500만원 미만") {
+  //   ar.pay = 1;
+  // } else if (ar.pay == "300만원 미만") {
+  //   ar.pay = 0;
+  // }
 
   ar.exper = ar.exper.split(",");
 

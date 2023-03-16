@@ -86,7 +86,7 @@ function getHobbyData(testSplit) {
       const arr = [];
       arr.push(data.gen);
       arr.push(data.age);
-      arr.push(data.pay);
+      // arr.push(data.pay);
       arr.push(data.exper);
       dataByClass.push(arr);
       targetsByClass.push(target);
@@ -130,11 +130,11 @@ function getHobbyData(testSplit) {
   // console.log(yTest);
 
   const input = tf.input({
-    shape: [4],
+    shape: [3],
   });
   const A = tf.layers
     .dense({
-      units: 200,
+      units: 50,
       activation: "relu",
     })
     .apply(input);
@@ -160,7 +160,7 @@ function getHobbyData(testSplit) {
   });
 
   const fitParam = {
-    epochs: 600,
+    epochs: 200,
     batchSize: 32,
     callbacks: {
       onEpochEnd: function (epoch, logs) {

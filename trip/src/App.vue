@@ -20,7 +20,7 @@
         <div class="introduce_box_address">
           주소 : 부산광역시 부산진구 중앙대로 668 (A1프라자6층)
         </div>
-        <div class="introduce_box_address">주소</div>
+        <div class="introduce_box_address">사업자 등록번호 : 000-00-00000</div>
         <div class="introduce_box_address">주소</div>
         <div class="introduce_box_address">주소</div>
       </div>
@@ -69,7 +69,7 @@ export default {
   },
 
   mounted() {
-    setInterval(this.changeNotice, 5000)
+    setInterval(this.changeNotice, 3000)
   },
 
   methods: {
@@ -100,7 +100,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: black;
 }
 
 nav {
@@ -120,7 +120,8 @@ nav a.router-link-exact-active {
   width: 95%;
   margin-top: 30px;
   padding: 30px;
-  background-color: rgb(142, 140, 138);
+  background-image: linear-gradient(to bottom, #f2ab39, #ffd954);
+  /* border-top: 5px solid #ba7918; */
 }
 
 .inner_container {
@@ -131,6 +132,7 @@ nav a.router-link-exact-active {
 
 .notice_box {
   display: flex;
+  align-items: center;
   font-family: 'jua';
   font-weight: 400;
   font-size: large;
@@ -138,11 +140,18 @@ nav a.router-link-exact-active {
   padding-top: 50px;
 }
 
+.notice {
+  font-size: 30px;
+  cursor: pointer;
+}
+
 .notice_content {
   font-family: 'jua';
   font-size: large;
   margin: 0px 50px 0px 50px;
   cursor: pointer;
+  font-size: 20px;
+  font-weight: 100;
 }
 
 .notice_content:hover {

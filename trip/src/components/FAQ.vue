@@ -4,7 +4,7 @@
     <ul class="helpdesk_ul" style="list-style: none">
       <li class="helpdesk_li">
         <div class="helpdesk_li_div">
-          <button class="helpdesk_button">
+          <button v-on:click="show = !show" class="helpdesk_button">
             <div class="helpdesk_li_div_button_div">
               <span> </span>
               <strong>AI 여행 추천 프로그램이 뭔가요?</strong>
@@ -46,6 +46,15 @@
           </button>
         </div>
       </li>
+
+      <div id="demo">
+        <transition name="fade">
+          <div v-if="show">
+            <p>hello</p>
+          </div>
+        </transition>
+      </div>
+
       <li class="helpdesk_li">
         <div class="helpdesk_li_div">
           <button class="helpdesk_button">
@@ -118,12 +127,23 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'app',
   data() {
-    return {}
+    return {
+      show: false
+    }
   },
-  methods: {}
+  methods: {
+    // answer_click: function () {
+    //   const answer = document.querySelector('.answer_box1')
+    //   const add_class_on_click = (dom) => dom.classList.add('come-in')
+    //   if ((this.show = true)) {
+    //     add_class_on_click(answer)
+    //   }
+    // }
+  }
 }
 </script>
 
@@ -139,6 +159,7 @@ export default {
 }
 
 .FAQ_text {
+  margin-top: 250px;
   display: inline-block;
   font-family: 'dohyeon';
   font-size: xx-large;
@@ -283,5 +304,19 @@ strong {
   font-size: medium;
   font-weight: 100;
   color: #008e37;
+}
+
+.answer_box1 {
+  width: 100%;
+  height: 3rem;
+  font-family: 'jua';
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

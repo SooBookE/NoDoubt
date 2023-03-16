@@ -29,8 +29,8 @@
           <img class="left_button_img" src="../../public/left.png" alt="" />
         </button>
         <div class="out_container">
-          <div class="container">
-            <div class="image_slide">
+          <div class="container" ref="cont">
+            <div class="image_slide" ref="img_arr">
               <img
                 class="slide_imageArray"
                 v-for="i in slide_imageArray"
@@ -75,9 +75,27 @@
           </div> -->
       <div class="slide_button_box">
         <!-- 2번 사진이 1번 사진이 됨 -->
-        <button class="button1" @click="button_click_slide1()">ㅡ</button>
-        <button class="button2" @click="button_click_slide2()">ㅡ</button>
-        <button class="button3" @click="button_click_slide3()">ㅡ</button>
+        <button
+          class="button1"
+          id="bt1"
+          @click="button_click_slide1()"
+          style="display: none"
+        ></button>
+        <button
+          class="button2"
+          id="bt2"
+          @click="button_click_slide2()"
+          style="display: none"
+        ></button>
+        <button
+          class="button3"
+          id="bt3"
+          @click="button_click_slide3()"
+          style="display: none"
+        ></button>
+        <label for="bt1"><div ref="tab1"></div></label>
+        <label for="bt2"><div ref="tab2" class="show"></div></label>
+        <label for="bt3"><div ref="tab3"></div></label>
       </div>
     </div>
   </div>
@@ -105,76 +123,132 @@ export default {
         items: 1,
         startPosition: 2,
         autoplayTimeout: 1000
-      }
+      },
+      count: 1
     }
   },
 
   mounted() {
     setInterval(this.slide_changeImage, 2000)
+    setInterval(this.right_button_click, 5000)
   },
 
   methods: {
     button_click_slide1: function () {
-      document.querySelector('.button1').addEventListener('click', function () {
-        document.querySelector('.container').style.transform =
-          'translate(600px)'
-      })
+      const container = this.$refs.cont
+      const tab1 = this.$refs.tab1
+      const tab2 = this.$refs.tab2
+      const tab3 = this.$refs.tab3
+      container.style.transform = 'translateX(600px)'
+      tab1.classList.add('show')
+      tab2.classList.remove('show')
+      tab3.classList.remove('show')
+      this.cont = 0
+      // document.querySelector('.button1').addEventListener('click', function () {
+      //   document.querySelector('.container').style.transform =
+      //     'translate(600px)'
+      // })
     },
     button_click_slide2: function () {
-      document.querySelector('.button2').addEventListener('click', function () {
-        document.querySelector('.container').style.transform = 'translate(-0px)'
-      })
+      const container = this.$refs.cont
+      const tab1 = this.$refs.tab1
+      const tab2 = this.$refs.tab2
+      const tab3 = this.$refs.tab3
+      container.style.transform = 'translateX(0px)'
+      tab1.classList.remove('show')
+      tab2.classList.add('show')
+      tab3.classList.remove('show')
+      this.cont = 1
+      // document.querySelector('.button2').addEventListener('click', function () {
+      //   document.querySelector('.container').style.transform = 'translate(-0px)'
+      // })
     },
 
     button_click_slide3: function () {
-      document.querySelector('.button3').addEventListener('click', function () {
-        document.querySelector('.container').style.transform =
-          'translate(-600px)'
-      })
+      const container = this.$refs.cont
+      const tab1 = this.$refs.tab1
+      const tab2 = this.$refs.tab2
+      const tab3 = this.$refs.tab3
+      container.style.transform = 'translateX(-600px)'
+      tab1.classList.remove('show')
+      tab2.classList.remove('show')
+      tab3.classList.add('show')
+      this.cont = 2
+      // document.querySelector('.button3').addEventListener('click', function () {
+      //   document.querySelector('.container').style.transform =
+      //     'translate(-600px)'
+      // })
     },
 
-    left_button_click1: function () {
-      document.querySelector('.container').style.transform = 'translate(-600px)'
-    },
-    left_button_click2: function () {
-      document.querySelector('.container').style.transform = 'translate(600px)'
-    },
-    left_button_click3: function () {
-      document.querySelector('.container').style.transform = 'translate(0px)'
-    },
+    // left_button_click1: function () {
+    //   document.querySelector('.container').style.transform = 'translate(-600px)'
+    // },
+    // left_button_click2: function () {
+    //   document.querySelector('.container').style.transform = 'translate(600px)'
+    // },
+    // left_button_click3: function () {
+    //   document.querySelector('.container').style.transform = 'translate(0px)'
+    // },
 
-    right_button_click1: function () {
-      document.querySelector('.container').style.transform = 'translate(0px)'
-    },
-    right_button_click2: function () {
-      document.querySelector('.container').style.transform = 'translate(-600px)'
-    },
-    right_button_click3: function () {
-      document.querySelector('.container').style.transform = 'translate(600px)'
-    },
+    // right_button_click1: function () {
+    //   document.querySelector('.container').style.transform = 'translate(0px)'
+    // },
+    // right_button_click2: function () {
+    //   document.querySelector('.container').style.transform = 'translate(-600px)'
+    // },
+    // right_button_click3: function () {
+    //   document.querySelector('.container').style.transform = 'translate(600px)'
+    // },
     left_button_click: function () {
-      const container = document.querySelector('.container')
-      // const imageArray = document.querySelector('.slide_imageArray')
-      if (this.slide_imageArray[0]) {
-        container.style.transform = 'translate(-600px)'
-      } else if (this.slide_imageArray[1]) {
-        container.style.transform = 'translate(600px)'
-      } else if (this.slide_imageArray[2]) {
-        container.style.transform = 'translate(0px)'
+      const container = this.$refs.cont
+      const tab1 = this.$refs.tab1
+      const tab2 = this.$refs.tab2
+      const tab3 = this.$refs.tab3
+
+      if (this.count == 1) {
+        container.style.transform = 'translateX(600px)'
+        this.count = 0
+        tab1.classList.add('show')
+        tab2.classList.remove('show')
+        tab3.classList.remove('show')
+      } else if (this.count == 0) {
+        container.style.transform = 'translateX(-600px)'
+        tab1.classList.remove('show')
+        tab2.classList.remove('show')
+        tab3.classList.add('show')
+        this.count = 2
+      } else if (this.count == 2) {
+        container.style.transform = 'translateX(0px)'
+        tab1.classList.remove('show')
+        tab2.classList.add('show')
+        tab3.classList.remove('show')
+        this.count = 1
       }
     },
 
     right_button_click: function () {
-      const container = document.querySelector('.container')
-      const imageArray = document.querySelector('.slide_imageArray')
-      if (this.slide_imageArray[0]) {
-        imageArray.getAttribute =
-          ('src',
-          'https://i.pinimg.com/564x/09/62/5f/09625f00408ecdfb00a8f633f7fe8a8f.jpg')
-      } else if (this.slide_imageArray[1]) {
-        container.style.transform = 'translate(-600px)'
-      } else if (this.slide_imageArray[2]) {
-        container.style.transform = 'translate(600px)'
+      const container = this.$refs.cont
+      const tab1 = this.$refs.tab1
+      const tab2 = this.$refs.tab2
+      const tab3 = this.$refs.tab3
+      if (this.count == 2) {
+        container.style.transform = 'translateX(600px)'
+        tab1.classList.add('show')
+        tab2.classList.remove('show')
+        tab3.classList.remove('show')
+        this.count = 0
+      } else if (this.count == 1) {
+        container.style.transform = 'translateX(-600px)'
+        tab1.classList.remove('show')
+        tab2.classList.remove('show')
+        tab3.classList.add('show')
+        this.count = 2
+      } else if (this.count == 0) {
+        container.style.transform = 'translateX(0px)'
+        tab1.classList.remove('show')
+        tab2.classList.add('show')
+        tab3.classList.remove('show')
+        this.count = 1
       }
     },
 
@@ -246,7 +320,8 @@ label {
   color: black;
 }
 
-label:hover {
+.label1:hover,
+.label2:hover {
   border: 1px solid black;
   box-shadow: 5px 3px 3px gray;
   color: #7c7c7c;
@@ -337,13 +412,41 @@ button {
   justify-content: center;
   margin-top: 30px;
 }
+.slide_button_box div {
+  width: 40px;
+  height: 10px;
+  background: red;
+  cursor: pointer;
+  border-radius: 30%;
+}
+.slide_button_box div:hover {
+  width: 40px;
+  height: 10px;
+  background: blue;
+  cursor: pointer;
+  border-radius: 30%;
+}
+
+.slide_button_box label div {
+  outline: none;
+  appearance: none;
+  border: 0;
+}
+
 .button1,
 .button2,
 .button3 {
   border: none;
   background-color: transparent;
   cursor: pointer;
-  color: gray;
+  /* color: gray; */
   margin: 5px;
+  appearance: none;
+  outline: none;
+  border: none;
+  display: none;
+}
+.slide_button_box > label > div.show {
+  background: blue;
 }
 </style>

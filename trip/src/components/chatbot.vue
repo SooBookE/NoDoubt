@@ -36,14 +36,6 @@
 })()
 
 ChannelIO('boot', {
-  pluginKey: 'YOUR_PLUGIN_KEY', // fill your plugin key
-  memberId: 'USER_MEMBER_ID', // fill user's member id
-  profile: {
-    // fill user's profile
-    name: 'USER_NAME', // fill user's name
-    mobileNumber: 'USER_MOBILE_NUMBER', // fill user's mobile number
-    CUSTOM_VALUE_1: 'VALUE_1', // custom property
-    CUSTOM_VALUE_2: 'VALUE_2' // custom property
-  }
+  pluginKey: 'c7f85974-f693-48c7-a2ad-3a4e6b21f4d8' // fill your plugin key
 })
 </script>

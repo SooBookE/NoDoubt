@@ -21,8 +21,18 @@ app.use(history())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// app.use(VueCookies())
-// app.$cookies.config('7d')
+const px_kogpt = {
+  target: 'https://api.kakaobrain.com',
+  changeOrigin: true
+}
+
+const px_gpt3 = {
+  target: 'https://openapi.naver.com',
+  changeOrigin: true
+}
+
+app.use(createProxyMiddleware('/v1/inference', px_kogpt))
+app.use(createProxyMiddleware('/v1/papago', px_gpt3))
 
 app.use(
   createProxyMiddleware('/v1', {
@@ -64,26 +74,27 @@ app.get('/cookie_del', (req, res) => {
   ;(async () => {
     // const login_id = req.cookies.login_id
     res.clearCookie('login_id')
+    res.redirect('/')
   })()
 })
 
 /*gpt 연결*/
-const TelegramBot = require('node-telegram-bot-api')
-const cheerio = require('cheerio')
-let botid = '5964337605:AAEml_YxFqm7TY_IG0eDrsXgrhCCUS1WyQg'
-const token = botid
-const bot = new TelegramBot(token, { polling: true })
+// const TelegramBot = require('node-telegram-bot-api')
+// const cheerio = require('cheerio')
+// let botid = '5964337605:AAEml_YxFqm7TY_IG0eDrsXgrhCCUS1WyQg'
+// const token = botid
+// const bot = new TelegramBot(token, { polling: true })
 
 /*chating 연결*/
-io.on('connection', (socket) => {
-  socket.on('first_message', (msg) => {
-    io.emit('first_message', msg)
-  })
-  socket.on('chat_message', (msg) => {
-    let A = msg + console.log(A)
-    io.emit('chat_message', A)
-  })
-})
+// io.on('connection', (socket) => {
+//   socket.on('first_message', (msg) => {
+//     io.emit('first_message', msg)
+//   })
+//   socket.on('chat_message', (msg) => {
+//     let A = msg + console.log(A)
+//     io.emit('chat_message', A)
+//   })
+// })
 
 /*chating socket 연결*/
 // io.on('connection', (socket) => {
@@ -140,32 +151,38 @@ app.post('/id_check', async (req, res) => {
 })
 
 /*랜덤 닉네임 생성*/
-app.get('/nick', async (res, req) => {
+app.get('/nick', (req, res) => {
   const url = 'https://nickname.hwanmoo.kr/?format=json&count=1'
+  // let nickname_confirm
   let nick
-  let nickname_confirm
-
-  let nick_get = request(url, function (error, response, body) {
-    const rst = JSON.parse(body)
-    // console.log(rst)
-    nick = rst.words[0]
-    // console.log(nick)
-  })
-
-  nickname_confirm = await VSchema.find({ Nickname: nick }, { _id: 0, __v: 0 })
-  console.log(nickname_confirm)
-
-  if (nickname_confirm.length == 0) {
-    res.send(nick)
-    return
-  } else {
-    nick_get = request(url, function (error, response, body) {
+  ;(async () => {
+    await request(url, function (error, response, body) {
       const rst = JSON.parse(body)
-      // console.log(rst)
-      nick = rst.words[0]
-      // console.log(nick)
+      console.log(rst.words[0])
+      nick = rst.words
+      res.send(nick)
     })
-  }
+  })()
+
+  // ;(async () => {
+  //   nickname_confirm = await VSchema.find(
+  //     { Nickname: nick },
+  //     { _id: 0, __v: 0 }
+  //   )
+  //   console.log(nickname_confirm)
+
+  //   if (nickname_confirm.length == 0) {
+  //     res.send(nick)
+  //     return
+  //   } else {
+  //     nick_get = request(url, function (error, response, body) {
+  //       const rst = JSON.parse(body)
+  //       // console.log(rst)
+  //       nick = rst.words[0]
+  //       // console.log(nick)
+  //     })
+  //   }
+  // })()
 })
 
 /*로그인 아이디 존재 여부*/
@@ -358,7 +375,7 @@ app.post('/write', (req, res) => {
 /*board_read*/
 app.get('/get_board', (req, res) => {
   ;(async () => {
-    const get = await Board_Schema.find({})
+    const get = await Board_Schema.find({}).sort({ No: -1 })
     res.send(get)
   })()
 })

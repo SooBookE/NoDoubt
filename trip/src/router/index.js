@@ -81,6 +81,32 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/notice_write.vue')
+  },
+  {
+    path: '/company_introduce',
+    name: 'company_introduce',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/company_introduce.vue')
+  },
+  {
+    path: '/gpt_chat',
+    name: 'gpt_chat',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/gpt_chat.vue')
+  },
+  {
+    path: '/gpt3',
+    name: 'gpt3',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/gpt3.vue')
   }
 ]
 

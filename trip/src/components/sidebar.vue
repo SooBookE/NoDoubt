@@ -6,23 +6,28 @@
     <div class="chat_container">
       <!-- <label class="chat_label" for="">
         <img class="chat_img" src="../../public/chat.png" alt="" /> -->
-      <button class="chat_help" @click="logout()">로그아웃</button>
-      <chatbot></chatbot>
-      <!-- </label> -->
+      <div class="sidebar_box" ref="target">
+        <button class="chat_help" @click="logout()">로그아웃</button>
+        <!-- </label> -->
+      </div>
+      <div class="sidebar_box">
+        <label for="">
+          <button id="target" @click="handleScroll()">
+            <img id="top_arrow" src="../../public/arrow.png" alt="" />
+          </button>
+        </label>
+      </div>
     </div>
-    <label for="">
-      <button id="target" @click="handleScroll()">
-        <img id="top_arrow" src="../../public/arrow.png" alt="" />
-      </button>
-    </label>
   </div>
+  <chatbot></chatbot>
 </template>
 
 <script>
 /* eslint-disable */
-import chating from '../components/chating.vue'
+import chating from './profile.vue'
 import chatbot from '../components/chatbot.vue'
 import axios from 'axios'
+import { windowTime } from 'rxjs'
 
 export default {
   name: 'app',
@@ -43,6 +48,20 @@ export default {
         this.message_arr.push(v.data)
       }
   },
+  mounted() {
+    setInterval(() => {
+      if (
+        document.cookie.split(';').some(function (item) {
+          console.log(item.trim().indexOf('login_id='))
+          return item.trim().indexOf('login_id=') == 0
+        })
+      ) {
+        this.$refs.target.style.visibility = 'visible'
+      } else {
+        this.$refs.target.style.visibility = 'hidden'
+      }
+    }, 500)
+  },
   methods: {
     handleScroll: function () {
       window.scrollTo({
@@ -55,6 +74,9 @@ export default {
       axios.get('/cookie_del').then((res) => {
         console.log(res)
       })
+      alert('Have a Good Trip!')
+      this.$router.go('/')
+      window.scroll(0, 0)
     },
     closechat_screen: function () {
       this.chating_screen = false
@@ -67,7 +89,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @font-face {
   font-family: 'jua';
   src: url('../../public/font/BMJUA_ttf.ttf');
@@ -80,28 +102,36 @@ export default {
 
 .sidebar_container {
   position: fixed;
-  right: 50%;
-  top: 80%;
-  margin-right: -48%;
+  right: -4%;
+  top: 70%;
   text-align: center;
   width: 10%;
   background-color: transparent;
 }
 
-.chat_help {
-  background-color: antiquewhite;
-  cursor: pointer;
-}
-
-#target {
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-}
-
 .chat_container {
   display: flex;
+  flex-direction: column;
   margin-bottom: 5px;
+}
+
+.sidebar_box {
+  width: 6rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 3px solid #f2ab39;
+  margin: 2px 0px;
+}
+
+button {
+  font-family: 'jua';
+  font-size: large;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .chat_img {

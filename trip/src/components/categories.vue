@@ -1,31 +1,30 @@
 <template>
   <!-- eslint-disable -->
-
   <div class="categorie_container">
+    <div style="margin-bottom: 15px">
+      <img class="logo" src="../../public/logo.png" alt="" />
+    </div>
     <div class="categorie_innerbox">
       <button class="categorie_button" @click="$router.push('/')">홈</button>
-      <div style="color: #23565a">
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      </div>
-      <button class="categorie_button">회사 소개</button>
-      <div style="color: #23565">
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      </div>
+
+      <button
+        class="categorie_button"
+        @click="$router.push('/company_introduce')"
+      >
+        회사 소개
+      </button>
+
       <button class="categorie_button" @click="$router.push('/notice')">
         공지사항
       </button>
-      <div style="color: #23565">
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      </div>
+
       <button
         class="categorie_button"
         @click="$router.push('/customer_information')"
       >
         고객센터
       </button>
-      <div style="color: #23565">
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      </div>
+
       <div class="mypage_container" v-if="nickname_false">
         <div class="customer_nickname" @click="mypage_screen()">
           <button class="categorie_button">{{ customer_nickname }}</button>
@@ -41,7 +40,7 @@
 <script>
 /*eslint-disable*/
 import axios from 'axios'
-import chating from '../components/chating.vue'
+import chating from './profile.vue'
 
 export default {
   name: 'app',
@@ -132,35 +131,38 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #bbd1c5;
+  /* background-color: #bbd1c5; */
+  background-image: linear-gradient(to right, #f2ab39, #ffd954);
   position: absolute;
   top: 0;
-  height: 60px;
   padding: 1rem;
   align-items: center;
   font-family: 'dohyeon';
 }
 
+.logo {
+  width: 200px;
+}
 .categorie_innerbox {
   display: flex;
   justify-content: right;
+  height: 50px;
 }
 
 .categorie_button {
   border: none;
-  background-color: white;
-  color: #23565a;
+  background-color: transparent;
+  color: black;
   cursor: pointer;
   font-family: 'dohyeon';
-  font-size: x-large;
-  background-color: #bbd1c5;
+  font-size: large;
+  margin: 8px 30px 0px 30px;
+  padding-bottom: 8px;
 }
 
 .categorie_button:hover {
   color: white;
-  background-color: #e8dca8;
-  border-radius: 5px;
-  transform: translateY(-5px) scale(1.2);
   transition: linear 0.2s;
+  border-bottom: 3px solid white;
 }
 </style>

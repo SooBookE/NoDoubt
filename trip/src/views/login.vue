@@ -163,7 +163,6 @@ export default {
 body {
   width: 100%;
   height: 900px;
-  background-color: #f7f1f0;
 }
 
 .login_out_container {

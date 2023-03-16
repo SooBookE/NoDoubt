@@ -4,7 +4,7 @@
     <div class="modal modal-overlay" @click.self="$emit('close')">
       <button class="close" @click="$emit('close')">
         <div class="profile_container">
-          <article class="resquick_content resquick_service">
+          <article class="resquick_content">
             <div class="profile"></div>
             <div class="profile_nickname">{{ nickname }}</div>
             <hr />
@@ -73,7 +73,7 @@ export default {
 .modal.modal-overlay {
   position: fixed;
   z-index: 30;
-  top: 8%;
+  top: 150px;
   left: 57%;
   width: 20%;
   height: 45%;
@@ -151,6 +151,9 @@ export default {
 }
 
 .resquick_content {
+  position: relative;
+  width: 230px;
+  height: 310px;
   padding: 20px;
   border: 2px solid #3165dd;
   border-radius: 15px;

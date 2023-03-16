@@ -87,6 +87,7 @@
           </td>
           <td style="width: 70px"></td>
         </tr>
+
         <tr
           style="
             display: flex;
@@ -185,15 +186,22 @@
                 onlyNumber
                 required
                 style="width: 80px"
+                @keyup.enter="nickname_made"
               />
             </div>
           </td>
         </tr>
         <tr>
-          <td><button @click="nickname_made">입력</button></td>
+          <td></td>
+          <td><button @click="nickname_made">닉네임 생성</button></td>
+          <td></td>
         </tr>
 
-        <div class="nickname">{{ nickname }}</div>
+        <h5 v-if="Nickname">여행가님의 닉네임은</h5>
+        <div v-if="Nickname" class="nickname">
+          <h3 v-if="Nickname">{{ Nickname }}</h3>
+          입니다.
+        </div>
 
         <div class="select_container">
           <div class="travel_message">여행가님의 정보를 주세요!</div>
@@ -379,6 +387,7 @@ export default {
             identification: this.identification
           })
           .then((res) => (this.data = res.data))
+        alert('회원가입이 완료되었습니다.')
         this.$router.push('/')
       } else {
         alert('아이디 중복 확인을 먼저 해주세요!')
@@ -438,8 +447,8 @@ export default {
     },
     nickname_made: function () {
       axios.get('/nick').then((res) => {
-        console.log(res.data)
-        this.Nickname = res.data
+        console.log(res)
+        this.Nickname = res.data[0]
       })
     }
   }

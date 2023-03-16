@@ -32,7 +32,7 @@ import categories from '../components/categories.vue'
 import painpoint from '../components/painpoint.vue'
 import search_login from '../components/search_login.vue'
 import select_slider from '../components/select_slider.vue'
-import chating from '../components/chating.vue'
+import chating from '../components/profile.vue'
 import sidebar from '../components/sidebar.vue'
 import mainImage from '../components/mainImage.vue'
 import side_categories from '../components/side_categories.vue'
@@ -92,6 +92,7 @@ export default {
 body {
   width: 100%;
   height: auto;
+  background-color: white;
 }
 
 .main_container {

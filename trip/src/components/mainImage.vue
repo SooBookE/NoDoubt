@@ -1,13 +1,24 @@
 <template>
-  <keep-alive>
-    <img
-      id="mainImage"
-      src="https://img.freepik.com/free-vector/watercolor-colorful-floral-background_23-2149146553.jpg?w=1800&t=st=1678161688~exp=1678162288~hmac=cc94a02bb9ac8d3e0bc3fc339a007c4c6f65aee53ed8cb96d00f7d589d4b4684"
-      alt="#"
-    />
-  </keep-alive>
-  <div class="select_slider_container">
-    <select_slider> </select_slider>
+  <div
+    class="mainimage_container"
+    style="
+      margin-top: 185px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <keep-alive>
+      <img
+        id="mainImage"
+        src="https://img.freepik.com/free-vector/watercolor-colorful-floral-background_23-2149146553.jpg?w=1800&t=st=1678161688~exp=1678162288~hmac=cc94a02bb9ac8d3e0bc3fc339a007c4c6f65aee53ed8cb96d00f7d589d4b4684"
+        alt="#"
+      />
+    </keep-alive>
+    <div class="select_slider_container">
+      <select_slider> </select_slider>
+    </div>
   </div>
 </template>
 
@@ -65,6 +76,5 @@ export default {
 
 .select_slider_container {
   position: absolute;
-  bottom: 50px;
 }
 </style>

@@ -162,7 +162,7 @@ export default {
 
 <style scoped>
 .notice_container {
-  margin-top: 100px;
+  margin-top: 250px;
   width: 100%;
   display: flex;
   flex-direction: column;

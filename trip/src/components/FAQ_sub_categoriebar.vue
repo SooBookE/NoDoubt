@@ -94,7 +94,7 @@ export default {
 .moving_categoriebar_button {
   border: none;
   background-color: white;
-  color: #5bc2e7;
+  color: #ff9d00;
   cursor: pointer;
   font-family: 'dohyeon';
   font-size: medium;

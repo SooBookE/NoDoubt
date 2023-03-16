@@ -56,7 +56,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios'
-import chating from '../components/chating.vue'
+import chating from './profile.vue'
 
 export default {
   name: 'app',

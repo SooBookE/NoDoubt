@@ -1,80 +1,105 @@
 <template>
-  <form action="" class="AI_form">
-    <div class="inputbox_color">
-      <div class="inputbox_design">
-        <div class="AI_search_container">
-          <select
-            class="AI_search_select"
-            placeholder="성별을 선택해주세요."
-            ref="gen"
-            @change="gen()"
-          >
-            <option value="성별">성별</option>
-            <option value="남성">남성</option>
-            <option value="여성">여성</option>
-          </select>
-          <select class="AI_search_select" placeholder="연령대를 선택해주세요.">
-            <option value="연령대">연령대</option>
-            <option value="20">20대</option>
-            <option value="30">30대</option>
-            <option value="40">40대</option>
-            <option value="50">50대</option>
-            <option value="60">60대 이상</option>
-          </select>
-          <select
-            class="AI_search_select"
-            placeholder="선호활동을 선택해주세요."
-          >
-            <option value="선호활동">선호활동</option>
-            <option value="선호활동">집</option>
-            <option value="선호활동">집 밖</option>
-          </select>
-          <button @click="aiSearch()" class="AI_submit_button">입력</button>
-        </div>
+  <div class="inputbox_color">
+    <div class="inputbox_design">
+      <div class="AI_search_container">
+        <select
+          class="AI_search_select"
+          placeholder="성별을 선택해주세요."
+          ref="gen"
+          @change="gen = this.$refs.gen.value"
+          value="none"
+        >
+          <option value="none">성별</option>
+          <option value="0">남성</option>
+          <option value="1">여성</option>
+        </select>
+        <select
+          class="AI_search_select"
+          placeholder="연령대를 선택해주세요."
+          ref="age"
+          @change="gen = this.$refs.age.value"
+          value="none"
+        >
+          <option value="none">연령대</option>
+          <option value="0">20대</option>
+          <option value="1">30대</option>
+          <option value="2">40대</option>
+          <option value="3">50대</option>
+          <option value="4">60대 이상</option>
+        </select>
+        <select
+          class="AI_search_select"
+          placeholder="선호활동을 선택해주세요."
+          ref="hobby"
+          @change="gen = this.$refs.hobby.value"
+          value="none"
+        >
+          <option value="none">선호활동</option>
+          <option value="0">문화유산관람</option>
+          <option value="1">관광활동</option>
+          <option value="2">공원산책</option>
+          <option value="3">핫플방문</option>
+          <option value="4">번화가쇼핑</option>
+        </select>
+        <button @click="aiSearch()" class="AI_submit_button">입력</button>
       </div>
     </div>
-  </form>
+  </div>
 </template>
 
 <script>
 // import axios from 'axios'
-import tf from '@tensorflow/tfjs'
+import * as tf from '@tensorflow/tfjs'
 
 export default {
   name: 'app',
   data() {
-    return {}
+    return {
+      gen: '',
+      age: '',
+      hobby: ''
+    }
   },
   methods: {
-    async aiSearch() {
+    aiSearch() {
       const modelCheck =
-        (await window.localStorage[
-          'tensorflowjs_models/my-model/model_topology'
-        ]) ?? 0
+        window.localStorage['tensorflowjs_models/my-model/model_topology'] ?? 0
+      // alert(this.gen)
       if (modelCheck) {
-        const model = await tf.loadLayersModel('localstorage://my-model')
-        let pred_array = []
-        let pred_arr = []
-        await model
-          .predict('검색한 텐서 데이터')
-          .array()
-          .then((array) => (pred_array = [...array]))
-          .then(() => {
-            pred_array.map((v) => {
-              v[v.indexOf(Math.max(...v))] = 1
-              for (const val of v) {
-                if (val != 1) {
-                  v[v.indexOf(val)] = 0
-                }
-              }
-              pred_arr.push(v)
-            })
-            console.log(pred_arr)
-          })
+        if (this.gen == 'none' || this.age == 'none' || this.hobby == 'none') {
+          alert('항목을 모두 선택해주세요.')
+        } else {
+          const model = tf.loadLayersModel('localstorage://my-model')
+          // let pred_array = []
+          // let pred_arr = []
+          console.log(model)
+          let selectedVal = [
+            Number(this.gen),
+            Number(this.age),
+            Number(this.hobby)
+          ]
+          console.log(selectedVal)
+          // let selectedTensor = tf.tensor2d(selectedVal)
+          //   model
+          //     .predict(selectedTensor)
+          //     .array()
+          //     .then((array) => (pred_array = [...array]))
+          //     .then(() => {
+          //       pred_array.map((v) => {
+          //         v[v.indexOf(Math.max(...v))] = 1
+          //         for (const val of v) {
+          //           if (val != 1) {
+          //             v[v.indexOf(val)] = 0
+          //           }
+          //         }
+          //         pred_arr.push(v)
+          //       })
+          //       alert(pred_arr)
+          //     })
+        }
+      } else {
+        alert('기능이 동작하지 않습니다.\n불편을 끼쳐 죄송합니다.')
       }
-    },
-    gen() {
-      console.log(this.$refs.gen.value)
     }
   }
 }

@@ -8,7 +8,7 @@
           ref="gen"
           @change="gen = $refs.gen.value"
         >
-          <option value="none" selected="true">성별</option>
+          <option value="none">성별</option>
           <option value="0">남성</option>
           <option value="1">여성</option>
         </select>
@@ -18,7 +18,7 @@
           ref="age"
           @change="age = $refs.age.value"
         >
-          <option value="none" selected="true">연령대</option>
+          <option value="none">연령대</option>
           <option value="0">20대</option>
           <option value="1">30대</option>
           <option value="2">40대</option>
@@ -31,14 +31,13 @@
           ref="hobby"
           @change="hobby = $refs.hobby.value"
         >
-          <option value="none" selected="true">선호활동</option>
-          <option value="0">문화유산관람</option>
-          <option value="1">관광활동</option>
-          <option value="2">공원산책</option>
-          <option value="3">핫플방문</option>
-          <option value="4">번화가쇼핑</option>
+          <option value="none">당신의 성향은?</option>
+          <option value="0">내향적이에요.</option>
+          <option value="1">외향적이에요.</option>
+          <option value="2">반반이에요.</option>
         </select>
         <button @click="aiSearch()" class="AI_submit_button">입력</button>
+        <div>{{ recommend }}</div>
       </div>
     </div>
   </div>
@@ -55,7 +54,15 @@ export default {
     return {
       gen: 'none',
       age: 'none',
-      hobby: 'none'
+      hobby: 'none',
+      result: [
+        '고궁/문화 유산',
+        '관광특구',
+        '공원',
+        '발달상권 ',
+        '인구밀집지역 '
+      ],
+      recommend: ''
     }
   },
   methods: {
@@ -88,7 +95,9 @@ export default {
                   }
                   pred_arr.push(v)
                 })
-                console.log(pred_arr)
+                const res_num = pred_arr[0]
+                const idx = res_num.indexOf(1)
+                this.recommend = this.result[idx]
               })
           })()
         }

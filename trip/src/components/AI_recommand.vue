@@ -3,18 +3,23 @@
     <div class="inputbox_color">
       <div class="inputbox_design">
         <div class="AI_search_container">
-          <select class="AI_search_select" placeholder="성별을 선택해주세요.">
+          <select
+            class="AI_search_select"
+            placeholder="성별을 선택해주세요."
+            ref="gen"
+            @change="gen()"
+          >
             <option value="성별">성별</option>
-            <option value="성별">남성</option>
-            <option value="성별">여성</option>
+            <option value="남성">남성</option>
+            <option value="여성">여성</option>
           </select>
           <select class="AI_search_select" placeholder="연령대를 선택해주세요.">
             <option value="연령대">연령대</option>
-            <option value="연령대">20대</option>
-            <option value="연령대">30대</option>
-            <option value="연령대">40대</option>
-            <option value="연령대">50대</option>
-            <option value="연령대">60대 이상</option>
+            <option value="20">20대</option>
+            <option value="30">30대</option>
+            <option value="40">40대</option>
+            <option value="50">50대</option>
+            <option value="60">60대 이상</option>
           </select>
           <select
             class="AI_search_select"
@@ -24,7 +29,7 @@
             <option value="선호활동">집</option>
             <option value="선호활동">집 밖</option>
           </select>
-          <button type="submit" class="AI_submit_button">입력</button>
+          <button @click="aiSearch()" class="AI_submit_button">입력</button>
         </div>
       </div>
     </div>
@@ -32,12 +37,46 @@
 </template>
 
 <script>
+// import axios from 'axios'
+import tf from '@tensorflow/tfjs'
+
 export default {
   name: 'app',
   data() {
     return {}
   },
-  methods: {}
+  methods: {
+    async aiSearch() {
+      const modelCheck =
+        (await window.localStorage[
+          'tensorflowjs_models/my-model/model_topology'
+        ]) ?? 0
+      if (modelCheck) {
+        const model = await tf.loadLayersModel('localstorage://my-model')
+        let pred_array = []
+        let pred_arr = []
+        await model
+          .predict('검색한 텐서 데이터')
+          .array()
+          .then((array) => (pred_array = [...array]))
+          .then(() => {
+            pred_array.map((v) => {
+              v[v.indexOf(Math.max(...v))] = 1
+              for (const val of v) {
+                if (val != 1) {
+                  v[v.indexOf(val)] = 0
+                }
+              }
+              pred_arr.push(v)
+            })
+            console.log(pred_arr)
+          })
+      }
+    },
+    gen() {
+      console.log(this.$refs.gen.value)
+    }
+  }
 }
 </script>
 

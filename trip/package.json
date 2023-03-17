@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@tensorflow/tfjs": "^4.2.0",
     "@vue/cli": "^5.0.8",
     "cheerio": "^1.0.0-rc.12",
     "connect-history-api-fallback": "^2.0.0",

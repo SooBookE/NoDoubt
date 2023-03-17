@@ -13,6 +13,9 @@ const VSchema = require('./mdb.cjs')
 const Counter_Schema = require('./counter_db.cjs')
 const Board_Schema = require('./board_db.js')
 const app = express()
+/* AI 관리 스키마. */
+const AISchema = require('./schema.js')
+/* //AI 관리 스키마. */
 
 const server = http.createServer(app)
 const io = new Server(server)
@@ -52,6 +55,19 @@ app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
 app.set('views', './views')
 app.use(cookieParser())
+
+/* AI 모델 전송 */
+app.post('/dbr', (req, res) => {
+  ;(async () => {
+    const t = await AISchema.find({})
+      .lean()
+      .then((t) => {
+        res.send(t)
+        console.log(t) // 확인용.
+      })
+  })()
+})
+/* //AI 모델 전송 */
 
 /*cookie*/
 app.post('/cookie', (req, res) => {

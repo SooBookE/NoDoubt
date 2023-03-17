@@ -455,7 +455,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @font-face {
   font-family: 'jua';
   src: url('../../public/font/BMJUA_ttf.ttf');
@@ -477,12 +477,12 @@ export default {
 .join_container {
   width: 500px;
   height: auto;
-  padding: 20px;
-  border: 3px solid #072a40;
+  padding: 50px;
+  /* border: 3px solid #072a40;
   border-radius: 10px;
-  background-color: #f2f6f9;
-  box-shadow: 5px 5px 10px #0b4264;
-  margin: 50px 0px;
+  background-color: #f2f6f9;*/
+  box-shadow: 5px 5px 10px #555555;
+  border-radius: 10px;
 }
 
 .join_title {

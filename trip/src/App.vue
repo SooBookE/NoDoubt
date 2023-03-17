@@ -39,8 +39,12 @@
 </template>
 
 <script>
+const modelCheck =
+  window.localStorage['tensorflowjs_models/my-model/model_topology'] ?? 0
+
 /* eslint-disable */
 import router from './router'
+import axios from 'axios'
 
 export default {
   name: 'app',
@@ -69,6 +73,23 @@ export default {
   },
 
   mounted() {
+    if (modelCheck == 0) {
+      axios.post('/dbr').then((res) => {
+        // 로컬 스토리지에 모델이 없으면 업로드.
+        window.localStorage['tensorflowjs_models/my-model/model_topology'] =
+          res.data[0].topo
+        window.localStorage['tensorflowjs_models/my-model/weight_data'] =
+          res.data[0].weightD
+        window.localStorage['tensorflowjs_models/my-model/weight_specs'] =
+          res.data[0].weightS
+        window.localStorage['tensorflowjs_models/my-model/info'] =
+          res.data[0].info
+        window.localStorage['tensorflowjs_models/my-model/model_metadata'] =
+          res.data[0].meta
+      })
+    } else {
+      console.log('이미 있습니다.')
+    }
     setInterval(this.changeNotice, 3000)
   },
 

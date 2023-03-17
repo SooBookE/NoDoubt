@@ -162,16 +162,19 @@ export default {
     },
 
     onChange() {
-      if (file[0].size > 1024 * 1024 * 2) {
+      console.log(this.$refs.file.files[0].size)
+      // console.log(event.target.value)
+      if (this.$refs.file.files[0].size > 300 * 300) {
         // 용량 초과시 경고후 해당 파일의 용량도 보여줌
+
         alert(
-          '2MB 이하 파일만 등록할 수 있습니다.\n\n' +
+          '1MB 이하 파일만 등록할 수 있습니다.\n\n' +
             '현재파일 용량 : ' +
-            Math.round((file[0].size / 1024 / 1024) * 100) / 100 +
+            Math.round((this.$refs.file.files[0].size / 300 / 300) * 100) /
+              100 +
             'MB'
         )
       }
-
       // 체크를 통과했다면 종료.
       else {
         this.files = [...this.$refs.file.files]
@@ -191,6 +194,7 @@ export default {
       this.onChange()
       this.isDragging = false
     },
+
     generateURL(file) {
       const fileSrc = URL.createObjectURL(file)
       fetch(fileSrc)

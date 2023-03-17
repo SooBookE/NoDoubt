@@ -1,5 +1,6 @@
 <!-- eslint-disable -->
 <template>
+  <categorie></categorie>
   <div class="login_out_container">
     <div class="join_container">
       <div class="login_title">여행가님, 환영합니다.</div>
@@ -74,11 +75,11 @@
       </table>
       <div class="forget_container">
         <div class="forget_id" @click="$router.push('/find_id_pwd')">
-          아이디를 잊으셨나요?
+          아이디/비밀번호를 잊으셨나요?
         </div>
-        <div class="forget_pwd" @click="$router.push('/find_id_pwd')">
+        <!-- <div class="forget_pwd" @click="$router.push('/find_id_pwd')">
           비밀번호를 잊으셨나요?
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -86,6 +87,7 @@
 
 <script>
 /* eslint-disable */
+import categorie from '../components/categories.vue'
 
 import axios from 'axios'
 
@@ -145,6 +147,9 @@ export default {
         id: this.id
       })
     }
+  },
+  components: {
+    categorie
   }
 }
 </script>
@@ -166,6 +171,7 @@ body {
 }
 
 .login_out_container {
+  margin-top: 15rem;
   width: 100%;
   height: 580px;
   align-items: center;
@@ -176,11 +182,12 @@ body {
 .join_container {
   width: 500px;
   height: auto;
-  padding: 20px;
-  border: 3px solid #072a40;
+  padding: 50px;
+  /* border: 3px solid #072a40;
   border-radius: 10px;
-  background-color: #f2f6f9;
-  box-shadow: 5px 5px 10px #0b4264;
+  background-color: #f2f6f9;*/
+  box-shadow: 5px 5px 10px #555555;
+  border-radius: 10px;
 }
 
 .login_title {
@@ -229,7 +236,7 @@ tr {
   width: 500px;
   text-align: right;
 }
-/* 
+/*
 .id_input_box,
 .pwd_input_box,
 .pwd_confirm_input_box {
@@ -257,47 +264,97 @@ tr {
 }
 
 .login_submit_button {
+  position: relative;
+  z-index: 1;
   width: 80px;
   height: 30px;
-  border: none;
+  border: 2px solid #d67940;
+  /* border: none; */
   background-color: transparent;
   cursor: pointer;
   font-family: 'dohyeon';
   font-size: larger;
-  color: #100c0d;
-  background-color: #e3dcd2;
+  color: #d67940;
+  background-color: #d67940;
   border-radius: 5px;
-  box-shadow: 2px 2px 2px #285185;
+  /* box-shadow: 2px 2px 1px #7d3000; */
+}
+
+.login_submit_button:after {
+  content: '';
+  color: white;
+  z-index: -1;
+  border-radius: 3px;
+  width: 0%;
+  height: 100%;
+  top: 0;
+  position: absolute;
+  left: 0;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+  background-color: #d67940;
+}
+
+.login_submit_button,
+.login_submit_button:hover,
+.login_submit_button:focus,
+.login_submit_button:active,
+.login_submit_button:link {
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .login_submit_button:hover {
+  color: #fff;
+  z-index: 999;
+}
+.login_submit_button:hover:after {
+  width: 100%;
+  z-index: -999;
+}
+
+/* .login_submit_button:hover {
   width: 80px;
   height: 30px;
-  background-color: #285185;
-  color: #e3dcd2;
+  background-color: white;
+  color: #d67940;
   border-radius: 5px;
-  transform: scale(1.2) translateY(-5px);
-}
+  transform: scale(1.1);
+  box-shadow: none;
+  transition: 0.2s linear;
+} */
 
 .id_confirm_message,
 .id_password_message {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   font-family: 'dohyeon';
 }
 
 .forget_container {
-  margin-top: 30px;
+  height: 50px;
+  margin-top: 50px;
 }
 
 .forget_id,
 .forget_pwd {
-  margin: 10px 0px;
+  display: inline;
+  padding: 10px;
+  border: 2px solid #d67940;
+  color: #d67940;
+  border-radius: 10px;
   cursor: pointer;
 }
 
-.forget_id:hover,
-.forget_pwd:hover {
-  border-bottom: 1px solid #285185;
-  display: inline;
+.forget_id:hover {
+  color: white;
+  background-color: #d67940;
+  transform: translateY(-5px);
+  transition: 0.1s linear;
+  /* border-bottom: 2px solid #285185; */
+  /* display: inline-block; */
 }
 </style>

@@ -79,6 +79,7 @@
       <button @click="$router.push('/notice_write')">작성</button>
     </div>
   </div>
+  <sidebar></sidebar>
 </template>
 
 <script>
@@ -86,6 +87,7 @@
 import axios from 'axios'
 import categories from '../components/categories.vue'
 import read_board from '../components/read_board.vue'
+import sidebar from '../components/sidebar.vue'
 
 export default {
   name: 'app',
@@ -155,7 +157,8 @@ export default {
   },
   components: {
     categories,
-    read_board
+    read_board,
+    sidebar
   }
 }
 </script>

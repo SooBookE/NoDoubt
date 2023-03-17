@@ -4,9 +4,10 @@
   <div class="main_container">
     <!-- 카테고리 -->
     <categorie></categorie>
-    <FAQ_sub_categoriebar></FAQ_sub_categoriebar>
+    <!-- <FAQ_sub_categoriebar></FAQ_sub_categoriebar> -->
     <div id="scroll1"></div>
     <FAQ></FAQ>
+    <sidebar></sidebar>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import categorie from '../components/categories.vue'
 import FAQ_maincategories from '../components/FAQ_maincategories.vue'
 import FAQ from '../components/FAQ.vue'
 import FAQ_sub_categoriebar from '../components/FAQ_sub_categoriebar.vue'
+import sidebar from '../components/sidebar.vue'
 
 export default {
   name: 'app',
@@ -30,7 +32,8 @@ export default {
     FAQ_maincategories,
     FAQ,
     FAQ_sub_categoriebar,
-    categorie
+    categorie,
+    sidebar
   }
 }
 </script>

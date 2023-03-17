@@ -1,7 +1,10 @@
 <template>
   <!-- eslint-disable -->
   <div class="categorie_container">
-    <div style="margin-bottom: 15px">
+    <div
+      @click="$router.push('/')"
+      style="margin-bottom: 15px; cursor: pointer"
+    >
       <img class="logo" src="../../public/logo.png" alt="" />
     </div>
     <div class="categorie_innerbox">
@@ -24,6 +27,25 @@
       >
         고객센터
       </button>
+
+      <div class="login_container" v-if="cookie">
+        <button
+          id="login_button"
+          class="login_button"
+          @click="$router.push('/login')"
+        >
+          login
+        </button>
+
+        <div>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+        <button
+          id="join_button"
+          class="join_button"
+          @click="$router.push('/join')"
+        >
+          join
+        </button>
+      </div>
 
       <div class="mypage_container" v-if="nickname_false">
         <div class="customer_nickname" @click="mypage_screen()">
@@ -48,7 +70,8 @@ export default {
     return {
       customer_nickname: '',
       nickname_false: false,
-      chating_screen: false
+      chating_screen: false,
+      cookie: true
     }
   },
 
@@ -164,5 +187,32 @@ export default {
   color: white;
   transition: linear 0.2s;
   border-bottom: 3px solid white;
+}
+
+/*로그인*/
+.login_container {
+  align-items: center;
+  margin-left: 50px;
+}
+.login_button,
+.join_button {
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: 'dohyeon';
+  font-weight: 100;
+  font-size: x-large;
+}
+.login_button:hover,
+.join_button:hover {
+  transform: translateY(-5px) scale(1.2);
+  transition: linear 0.2s;
+  color: white;
+}
+/*로그인 박스*/
+.login_container {
+  display: flex;
+  justify-content: right;
 }
 </style>

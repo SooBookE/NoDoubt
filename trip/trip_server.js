@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 const request = require('request')
 const VSchema = require('./mdb.cjs')
-const Counter_Schema = require('./mdb.cjs')
+const Counter_Schema = require('./counter_db.cjs')
 const Board_Schema = require('./board_db.js')
 const app = express()
 
@@ -56,8 +56,13 @@ app.use(cookieParser())
 /*cookie*/
 app.post('/cookie', (req, res) => {
   const login_id = req.body.id
+  ;(async () => {
+    const find_id = await VSchema.find({ id: login_id }, { _id: 0, __v: 0 })
+    console.log(find_id)
+  })()
+
   res.cookie('login_id', login_id)
-  // console.log(req.cookies.login_id)
+
   res.render('Cookie', { login_id: login_id })
 })
 
@@ -326,6 +331,7 @@ app.get('/numbering', (req, res) => {
     )
 
     res.send(number)
+    console.log(number)
 
     const notice_number = number[0].totalPosts
     const update_totalPosts = await Counter_Schema.updateOne(
@@ -345,6 +351,7 @@ app.get('/numbering', (req, res) => {
 app.post('/write', (req, res) => {
   const title = req.body.title
   const writer = req.body.writer
+  const img = req.body.img
   const content = req.body.content
   const date = req.body.date
   ;(async () => {
@@ -355,7 +362,7 @@ app.post('/write', (req, res) => {
 
     const No = counter_num[0].totalPosts
 
-    console.log(No, title, writer, content, date)
+    console.log(No, title, writer, img, content, date)
 
     const _data = {
       No,

@@ -67,12 +67,14 @@
       </div>
     </div>
   </div>
+  <sidebar></sidebar>
 </template>
 
 <script>
 /*eslint-disable*/
 import TypeIt from 'typeit'
 import categorie from '../components/categories.vue'
+import sidebar from '../components/sidebar.vue'
 
 export default {
   name: 'app',
@@ -132,7 +134,8 @@ export default {
     }
   },
   components: {
-    categorie
+    categorie,
+    sidebar
   }
 }
 </script>

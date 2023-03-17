@@ -1,10 +1,60 @@
 <template>
   <div class="FAQ_text">자주 묻는 질문</div>
-  <div class="helpdesk_container">
+  <div id="staggered-list-demo">
+    <div class="query_box">
+      <input
+        v-model="query"
+        class="FAQ_input"
+        placeholder="궁금하신 것을 입력해주세요."
+      />
+    </div>
+
+    <transition-group
+      name="staggered-fade"
+      tag="ul"
+      v-bind:css="false"
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:leave="leave"
+    >
+      <div class="helpdesk_container">
+        <ul class="helpdesk_ul" style="list-style: none">
+          <li
+            class="helpdesk_li"
+            v-for="(item, index) in computedList"
+            v-bind:key="item.msg"
+            v-bind:data-index="index"
+          >
+            <div class="helpdesk_li_div">
+              <button
+                @click="item[`show${index}`] = !item[`show${index}`]"
+                class="helpdesk_button"
+              >
+                <div class="helpdesk_li_div_button_div">
+                  <span> </span>
+                  <strong>{{ item.Q }}</strong>
+                </div>
+                <div class="hashtag">#{{ item.msg }}</div>
+              </button>
+            </div>
+            <div id="demo">
+              <transition name="fade">
+                <div v-if="item[`show${index}`]" class="answer_box">
+                  <p>{{ item.answer }}</p>
+                </div>
+              </transition>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </transition-group>
+  </div>
+
+  <!-- <div class="helpdesk_container">
     <ul class="helpdesk_ul" style="list-style: none">
       <li class="helpdesk_li">
         <div class="helpdesk_li_div">
-          <button v-on:click="show = !show" class="helpdesk_button">
+          <button @click="show1" class="helpdesk_button1">
             <div class="helpdesk_li_div_button_div">
               <span> </span>
               <strong>AI 여행 추천 프로그램이 뭔가요?</strong>
@@ -15,7 +65,7 @@
       </li>
       <li class="helpdesk_li">
         <div class="helpdesk_li_div">
-          <button class="helpdesk_button">
+          <button @click="show2 = !show2" class="helpdesk_button">
             <div class="helpdesk_li_div_button_div">
               <span> </span>
               <strong>어떻게 사용하면 되나요?</strong>
@@ -26,7 +76,7 @@
       </li>
       <li class="helpdesk_li">
         <div class="helpdesk_li_div">
-          <button class="helpdesk_button">
+          <button @click="show3 = !show3" class="helpdesk_button">
             <div class="helpdesk_li_div_button_div">
               <span> </span>
               <strong>개인정보가 유출되지는 않나요?</strong>
@@ -37,7 +87,7 @@
       </li>
       <li class="helpdesk_li">
         <div class="helpdesk_li_div">
-          <button class="helpdesk_button">
+          <button @click="show4 = !show4" class="helpdesk_button">
             <div class="helpdesk_li_div_button_div">
               <span> </span>
               <strong>어떤 것을 입력해야 하나요?</strong>
@@ -45,17 +95,38 @@
             <div class="hashtag">#여행추천</div>
           </button>
         </div>
-      </li>
+      </li> -->
 
-      <div id="demo">
-        <transition name="fade">
-          <div v-if="show">
-            <p>hello</p>
-          </div>
-        </transition>
+  <!-- <div id="demo">
+    <transition name="fade">
+      <div v-if="show" class="answer_box">
+        <p>답변1</p>
       </div>
+    </transition>
+  </div>
+  <div id="demo">
+    <transition name="fade">
+      <div v-if="show2" class="answer_box">
+        <p>답변2</p>
+      </div>
+    </transition>
+  </div>
+  <div id="demo">
+    <transition name="fade">
+      <div v-if="show3" class="answer_box">
+        <p>답변3</p>
+      </div>
+    </transition>
+  </div>
+  <div id="demo">
+    <transition name="fade">
+      <div v-if="show4" class="answer_box">
+        <p>답변4</p>
+      </div>
+    </transition>
+  </div> -->
 
-      <li class="helpdesk_li">
+  <!-- <li class="helpdesk_li">
         <div class="helpdesk_li_div">
           <button class="helpdesk_button">
             <div class="helpdesk_li_div_button_div">
@@ -100,10 +171,8 @@
         </div>
       </li>
     </ul>
-  </div>
-  <div class="FAQ_text" style="margin-top: 100px">
-    다른 도움이 필요하신가요?
-  </div>
+  </div> -->
+  <div class="FAQ_text">다른 도움이 필요하신가요?</div>
   <div class="another_help_container">
     <div class="another_help_box">
       <h3 style="font-family: 'jua'">고객센터 상담하기</h3>
@@ -132,17 +201,88 @@ export default {
   name: 'app',
   data() {
     return {
-      show: false
+      query: '',
+      list: [
+        {
+          msg: '여행추천',
+          Q: '여행지 추천은 어떻게 하는 건가요?',
+          answer: '답변할게',
+          show: false
+        },
+        {
+          msg: 'ai사용법',
+          Q: 'ai사용은 어떻게 하셨나요?',
+          answer: '답변할게2',
+          show: false
+        },
+        {
+          msg: '회사소개',
+          Q: 'No_doubt는 무슨 뜻인가요?',
+          answer: '답변할게2',
+          show: false
+        },
+        {
+          msg: '아이디/비밀번호',
+          Q: '아이디/비밀번호는 어떻게 찾나요?',
+          answer: '답변할게2',
+          show: false
+        },
+        {
+          msg: '닉네임 변경',
+          Q: '닉네임 변경은 어떻게 하나요?',
+          answer: '답변할게2',
+          show: false
+        },
+        {
+          msg: '김민경',
+          Q: '김민경은 누구인가요?',
+          answer:
+            'No_doubt의 서비스 기획, 제작하였으며 풀스택을 담당하고 있습니다.',
+          show: false
+        },
+        {
+          msg: '김수환',
+          Q: '김수환은 누구인가요?',
+          answer:
+            'No_doubt의 기둥, AI 딥러닝을 구축하였으며 데이터 사이언스를 담당하고 있습니다.',
+          show: false
+        },
+        {
+          msg: '회사추천',
+          Q: '오늘은 어디로 떠날까요?',
+          answer: '답변할게2',
+          show: false
+        }
+      ]
     }
   },
+
+  computed: {
+    computedList: function () {
+      var vm = this
+      return this.list.filter(function (item) {
+        return item.msg.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+      })
+    }
+  },
+
   methods: {
-    // answer_click: function () {
-    //   const answer = document.querySelector('.answer_box1')
-    //   const add_class_on_click = (dom) => dom.classList.add('come-in')
-    //   if ((this.show = true)) {
-    //     add_class_on_click(answer)
-    //   }
-    // }
+    beforeEnter: function (el) {
+      el.style.opacity = 0
+      el.style.height = 0
+    },
+    enter: function (el, done) {
+      var delay = el.dataset.index * 150
+      setTimeout(function () {
+        Velocity(el, { opacity: 1, height: '1.6em' }, { complete: done })
+      }, delay)
+    },
+    leave: function (el, done) {
+      var delay = el.dataset.index * 150
+      setTimeout(function () {
+        Velocity(el, { opacity: 0, height: 0 }, { complete: done })
+      }, delay)
+    }
   }
 }
 </script>
@@ -158,11 +298,27 @@ export default {
   src: url('../../public/font/BMDOHYEON_ttf.ttf');
 }
 
+.query_box {
+  font-family: 'jua';
+  margin-top: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.FAQ_input {
+  margin-top: 10px;
+  margin: 0px 10px;
+  font-size: 1.5rem;
+  width: 30%;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
 .FAQ_text {
-  margin-top: 250px;
+  margin: 7rem 0rem 3rem 0rem;
   display: inline-block;
   font-family: 'dohyeon';
-  font-size: xx-large;
+  font-size: 3rem;
   font-weight: 600;
   color: #f39945;
 }
@@ -170,6 +326,7 @@ export default {
   margin-right: 70px;
   display: table;
   position: relative;
+  left: -3rem;
   width: 100%;
   height: 100%;
   min-height: 100%;
@@ -177,6 +334,7 @@ export default {
   text-align: left;
   box-sizing: border-box;
 }
+
 .helpdesk_li {
   display: inline-block;
   width: 25%;
@@ -194,11 +352,17 @@ export default {
   width: 100%;
   padding: 22px 21px;
   text-align: left;
-  background-color: #5bc2e71a;
+  background-color: white;
   border: 2px solid #59a6ff;
   border-radius: 10px;
   box-shadow: 3px 3px 3px #00227e;
   cursor: pointer;
+}
+
+.helpdesk_button:hover {
+  transform: scale(1.1);
+  background-color: #59a6ff;
+  transition: 0.2s linear;
 }
 
 .helpdesk_li_div_button_div {
@@ -306,10 +470,12 @@ strong {
   color: #008e37;
 }
 
-.answer_box1 {
-  width: 100%;
+.answer_box {
+  width: 60%;
   height: 3rem;
   font-family: 'jua';
+  padding: 1.5rem;
+  position: relative;
 }
 
 .fade-enter-active,

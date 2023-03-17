@@ -130,7 +130,7 @@ export default {
 
   mounted() {
     setInterval(this.slide_changeImage, 2000)
-    setInterval(this.right_button_click, 5000)
+    setInterval(this.right_button_click, 4000)
   },
 
   methods: {

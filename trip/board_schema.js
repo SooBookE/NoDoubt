@@ -5,6 +5,7 @@ const Board_Schema = new Schema({
   No: Number,
   title: String,
   writer: String,
+  img: String,
   content: String,
   date: String
 })

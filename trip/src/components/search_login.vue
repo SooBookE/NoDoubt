@@ -18,8 +18,9 @@
         </form>
       </div>
     </div>
-    <!-- 로그인 -->
-    <div class="login_container" v-if="cookie">
+  </div>
+  <!-- 로그인 -->
+  <!-- <div class="login_container" v-if="cookie">
       <button
         id="login_button"
         class="login_button"
@@ -50,7 +51,7 @@
       </div>
     </div>
   </div>
-  <chating @close="closechat_screen" v-if="chating_screen"> </chating>
+  <chating @close="closechat_screen" v-if="chating_screen"> </chating> -->
 </template>
 
 <script>

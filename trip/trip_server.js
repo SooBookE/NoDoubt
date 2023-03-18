@@ -124,6 +124,51 @@ app.get('/cookie_del', (req, res) => {
 /*카카오톡 채널톡*/
 
 /*MongoDB CRUD*/
+
+/* AI 재학습용 데이터 송수신 */
+// 고객정보 송출.
+app.post('/info_get', (req, res) => {
+  ;(async () => {
+    const t = await VSchema.find(
+      {},
+      {
+        _id: 0,
+        __v: 0,
+        name: 0,
+        id: 0,
+        pwd: 0,
+        Nickname: 0,
+        PhoneNumber: 0,
+        identification: 0
+      }
+    )
+      .lean()
+      .then((t) => {
+        res.send(t)
+        console.log(t) // 확인용.
+      })
+  })()
+})
+// 학습 모델 갱신.
+app.post('/dbu', (req, res) => {
+  ;(async () => {
+    await VSchema.updateOne(
+      {},
+      {
+        $set: {
+          topo: req.body.topo,
+          weightD: req.body.weightD,
+          weightS: req.body.weightS,
+          info: req.body.info,
+          meta: req.body.meta
+        }
+      },
+      { upsert: true }
+    )
+  })()
+})
+/* //AI 재학습용 데이터 송수신 */
+
 /*회원가입 시 DB에 고객 정보 저장*/
 app.post('/join', (req, res) => {
   const name = req.body.name
@@ -175,16 +220,21 @@ app.post('/id_check', async (req, res) => {
 app.get('/nick', (req, res) => {
   const url = 'https://nickname.hwanmoo.kr/?format=json&count=1'
   // let nickname_confirm
-  let nick
-  ;(async () => {
-    await request(url, function (error, response, body) {
+  let nick = ''
+  const working = async function () {
+    await request(url, async function (error, response, body) {
       const rst = JSON.parse(body)
       console.log(rst.words[0])
       nick = rst.words
-      res.send(nick)
+      const exist = await VSchema.find({ Nickname: nick })
+      if (exist.length == 0) {
+        res.send(nick)
+      } else {
+        working()
+      }
     })
-  })()
-
+  }
+  working()
   // ;(async () => {
   //   nickname_confirm = await VSchema.find(
   //     { Nickname: nick },

@@ -266,29 +266,29 @@
           </div>
           <hr />
           <div class="hobby_input">
-            <div class="hobby_message">취미를 선택해주세요.</div>
+            <div class="hobby_message">여행가님은 어떤 성향이신가요?</div>
             <input
               id="hobby_input_radio"
               type="radio"
               v-model="hobby"
               value="cafe"
               @click="join_confirm"
-            />카페에서 놀기
+            />조용한 곳에서 여유를 즐겨요.
             <input
               id="hobby_input_radio"
               type="radio"
               v-model="hobby"
               value="running"
               @click="join_confirm"
-            />산책, 조깅
+            />흥이 넘치는 흥부자예요.
             <input
               id="hobby_input_radio"
               type="radio"
               v-model="hobby"
               value="small_talk"
               @click="join_confirm"
-            />수다떨기
-            <input
+            />음.. 잘 모르겠어요.
+            <!-- <input
               id="hobby_input_radio"
               type="radio"
               v-model="hobby"
@@ -301,7 +301,7 @@
               v-model="hobby"
               value="exercising"
               @click="join_confirm"
-            />운동
+            />운동 -->
           </div>
         </div>
         <button class="join_submit_button" type="submit" @click="join_confirm">
@@ -424,7 +424,7 @@ export default {
     },
     password_string_confirm: function () {
       const string_confirm =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\~\!\@\#\$\%\^\&\*\?\<\>\{\}\[\]])[A-Za-z0-9\~\!\@\#\$\%\^\&\*\?\<\>\{\}\[\]]{8,}$/
       if (string_confirm.test(this.pwd) == false) {
         this.password_string_confirm_message =
           '대,소문자, 특수문자, 숫자를 하나 이상 포함시켜주세요.'

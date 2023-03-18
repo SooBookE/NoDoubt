@@ -175,27 +175,41 @@
   <div class="FAQ_text">다른 도움이 필요하신가요?</div>
   <div class="another_help_container">
     <div class="another_help_box">
-      <h3 style="font-family: 'jua'">고객센터 상담하기</h3>
+      <h3 style="font-family: `jua`">고객센터 상담하기</h3>
       <div class="help_text">실시간 상담원과 연결됩니다.</div>
       <div class="help_time">상담시간</div>
       <div class="help_time_info">09:00 - 17:00</div>
     </div>
-    <div class="another_help_box">
-      <h3 style="font-family: 'jua'">chatGPT 상담하기</h3>
+    <div class="another_help_box" @click="gpt()">
+      <h3 style="font-family: `jua`">chatGPT 상담하기</h3>
       <div class="help_text">챗봇과 빠른 상담이 가능합니다.</div>
       <div class="help_time">상담시간</div>
       <div class="help_time_info">24시간</div>
     </div>
     <div class="another_help_box">
-      <h3 style="font-family: 'jua'">Q&A 남기기</h3>
+      <h3 style="font-family: `jua`">Q&A 남기기</h3>
       <div class="help_text">순서에 따라 답변을 드립니다.</div>
       <div class="help_time">답변시간</div>
       <div class="help_time_info">09:00 - 17:00</div>
+    </div>
+    <div class="modal">
+      <div class="modal_body">
+        <div>
+          <div>안녕하세요. 무엇을 도와드릴까요?</div>
+        </div>
+        <button @click="q1()">서울이 뭔가요?</button
+        ><button @click="q2()">여행이 뭔가요?</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+document.querySelector('body').addEventListener('click', () => {
+  const modal = document.querySelector('.modal')
+  modal.classList.remove('show')
+})
+import axios from 'axios'
 /* eslint-disable */
 export default {
   name: 'app',
@@ -282,6 +296,26 @@ export default {
       setTimeout(function () {
         Velocity(el, { opacity: 0, height: 0 }, { complete: done })
       }, delay)
+    },
+    gpt: function () {
+      const modal = document.querySelector('.modal')
+      modal.classList.add('show')
+    },
+    q1: function () {
+      axios.post('/gpt', { q: '서울이 뭔가요?' }).then((res) => {
+        const gptBody = document.querySelector('.modal_body>div')
+        const gptRes = document.createElement('div')
+        gptRes.textContent = res.data
+        gptBody.appendChild(gptRes)
+      })
+    },
+    q2: function () {
+      axios.post('/gpt', { q: '여행이 뭔가요?' }).then((res) => {
+        const gptBody = document.querySelector('.modal_body>div')
+        const gptRes = document.createElement('div')
+        gptRes.textContent = res.data
+        gptBody.appendChild(gptRes)
+      })
     }
   }
 }
@@ -484,5 +518,39 @@ strong {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: none;
+
+  /* background-color: rgba(0, 0, 0, 0.4); */
+}
+.modal.show {
+  display: block;
+}
+
+.modal_body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 400px;
+  height: 600px;
+
+  padding: 40px;
+  z-index: 99999999;
+  text-align: center;
+
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 5px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
 }
 </style>

@@ -16,6 +16,9 @@ const app = express()
 /* AI 관리 스키마. */
 const AISchema = require('./schema.js')
 /* //AI 관리 스키마. */
+/* GPT */
+const { Configuration, OpenAIApi } = require('openai')
+/* //GPT */
 
 const server = http.createServer(app)
 const io = new Server(server)
@@ -99,7 +102,27 @@ app.get('/cookie_del', (req, res) => {
   })()
 })
 
-/*gpt 연결*/
+/* gpt 응답*/
+app.post('/gpt', (req, res) => {
+  const configuration = new Configuration({ apiKey: '오픈 ai 키' })
+  const openai = new OpenAIApi(configuration)
+  ;(async function () {
+    const response = await openai.createCompletion({
+      model: 'text-davinci-003',
+      prompt: req.body.q,
+      max_tokens: 500,
+      temperature: 0,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      n: 1
+    })
+    const result = await response.data.choices[0].text
+    res.send(result)
+  })()
+})
+/* //gpt 응답*/
+
 // const TelegramBot = require('node-telegram-bot-api')
 // const cheerio = require('cheerio')
 // let botid = '5964337605:AAEml_YxFqm7TY_IG0eDrsXgrhCCUS1WyQg'

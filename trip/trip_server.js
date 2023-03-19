@@ -13,6 +13,8 @@ const VSchema = require('./mdb.cjs')
 const Counter_Schema = require('./counter_db.cjs')
 const Board_Schema = require('./board_db.js')
 const app = express()
+/*https*/
+
 /* AI 관리 스키마. */
 const AISchema = require('./schema.js')
 /* //AI 관리 스키마. */
@@ -77,19 +79,18 @@ app.post('/cookie', (req, res) => {
   const login_id = req.body.id
   ;(async () => {
     const find_id = await VSchema.find({ id: login_id }, { _id: 0, __v: 0 })
+    console.log(find_id[0].Nickname)
     console.log(find_id)
+    res.cookie('nick', find_id[0].Nickname)
+    res.render('Cookie', { nick: find_id[0].Nickname })
   })()
-
-  res.cookie('login_id', login_id)
-
-  res.render('Cookie', { login_id: login_id })
 })
 
 app.get('/login_confirm_cookie', (req, res) => {
   ;(async () => {
-    const login_id = req.cookies.login_id
-    console.log(login_id)
-    res.send(login_id)
+    const nick = req.cookies.nick
+    console.log(nick)
+    res.send(nick)
   })()
 })
 
@@ -197,6 +198,7 @@ app.post('/join', (req, res) => {
   const name = req.body.name
   const id = req.body.id
   const pwd = req.body.pwd
+  const Nickname = req.body.Nickname
   const gender = req.body.gender
   const age = req.body.age
   const hobby = req.body.hobby
@@ -209,6 +211,7 @@ app.post('/join', (req, res) => {
       name,
       id,
       pwd,
+      Nickname,
       gender,
       age,
       hobby,

@@ -303,6 +303,45 @@
               @click="join_confirm"
             />운동 -->
           </div>
+          <hr />
+          <div class="hob_input">
+            <div class="hob_message">여행가님의 취미는 무엇인가요?</div>
+            <input
+              id="hob_input_radio"
+              type="radio"
+              v-model="hob"
+              value="cafe"
+              @click="join_confirm"
+            />문화 예술 조아여.
+            <input
+              id="hob_input_radio"
+              type="radio"
+              v-model="hob"
+              value="running"
+              @click="join_confirm"
+            />관광 너무 조아여.
+            <input
+              id="hob_input_radio"
+              type="radio"
+              v-model="hob"
+              value="small_talk"
+              @click="join_confirm"
+            />활동적인 거 좋아여.
+            <input
+              id="hob_input_radio"
+              type="radio"
+              v-model="hob"
+              value="reading"
+              @click="join_confirm"
+            />소통 조아여
+            <input
+              id="hob_input_radio"
+              type="radio"
+              v-model="hob"
+              value="exercising"
+              @click="join_confirm"
+            />사람 많은 거 좋아여.
+          </div>
         </div>
         <button class="join_submit_button" type="submit" @click="join_confirm">
           Join
@@ -339,7 +378,8 @@ export default {
       phoneNumber1: '',
       phoneNumber2: '',
       phoneNumber3: '',
-      Nickname: ''
+      Nickname: '',
+      hob: ''
     }
   },
 
@@ -379,6 +419,7 @@ export default {
             gender: this.gender,
             age: this.age,
             hobby: this.hobby,
+            hob: this.hob,
             phoneNumber:
               this.telecom_option +
               this.phoneNumber1 +

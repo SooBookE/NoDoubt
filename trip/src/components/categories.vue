@@ -135,10 +135,11 @@ export default {
                 return
               }
               infoArr.map((v) => {
-                const data = []
-                data.push(v.gender)
-                data.push(v.age)
-                data.push(v.hobby)
+                const data = {}
+                data.gen = v.gender
+                data.age = v.age
+                data.exper = v.hobby
+                data.target = v.hob
                 arr.data.push(data)
               })
               const HOBBY_CLASSES = [

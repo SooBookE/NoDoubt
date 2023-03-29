@@ -119,7 +119,7 @@
 <script>
 /* eslint-disable */
 const modal = document.querySelector('.modal')
-const body = document.querySelector('body')
+const body = document.querySelector('body>*:not(div.modal)')
 // body.removeChild(modal)
 body.addEventListener('click', () => {
   modal.classList.remove('show')

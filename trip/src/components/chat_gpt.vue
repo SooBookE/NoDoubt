@@ -3,7 +3,7 @@
     <div class="modal modal-overlay" @click.self="$emit('close')">
       <div class="modal-window">
         <div class="frame" style="display: flex; justify-content: right">
-          <button @click.self="$emit('close')" class="custom-btn btn-12">
+          <button @click="$emit('close')" class="custom-btn btn-12">
             <span style="width: 40px; right: 0px">닫기</span
             ><span style="width: 40px; right: 0px">X</span>
           </button>

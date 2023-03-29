@@ -119,10 +119,13 @@
 <script>
 /* eslint-disable */
 const modal = document.querySelector('.modal')
-const body = document.querySelector('body>*:not(div.modal)')
+const body = document.querySelector('body')
 // body.removeChild(modal)
-body.addEventListener('click', () => {
-  modal.classList.remove('show')
+body.addEventListener('click', (e) => {
+  const clicked = e.target.closest('.modal')
+  if(clicked === null){
+    modal.classList.remove('show')
+  }
   // document.querySelecotr(':not(div.modal)').addEventListener('click', () => {
   // })
 })

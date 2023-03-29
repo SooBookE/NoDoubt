@@ -263,11 +263,11 @@ export default {
   margin-right: 10px;
 }
 
-.title_td,
+/* .title_td,
 .writer_td,
 .content_td,
 .img_td {
-}
+} */
 
 .title_td > input,
 .writer_td > input,

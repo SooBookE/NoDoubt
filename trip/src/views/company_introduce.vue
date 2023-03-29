@@ -45,17 +45,19 @@
             margin-left: 100px;
           "
         >
-          <h2 class="introduce_h2_1 animate-text">데이터 사이언스, 김수환</h2>
+          <h2 class="introduce_h2_1 animate-text">
+            AI 모델 담당/트러블슈터, 김수환
+          </h2>
           <div class="introduce_h2_innerbox">
             <h3 class="introduce_h2_2 animate-text">
-              저는 완전 극 P성향을 가진 계획없는 사람이었어요.
+              AI 훈련용 데이터 추출/가공, AI 모델 생성/훈련/검증까지 전반적인 AI
+              작업을 담당했어요!
             </h3>
             <h3 class="introduce_h2_3 animate-text">
-              그래서 여자친구와 여행을 갈 때마다 싸운 적이 한 두번이 아니었어요.
+              그리고 프론트/백 작업하시다가 막히시면 저를 불러주세요.
             </h3>
             <h3 class="introduce_h2_4 animate-text">
-              하지만 No-doubt를 만난 이후로 여자친구가 어떻게 이런 여행 계획을
-              짜왔냐고 칭찬만 해요! No-doubt는 사랑입니다!
+              밤을 새서라도 고쳐드릴테니까!
             </h3>
           </div>
         </div>
@@ -140,7 +142,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 @font-face {
   font-family: 'jua';
   src: url('../../public/font/BMJUA_ttf.ttf');
@@ -211,7 +213,7 @@ export default {
   padding: 50px;
   border-radius: 100px;
   box-shadow: 10px 10px 10px 5px #aaa;
-  // border: 7px solid #0e4bd8;
+  /* border: 7px solid #0e4bd8; */
   width: 90%;
 }
 
@@ -235,7 +237,7 @@ img {
 .introduce_img2 {
   margin-top: 50px;
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   padding: 30px;
   border: 1rem dashed #3165dd;
@@ -248,7 +250,7 @@ img {
   margin-top: 50px;
   display: flex;
   justify-content: left;
-  // margin-left: 300px;
+  /* margin-left: 300px; */
   align-items: center;
   padding: 30px;
 }
@@ -285,7 +287,7 @@ img {
 .introduce_img2 {
   margin-top: 50px;
   display: flex;
-  // margin-left: 500px;
+  /* margin-left: 500px; */
   align-items: center;
 }
 
@@ -294,11 +296,11 @@ img {
   margin-bottom: 50px;
 }
 
-// .introduce_h2_1 {
-//   font-family: 'dohyeon';
-//   color: rgb(255, 215, 60);
-//   text-shadow: 2px 2px 2px #23565a;
-// }
+/* .introduce_h2_1 {
+   font-family: 'dohyeon';
+   color: rgb(255, 215, 60);
+   text-shadow: 2px 2px 2px #23565a;
+ } */
 
 .introduce_img2_innerbox {
   display: flex;

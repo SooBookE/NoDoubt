@@ -50,128 +50,6 @@
     </transition-group>
   </div>
 
-  <!-- <div class="helpdesk_container">
-    <ul class="helpdesk_ul" style="list-style: none">
-      <li class="helpdesk_li">
-        <div class="helpdesk_li_div">
-          <button @click="show1" class="helpdesk_button1">
-            <div class="helpdesk_li_div_button_div">
-              <span> </span>
-              <strong>AI 여행 추천 프로그램이 뭔가요?</strong>
-            </div>
-            <div class="hashtag">#여행추천</div>
-          </button>
-        </div>
-      </li>
-      <li class="helpdesk_li">
-        <div class="helpdesk_li_div">
-          <button @click="show2 = !show2" class="helpdesk_button">
-            <div class="helpdesk_li_div_button_div">
-              <span> </span>
-              <strong>어떻게 사용하면 되나요?</strong>
-            </div>
-            <div class="hashtag">#여행추천</div>
-          </button>
-        </div>
-      </li>
-      <li class="helpdesk_li">
-        <div class="helpdesk_li_div">
-          <button @click="show3 = !show3" class="helpdesk_button">
-            <div class="helpdesk_li_div_button_div">
-              <span> </span>
-              <strong>개인정보가 유출되지는 않나요?</strong>
-            </div>
-            <div class="hashtag">#여행추천</div>
-          </button>
-        </div>
-      </li>
-      <li class="helpdesk_li">
-        <div class="helpdesk_li_div">
-          <button @click="show4 = !show4" class="helpdesk_button">
-            <div class="helpdesk_li_div_button_div">
-              <span> </span>
-              <strong>어떤 것을 입력해야 하나요?</strong>
-            </div>
-            <div class="hashtag">#여행추천</div>
-          </button>
-        </div>
-      </li> -->
-
-  <!-- <div id="demo">
-    <transition name="fade">
-      <div v-if="show" class="answer_box">
-        <p>답변1</p>
-      </div>
-    </transition>
-  </div>
-  <div id="demo">
-    <transition name="fade">
-      <div v-if="show2" class="answer_box">
-        <p>답변2</p>
-      </div>
-    </transition>
-  </div>
-  <div id="demo">
-    <transition name="fade">
-      <div v-if="show3" class="answer_box">
-        <p>답변3</p>
-      </div>
-    </transition>
-  </div>
-  <div id="demo">
-    <transition name="fade">
-      <div v-if="show4" class="answer_box">
-        <p>답변4</p>
-      </div>
-    </transition>
-  </div> -->
-
-  <!-- <li class="helpdesk_li">
-        <div class="helpdesk_li_div">
-          <button class="helpdesk_button">
-            <div class="helpdesk_li_div_button_div">
-              <span> </span>
-              <strong>하기 싫어요.</strong>
-            </div>
-            <div class="hashtag">#여행추천</div>
-          </button>
-        </div>
-      </li>
-      <li class="helpdesk_li">
-        <div class="helpdesk_li_div">
-          <button class="helpdesk_button">
-            <div class="helpdesk_li_div_button_div">
-              <span> </span>
-              <strong>나 좀 살려줘...</strong>
-            </div>
-            <div class="hashtag">#여행추천</div>
-          </button>
-        </div>
-      </li>
-      <li class="helpdesk_li">
-        <div class="helpdesk_li_div">
-          <button class="helpdesk_button">
-            <div class="helpdesk_li_div_button_div">
-              <span> </span>
-              <strong>help...</strong>
-            </div>
-            <div class="hashtag">#여행추천</div>
-          </button>
-        </div>
-      </li>
-      <li class="helpdesk_li">
-        <div class="helpdesk_li_div">
-          <button class="helpdesk_button">
-            <div class="helpdesk_li_div_button_div">
-              <span> </span>
-              <strong>이제 그만!!</strong>
-            </div>
-            <div class="hashtag">#여행추천</div>
-          </button>
-        </div>
-      </li>
-    </ul>
-  </div> -->
   <div class="FAQ_text">다른 도움이 필요하신가요?</div>
   <div class="another_help_container">
     <div class="another_help_box">
@@ -180,7 +58,8 @@
       <div class="help_time">상담시간</div>
       <div class="help_time_info">09:00 - 17:00</div>
     </div>
-    <div class="another_help_box" @click="gpt()">
+
+    <div class="another_help_box" @click="openModal()">
       <h3 style="font-family: `jua`">chatGPT 상담하기</h3>
       <div class="help_text">챗봇과 빠른 상담이 가능합니다.</div>
       <div class="help_time">상담시간</div>
@@ -192,7 +71,7 @@
       <div class="help_time">답변시간</div>
       <div class="help_time_info">09:00 - 17:00</div>
     </div>
-    <div class="modal">
+    <!-- <div class="modal" v-if="modal_screen">
       <div class="modal_body">
         <div>
           <div>안녕하세요. 무엇을 도와드릴까요?</div>
@@ -200,22 +79,42 @@
         <button @click="q1()">서울이 뭔가요?</button
         ><button @click="q2()">여행이 뭔가요?</button>
       </div>
-    </div>
+    </div> -->
   </div>
+
+  <transition name="modal" appear @close="closeModal()" v-if="modal">
+    <chat_gpt>
+      <div class="modal modal-overlay">
+        <button class="modal_button" @click="closeModal()">
+          <div class="modal-window">
+            <div class="modal-content">
+              <div class="chating_screen">
+                <!-- <button @click="q1()">서울이 뭔가요?</button
+                ><button @click="q2()">여행이 뭔가요?</button> -->
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+    </chat_gpt>
+  </transition>
 </template>
 
 <script>
-document.querySelector('body').addEventListener('click', () => {
-  const modal = document.querySelector('.modal')
-  modal.classList.remove('show')
-})
-import axios from 'axios'
+// document.querySelector('body').addEventListener('click', () => {
+//   const modal = document.querySelector('.modal')
+//   modal.classList.remove('show')
+// })
+// import axios from 'axios'
+import chat_gpt from '../components/chat_gpt.vue'
 /* eslint-disable */
 export default {
   name: 'app',
   data() {
     return {
       query: '',
+      modal_screen: false,
+      modal: false,
       list: [
         {
           msg: '여행추천',
@@ -298,25 +197,33 @@ export default {
       }, delay)
     },
     gpt: function () {
-      const modal = document.querySelector('.modal')
-      modal.classList.add('show')
+      this.modal_screen = true
     },
-    q1: function () {
-      axios.post('/gpt', { q: '서울이 뭔가요?' }).then((res) => {
-        const gptBody = document.querySelector('.modal_body>div')
-        const gptRes = document.createElement('div')
-        gptRes.textContent = res.data
-        gptBody.appendChild(gptRes)
-      })
+    // q1: function () {
+    //   axios.post('/gpt', { q: '서울이 뭔가요?' }).then((res) => {
+    //     const gptBody = document.querySelector('.modal_body>div')
+    //     const gptRes = document.createElement('div')
+    //     gptRes.textContent = res.data
+    //     gptBody.appendChild(gptRes)
+    //   })
+    // },
+    // q2: function () {
+    //   axios.post('/gpt', { q: '여행이 뭔가요?' }).then((res) => {
+    //     const gptBody = document.querySelector('.modal_body>div')
+    //     const gptRes = document.createElement('div')
+    //     gptRes.textContent = res.data
+    //     gptBody.appendChild(gptRes)
+    //   })
+    // },
+    openModal() {
+      this.modal = true
     },
-    q2: function () {
-      axios.post('/gpt', { q: '여행이 뭔가요?' }).then((res) => {
-        const gptBody = document.querySelector('.modal_body>div')
-        const gptRes = document.createElement('div')
-        gptRes.textContent = res.data
-        gptBody.appendChild(gptRes)
-      })
+    closeModal() {
+      this.modal = false
     }
+  },
+  components: {
+    chat_gpt
   }
 }
 </script>
@@ -508,6 +415,7 @@ strong {
   width: 60%;
   height: 3rem;
   font-family: 'jua';
+  font-size: 1.5rem;
   padding: 1.5rem;
   position: relative;
 }
@@ -552,5 +460,13 @@ strong {
   box-shadow: 0 5px 3px 0 rgba(34, 36, 38, 0.15);
 
   transform: translateX(-50%) translateY(-50%);
+}
+
+.chating_screen {
+  width: 100%;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 15px;
+  box-shadow: 3px 3px 3px black;
 }
 </style>

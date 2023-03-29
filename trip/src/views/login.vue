@@ -4,7 +4,7 @@
   <div class="login_out_container">
     <div class="join_container">
       <div class="login_title">여행가님, 환영합니다.</div>
-      <div class="Eng_title">Wellcome, Traveler</div>
+      <div class="Eng_title">Welcome, Traveler</div>
       <table class="login_form_table">
         <tr
           style="

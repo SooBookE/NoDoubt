@@ -92,6 +92,24 @@ const routes = [
       import(/* webpackChunkName: "about" */ '../views/company_introduce.vue')
   },
   {
+    path: '/profile_change',
+    name: 'profile_change',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/profile_change.vue')
+  },
+  {
+    path: '/login_check',
+    name: 'login_check',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/login_check.vue')
+  },
+  {
     path: '/gpt_chat',
     name: 'gpt_chat',
     // route level code-splitting

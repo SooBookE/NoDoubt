@@ -15,6 +15,11 @@
 </template>
 
 <script>
+document.querySelector('body').addEventListener('click', () => {
+  const modal = document.querySelector('.modal')
+  modal.classList.remove('show')
+})
+
 export default {
   name: 'app',
   data() {

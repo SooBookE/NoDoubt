@@ -43,7 +43,6 @@ export default {
     this.$socket.on('first_message'),
       (v) => {
         const chat_screen = document.querySelector('.chat_screen')
-        console.log(v)
         window.scrolllTo(0, chat_screen.scrollHeight)
         this.message_arr.push(v.data)
       }
@@ -52,8 +51,7 @@ export default {
     setInterval(() => {
       if (
         document.cookie.split(';').some(function (item) {
-          console.log(item.trim().indexOf('login_id='))
-          return item.trim().indexOf('login_id=') == 0
+          return item.trim().indexOf('nick=') == 0
         })
       ) {
         this.$refs.target.style.visibility = 'visible'

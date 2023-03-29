@@ -12,7 +12,7 @@
     <keep-alive>
       <img
         id="mainImage"
-        src="https://img.freepik.com/free-vector/watercolor-colorful-floral-background_23-2149146553.jpg?w=1800&t=st=1678161688~exp=1678162288~hmac=cc94a02bb9ac8d3e0bc3fc339a007c4c6f65aee53ed8cb96d00f7d589d4b4684"
+        src="https://img.freepik.com/free-photo/gyeongbokgung-palace_74190-3174.jpg?w=1380&t=st=1677198434~exp=1677199034~hmac=0879faab8f04a03d0081c8f078d33153d9be7aada5301c69bf9021e38b0d0cc7"
         alt="#"
       />
     </keep-alive>
@@ -76,5 +76,7 @@ export default {
 
 .select_slider_container {
   position: absolute;
+  display: flex;
+  align-items: center;
 }
 </style>

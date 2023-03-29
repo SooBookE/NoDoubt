@@ -1,4 +1,5 @@
 <template>
+  <categoires></categoires>
   <div class="AI_slider_container">
     <div class="find_select_container">
       <input
@@ -29,6 +30,7 @@
 /* eslint-disable */
 import find_id from '../components/find_id.vue'
 import find_pwd from '../components/find_pwd.vue'
+import categoires from '../components/categories.vue'
 
 export default {
   name: 'app',
@@ -40,19 +42,20 @@ export default {
   methods: {},
   components: {
     find_id,
-    find_pwd
+    find_pwd,
+    categoires
   }
 }
 </script>
 
 <style scoped>
 .AI_slider_container {
+  margin-top: 15rem;
   width: 100%;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px;
 }
 
 .find_select_container {

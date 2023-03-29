@@ -89,7 +89,6 @@ app.post('/cookie', (req, res) => {
 app.get('/login_confirm_cookie', (req, res) => {
   ;(async () => {
     const nick = req.cookies.nick
-    console.log(nick)
     res.send(nick)
   })()
 })
@@ -98,15 +97,18 @@ app.get('/login_confirm_cookie', (req, res) => {
 app.get('/cookie_del', (req, res) => {
   ;(async () => {
     // const login_id = req.cookies.login_id
-    res.clearCookie('login_id')
+    res.clearCookie('nick')
     res.redirect('/')
   })()
 })
 
 /* gpt 응답*/
 app.post('/gpt', (req, res) => {
-  const configuration = new Configuration({ apiKey: '오픈 ai 키' })
+  const configuration = new Configuration({
+    apiKey: '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'
+  })
   const openai = new OpenAIApi(configuration)
+  console.log(req.body.q)
   ;(async function () {
     const response = await openai.createCompletion({
       model: 'text-davinci-003',
@@ -414,6 +416,75 @@ app.post('/find_pwd', async (req, res) => {
   })()
 })
 
+/*비밀번호 변경*/
+app.post('/pwd_change', async (req, res) => {
+  const change_pwd_id = req.body.id
+  const change_phoneNumber_pwd = req.body.pwd
+  ;(async () => {
+    const change_pwd = await VSchema.updateOne(
+      { id: change_pwd_id },
+      {
+        $set: {
+          pwd: change_phoneNumber_pwd
+        }
+      },
+      { upsert: true }
+    )
+    console.log(change_pwd)
+    console.log(change_phoneNumber_pwd)
+    res.send('1')
+  })()
+})
+
+/*프로필 정보 불러오기*/
+app.post('/customer', (req, res) => {
+  let nickname = req.body.nickname
+  console.log(nickname)
+  ;(async () => {
+    const profile = await VSchema.find({ Nickname: nickname }, { __v: 0 })
+
+    res.send(profile)
+    console.log(profile)
+  })()
+})
+
+/*프로필 비밀번호 check*/
+app.post('/profile_pwd_check', (req, res) => {
+  const nick = req.body.nick
+  const pwd = req.body.pwd
+  ;(async () => {
+    const profile_check = await VSchema.find(
+      { Nickname: nick, pwd: pwd },
+      { __v: 0 }
+    )
+    console.log(profile_check)
+    if (profile_check.length >= 1) {
+      res.send('1')
+    } else res.send('2')
+  })()
+})
+
+/*프로필 수정*/
+app.post('/profile_change', (req, res) => {
+  const profile_id = req.body.id
+  const profile = req.body.profile
+  const introduce = req.body.introduce
+  ;(async () => {
+    const change_profile = await VSchema.updateOne(
+      { id: profile_id },
+      {
+        $set: {
+          profile: profile,
+          introduce: introduce
+        }
+      },
+      { upsert: true }
+    )
+    console.log(change_profile)
+    res.send('1')
+  })()
+})
+
 /*게시판 글번호 불러오기*/
 app.get('/numbering', (req, res) => {
   ;(async () => {
@@ -460,6 +531,7 @@ app.post('/write', (req, res) => {
       No,
       title,
       writer,
+      img,
       content,
       date
     }
@@ -476,8 +548,42 @@ app.get('/get_board', (req, res) => {
   ;(async () => {
     const get = await Board_Schema.find({}).sort({ No: -1 })
     res.send(get)
+    // console.log(get)
   })()
 })
+
+/*게시글 모달에 띄우기*/
+app.post('/board_modal', (req, res) => {
+  const find_board = req.body.title
+  ;(async () => {
+    const get = await Board_Schema.find({ title: find_board })
+    res.send(get)
+    console.log(get)
+  })()
+})
+
+/*실시간 현황 크롤링*/
+// const axios = require('axios')
+// const cheerio = require('cheerio') //선택자로 필요한 정보만 추출
+
+// const url =
+//   'https://data.seoul.go.kr/SeoulRtd/?hotspotNm=%EA%B2%BD%EB%B3%B5%EA%B6%81%C2%B7%EC%84%9C%EC%B4%8C%EB%A7%88%EC%9D%84&y=126.9730282&x=%EA%B2%BD%EB%B3%B5%EA%B6%81%C2%B7%EC%84%9C%EC%B4%8C%EB%A7%88%EC%9D%84'
+
+// let data = []
+
+// axios.get(url).then((res) => {
+//   let $ = cheerio.load(res.data)
+
+//   $('.content_report_home report_cell flex flex-col gap-2').each(function () {
+//     data.push($(this))
+//   })
+// })
+// console.log(data)
+
+// app.get('/data', (req, res) => {
+//   res.send(data)
+//   console.log(data)
+// })
 
 app.listen(port, () => {
   console.log(port + '에서 서버동작 완료.')

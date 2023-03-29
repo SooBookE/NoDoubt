@@ -1,8 +1,8 @@
 <template>
   <!-- eslint-disable -->
   <div class="AI_slider_container">
-    <div class="select_container">
-      <input
+    <!-- <div class="select_container"> -->
+    <!-- <input
         id="tab1"
         type="radio"
         name="tabs"
@@ -17,36 +17,37 @@
         @click="select = 'normal_recommand'"
       />
       <label for="tab1" class="label1">AI</label>
-      <label for="tab2" class="label2">normal</label>
+      <label for="tab2" class="label2">normal</label> -->
 
-      <keep-alive>
-        <component :is="select"></component>
-      </keep-alive>
-    </div>
-    <div class="image_bottom_button_container">
-      <div class="image_side_button_container">
-        <button class="left_button" @click="left_button_click()">
-          <img class="left_button_img" src="../../public/left.png" alt="" />
-        </button>
-        <div class="out_container">
-          <div class="container" ref="cont">
-            <div class="image_slide" ref="img_arr">
-              <img
-                class="slide_imageArray"
-                v-for="i in slide_imageArray"
-                :key="i"
-                :src="i"
-                alt=""
-                style="width: 600px"
-              />
-            </div>
+    <keep-alive>
+      <AI_recommand></AI_recommand>
+    </keep-alive>
+    <!-- <component :is="select"></component> -->
+  </div>
+  <div class="image_bottom_button_container">
+    <div class="image_side_button_container">
+      <button class="left_button" @click="left_button_click()">
+        <img class="left_button_img" src="../../public/left.png" alt="" />
+      </button>
+      <div class="out_container">
+        <div class="container" ref="cont">
+          <div class="image_slide" ref="img_arr">
+            <img
+              class="slide_imageArray"
+              v-for="i in slide_imageArray"
+              :key="i"
+              :src="i"
+              alt=""
+              style="width: 600px"
+            />
           </div>
         </div>
-        <button class="right_button" @click="right_button_click()">
-          <img class="right_button_img" src="../../public/right.png" alt="" />
-        </button>
       </div>
-      <!-- <div class="image_slide">
+      <button class="right_button" @click="right_button_click()">
+        <img class="right_button_img" src="../../public/right.png" alt="" />
+      </button>
+    </div>
+    <!-- <div class="image_slide">
             <button class="left_button" @click="left_button_click2()">
               <img class="left_button_img" src="../../public/left.png" alt="" />
             </button>
@@ -60,7 +61,7 @@
             </button>
           </div> -->
 
-      <!-- <div class="image_slide">
+    <!-- <div class="image_slide">
             <button class="left_button" @click="left_button_click3()">
               <img class="left_button_img" src="../../public/left.png" alt="" />
             </button>
@@ -73,30 +74,29 @@
               />
             </button>
           </div> -->
-      <div class="slide_button_box">
-        <!-- 2번 사진이 1번 사진이 됨 -->
-        <button
-          class="button1"
-          id="bt1"
-          @click="button_click_slide1()"
-          style="display: none"
-        ></button>
-        <button
-          class="button2"
-          id="bt2"
-          @click="button_click_slide2()"
-          style="display: none"
-        ></button>
-        <button
-          class="button3"
-          id="bt3"
-          @click="button_click_slide3()"
-          style="display: none"
-        ></button>
-        <label for="bt1"><div ref="tab1"></div></label>
-        <label for="bt2"><div ref="tab2" class="show"></div></label>
-        <label for="bt3"><div ref="tab3"></div></label>
-      </div>
+    <div class="slide_button_box">
+      <!-- 2번 사진이 1번 사진이 됨 -->
+      <button
+        class="button1"
+        id="bt1"
+        @click="button_click_slide1()"
+        style="display: none"
+      ></button>
+      <button
+        class="button2"
+        id="bt2"
+        @click="button_click_slide2()"
+        style="display: none"
+      ></button>
+      <button
+        class="button3"
+        id="bt3"
+        @click="button_click_slide3()"
+        style="display: none"
+      ></button>
+      <label for="bt1"><div ref="tab1"></div></label>
+      <label for="bt2"><div ref="tab2" class="show"></div></label>
+      <label for="bt3"><div ref="tab3"></div></label>
     </div>
   </div>
 </template>
@@ -280,7 +280,7 @@ export default {
 }
 
 /*carousel*/
-.test-wrap {
+/* .test-wrap {
   border: 1px solid #000;
   height: auto;
 }
@@ -288,7 +288,7 @@ export default {
 .carousel-wrap {
   width: 100%;
   margin: 0 auto;
-}
+} */
 
 .AI_slider_container {
   width: 100%;
@@ -320,15 +320,15 @@ label {
   color: black;
 }
 
-.label1:hover,
+/* .label1:hover,
 .label2:hover {
   border: 1px solid black;
   box-shadow: 5px 3px 3px gray;
   color: #7c7c7c;
   cursor: pointer;
-}
+} */
 
-#tab1:checked ~ .label2 {
+/* #tab1:checked ~ .label2 {
   border-bottom: 1px solid #000000;
   box-shadow: 0px 2px 0px rgb(168, 168, 168);
 }
@@ -348,7 +348,7 @@ label {
   border-top: 3px solid #004a79;
   border-left: 2px solid #000000;
   box-shadow: 5px 2px 3px gray;
-}
+} */
 
 /*AI 검색*/
 
@@ -382,6 +382,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: -5rem;
 }
 
 .out_container {
@@ -413,18 +414,19 @@ button {
   margin-top: 30px;
 }
 .slide_button_box div {
-  width: 40px;
-  height: 10px;
-  background: red;
+  width: 20px;
+  height: 20px;
+  background: #f2ab39;
+  box-shadow: 2px 2px 2px #535353;
   cursor: pointer;
-  border-radius: 30%;
+  border-radius: 100%;
 }
 .slide_button_box div:hover {
-  width: 40px;
-  height: 10px;
-  background: blue;
+  width: 20px;
+  height: 20px;
+  background: #919191;
   cursor: pointer;
-  border-radius: 30%;
+  border-radius: 100%;
 }
 
 .slide_button_box label div {
@@ -447,6 +449,7 @@ button {
   display: none;
 }
 .slide_button_box > label > div.show {
-  background: blue;
+  background: #a7a7a7;
+  box-shadow: 2px 2px 2px #535353;
 }
 </style>

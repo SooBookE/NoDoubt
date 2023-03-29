@@ -46,18 +46,18 @@ for (const ar of arr) {
   ar.exper = ar.exper.split(',')
 
   if (ar.exper[0] == '오락-휴식' || ar.exper[0] == '자기계발-자기관리') {
-    ar.exper = 4
+    ar.exper = 0
   } else if (ar.exper[0] == '사회교류') {
-    ar.exper = 3
+    ar.exper = 1
   } else if (
     ar.exper[0] == '운동-스포츠 직접하기' ||
     ar.exper[0] == '스포츠 관람하기'
   ) {
     ar.exper = 2
   } else if (ar.exper[0] == '관광-여행') {
-    ar.exper = 1
-  } else {
     ar.exper = 0
+  } else {
+    ar.exper = 1
   }
 
   ar.target = ar.target.split(',')

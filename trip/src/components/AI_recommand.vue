@@ -2,6 +2,7 @@
   <div class="inputbox_color">
     <div class="inputbox_design">
       <div class="AI_search_container">
+        <div class="title">AI 여행지 추천</div>
         <select
           class="AI_search_select"
           placeholder="성별을 선택해주세요."
@@ -36,35 +37,98 @@
           <option value="1">외향적이에요.</option>
           <option value="2">반반이에요.</option>
         </select>
-        <button @click="aiSearch()" class="AI_submit_button">입력</button>
-        <div class="modal">
-          <div class="modal_body">
-            <div>
-              여행자님은 <strong>{{ recommend }}</strong> 관련 여행지가 어울리실
-              것 같아요!
-              <div>
-                노답 컴퍼니는
-                <h3>"{{ placeName }}"</h3>
-                을(/를) 추천드릴게요!<br />해당 추천지를 지금 바로 확인해보세요!
-              </div>
-              <a :href="placeLink" target="_blank"
-                >{{ placeName }} 상황 실시간 확인 하러 가기</a
-              >
-            </div>
-          </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="goo">
+            <defs>
+              <filter id="goo">
+                <feGaussianBlur
+                  in="SourceGraphic"
+                  stdDeviation="10"
+                  result="blur"
+                />
+                <feColorMatrix
+                  in="blur"
+                  mode="matrix"
+                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                  result="goo"
+                />
+                <feComposite in="SourceGraphic" in2="goo" />
+              </filter>
+            </defs>
+          </svg>
+
+          <span class="button--bubble__container">
+            <a
+              @click="aiSearch()"
+              @change="buttons()"
+              href="#campaign"
+              class="button button--bubble"
+            >
+              입력
+            </a>
+            <span class="button--bubble__effect-container">
+              <span class="circle top-left"></span>
+              <span class="circle top-left"></span>
+              <span class="circle top-left"></span>
+
+              <span class="button effect-button"></span>
+
+              <span class="circle bottom-right"></span>
+              <span class="circle bottom-right"></span>
+              <span class="circle bottom-right"></span>
+            </span>
+          </span>
         </div>
       </div>
     </div>
   </div>
+  <!-- 로딩화면 -->
+  <div class="modals" style="z-index: 2">
+    <div class="modal_body">
+      <div>
+        <div class="layerPopup">
+          <div class="spinner"></div>
+        </div>
+        <div class="loading_mes">{{ loading_message }}</div>
+      </div>
+    </div>
+  </div>
+  <!-- 추천 여행지 모달창 -->
+  <div class="modal">
+    <button class="close" @click="close()">
+      <div class="modal_body">
+        <div>
+          여행자님은 <strong>{{ recommend }}</strong> 관련 여행지가 어울리실 것
+          같아요!
+          <h2>No_Doubt 컴퍼니는</h2>
+          <h3>"{{ placeName }}"</h3>
+          <h4>을(/를) 추천드릴게요!</h4>
+          <h4>해당 추천지를 지금 바로 확인해보세요!</h4>
+          <a :href="placeLink" target="_blank"
+            >{{ placeName }} 상황 실시간 확인 하러 가기</a
+          >
+          <div class="maps">
+            <maps></maps>
+          </div>
+        </div>
+      </div>
+    </button>
+  </div>
 </template>
 
 <script>
-document.querySelector('body').addEventListener('click', () => {
-  const modal = document.querySelector('.modal')
+/* eslint-disable */
+const modal = document.querySelector('.modal')
+const body = document.querySelector('body')
+// body.removeChild(modal)
+body.addEventListener('click', () => {
   modal.classList.remove('show')
+  // document.querySelecotr(':not(div.modal)').addEventListener('click', () => {
+  // })
 })
 // import axios from 'axios'
 import * as tf from '@tensorflow/tfjs'
+import maps from '../components/maps.vue'
 // import { async } from 'rxjs'
 
 export default {
@@ -76,6 +140,7 @@ export default {
       hobby: 'none',
       placeName: '',
       placeLink: '',
+      loading_message: '',
       result: [
         '고궁/문화유산',
         '관광특구',
@@ -299,6 +364,8 @@ export default {
     }
   },
   methods: {
+    Loading: function () {},
+
     aiSearch() {
       const modelCheck =
         window.localStorage['tensorflowjs_models/my-model/model_topology'] ?? 0
@@ -340,20 +407,173 @@ export default {
                 console.log(this.placeName)
                 console.log(this.placeLink)
 
+                let message = [
+                  'AI가 학습중입니다.',
+                  '조금만 기다려주세요.',
+                  '6천개의 데이터가 여행가님께 맞는 여행지를 찾고 있어요.',
+                  '여행 떠날 준비 되셨나요?',
+                  '고생해서 만든 AI 프로그램이에요.',
+                  '개발자 힘들다...'
+                ]
+                let ran
+                let load = () => {
+                  for (let i = 0; i < 1; i++) {
+                    ran = Math.floor(Math.random() * message.length)
+
+                    this.loading_message = message[ran]
+                  }
+                }
+                // load()
+                setInterval(() => load(), 2000)
+
+                const modals = document.querySelector('.modals')
+                modals.classList.add('show')
                 const modal = document.querySelector('.modal')
-                modal.classList.add('show')
+
+                setTimeout(() => {
+                  modals.classList.remove('show')
+                  modal.classList.add('show')
+                }, 8000)
               })
           })()
         }
       } else {
         alert('기능이 동작하지 않습니다.\n불편을 끼쳐 죄송합니다.')
       }
+    },
+    close: function () {
+      const modal = document.querySelector('.modal')
+      modal.classList.remove('show')
+    },
+    buttons: function () {
+      $('.button--bubble').each(function () {
+        var $circlesTopLeft = $(this).parent().find('.circle.top-left')
+        var $circlesBottomRight = $(this).parent().find('.circle.bottom-right')
+
+        var tl = new TimelineLite()
+        var tl2 = new TimelineLite()
+
+        var btTl = new TimelineLite({ paused: true })
+
+        tl.to($circlesTopLeft, 1.2, {
+          x: -25,
+          y: -25,
+          scaleY: 2,
+          ease: SlowMo.ease.config(0.1, 0.7, false)
+        })
+        tl.to($circlesTopLeft.eq(0), 0.1, { scale: 0.2, x: '+=6', y: '-=2' })
+        tl.to(
+          $circlesTopLeft.eq(1),
+          0.1,
+          { scaleX: 1, scaleY: 0.8, x: '-=10', y: '-=7' },
+          '-=0.1'
+        )
+        tl.to(
+          $circlesTopLeft.eq(2),
+          0.1,
+          { scale: 0.2, x: '-=15', y: '+=6' },
+          '-=0.1'
+        )
+        tl.to($circlesTopLeft.eq(0), 1, {
+          scale: 0,
+          x: '-=5',
+          y: '-=15',
+          opacity: 0
+        })
+        tl.to(
+          $circlesTopLeft.eq(1),
+          1,
+          { scaleX: 0.4, scaleY: 0.4, x: '-=10', y: '-=10', opacity: 0 },
+          '-=1'
+        )
+        tl.to(
+          $circlesTopLeft.eq(2),
+          1,
+          { scale: 0, x: '-=15', y: '+=5', opacity: 0 },
+          '-=1'
+        )
+
+        var tlBt1 = new TimelineLite()
+        var tlBt2 = new TimelineLite()
+
+        tlBt1.set($circlesTopLeft, { x: 0, y: 0, rotation: -45 })
+        tlBt1.add(tl)
+
+        tl2.set($circlesBottomRight, { x: 0, y: 0 })
+        tl2.to($circlesBottomRight, 1.1, {
+          x: 30,
+          y: 30,
+          ease: SlowMo.ease.config(0.1, 0.7, false)
+        })
+        tl2.to($circlesBottomRight.eq(0), 0.1, {
+          scale: 0.2,
+          x: '-=6',
+          y: '+=3'
+        })
+        tl2.to(
+          $circlesBottomRight.eq(1),
+          0.1,
+          { scale: 0.8, x: '+=7', y: '+=3' },
+          '-=0.1'
+        )
+        tl2.to(
+          $circlesBottomRight.eq(2),
+          0.1,
+          { scale: 0.2, x: '+=15', y: '-=6' },
+          '-=0.2'
+        )
+        tl2.to($circlesBottomRight.eq(0), 1, {
+          scale: 0,
+          x: '+=5',
+          y: '+=15',
+          opacity: 0
+        })
+        tl2.to(
+          $circlesBottomRight.eq(1),
+          1,
+          { scale: 0.4, x: '+=7', y: '+=7', opacity: 0 },
+          '-=1'
+        )
+        tl2.to(
+          $circlesBottomRight.eq(2),
+          1,
+          { scale: 0, x: '+=15', y: '-=5', opacity: 0 },
+          '-=1'
+        )
+
+        tlBt2.set($circlesBottomRight, { x: 0, y: 0, rotation: 45 })
+        tlBt2.add(tl2)
+
+        btTl.add(tlBt1)
+        btTl.to(
+          $(this).parent().find('.button.effect-button'),
+          0.8,
+          { scaleY: 1.1 },
+          0.1
+        )
+        btTl.add(tlBt2, 0.2)
+        btTl.to(
+          $(this).parent().find('.button.effect-button'),
+          1.8,
+          { scale: 1, ease: Elastic.easeOut.config(1.2, 0.4) },
+          1.2
+        )
+
+        btTl.timeScale(2.6)
+
+        $(this).on('mouseover', function () {
+          btTl.restart()
+        })
+      })
     }
+  },
+  components: {
+    maps
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 @font-face {
   font-family: 'jua';
   src: url('../../public/font/BMJUA_ttf.ttf');
@@ -364,23 +584,39 @@ export default {
   src: url('../../public/font/BMDOHYEON_ttf.ttf');
 }
 
+.maps {
+  margin-top: 20px;
+}
+
+.loading_mes {
+  font-family: 'dohyeon';
+  font-size: 2rem;
+  padding: 5rem;
+  color: #f2ab39;
+}
+.title {
+  font-family: 'dohyeon';
+  font-size: 2rem;
+}
 /*AI 검색*/
 .inputbox_color {
-  background-color: antiquewhite;
+  background-color: transparent;
 }
 .inputbox_design {
+  margin-right: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 400px;
   width: 400px;
   color: black;
-  border: 2px solid black;
-  border-top: none;
-  box-shadow: 5px 3px 3px gray;
+  border: 2px solid white;
+  border-radius: 10px;
+  box-shadow: 5px 3px 5px 3px rgb(102, 102, 102);
 }
 
 .AI_search_container {
+  padding: 3rem 0rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -422,7 +658,25 @@ option {
   color: white;
   transition: linear 0.2s;
 }
+
+/*모달창 css*/
+.close {
+  background-color: transparent;
+  border: none;
+}
 .modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: none;
+
+  /* background-color: rgba(0, 0, 0, 0.4); */
+}
+.modals {
   position: absolute;
   top: 0;
   left: 0;
@@ -436,6 +690,11 @@ option {
 }
 .modal.show {
   display: block;
+  z-index: 1;
+}
+.modals.show {
+  display: block;
+  z-index: 2;
 }
 
 .modal_body {
@@ -443,11 +702,11 @@ option {
   top: 50%;
   left: 50%;
 
-  width: 400px;
-  height: 600px;
+  width: 60%;
+  height: 920px;
 
   padding: 40px;
-  z-index: 99999999;
+  z-index: 9;
   text-align: center;
 
   background-color: rgb(255, 255, 255);
@@ -455,5 +714,189 @@ option {
   box-shadow: 0 5px 3px 0 rgba(34, 36, 38, 0.15);
 
   transform: translateX(-50%) translateY(-50%);
+}
+
+/*입력 버튼*/
+$dark-blue: #222;
+$green: #90feb5;
+$action-color: $green;
+
+* {
+  box-sizing: border-box;
+}
+
+div {
+  display: block;
+  height: 100%;
+  animation: hue-rotate 10s linear infinite;
+}
+
+.button {
+  -webkit-font-smoothing: antialiased;
+  background-color: $dark-blue;
+  border: none;
+  color: #fff;
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  user-select: none;
+  letter-spacing: 1px;
+  color: white;
+  padding: 20px 40px;
+  text-transform: uppercase;
+  transition: all 0.1s ease-out;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $action-color;
+    color: #fff;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &--bubble {
+    position: relative;
+    z-index: 2;
+    color: white;
+    background: none;
+
+    &:hover {
+      background: none;
+    }
+
+    &:hover + .button--bubble__effect-container .circle {
+      background: darken($action-color, 15%);
+    }
+
+    &:hover + .button--bubble__effect-container .button {
+      background: darken($action-color, 15%);
+    }
+
+    &:active + .button--bubble__effect-container {
+      transform: scale(0.95);
+    }
+
+    &__container {
+      position: relative;
+      display: inline-block;
+
+      .effect-button {
+        position: absolute;
+        width: 50%;
+        height: 25%;
+        top: 50%;
+        left: 25%;
+        z-index: 1;
+        transform: translateY(-50%);
+        background: $dark-blue;
+        transition: background 0.1s ease-out;
+      }
+    }
+  }
+}
+
+.button--bubble__effect-container {
+  position: absolute;
+  display: block;
+  width: 200%;
+  height: 400%;
+  top: -150%;
+  left: -50%;
+  -webkit-filter: url('#goo');
+  filter: url('#goo');
+  transition: all 0.1s ease-out;
+  pointer-events: none;
+
+  .circle {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 15px;
+    background: $dark-blue;
+    transition: background 0.1s ease-out;
+
+    &.top-left {
+      top: 40%;
+      left: 27%;
+    }
+
+    &.bottom-right {
+      bottom: 40%;
+      right: 27%;
+    }
+  }
+}
+
+.goo {
+  position: absolute;
+  visibility: hidden;
+  width: 1px;
+  height: 1px;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.button--bubble__container {
+  top: 50%;
+  margin-top: -25px;
+}
+
+@keyframes hue-rotate {
+  from {
+    -webkit-filter: hue-rotate(0);
+    -moz-filter: hue-rotate(0);
+    -ms-filter: hue-rotate(0);
+    filter: hue-rotate(0);
+  }
+  to {
+    -webkit-filter: hue-rotate(360deg);
+    -moz-filter: hue-rotate(360deg);
+    -ms-filter: hue-rotate(360deg);
+    filter: hue-rotate(360deg);
+  }
+}
+
+/*스피너*/
+
+.layerPopup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  margin: -30px 0 0 -30px;
+}
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spinner 2s linear infinite;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

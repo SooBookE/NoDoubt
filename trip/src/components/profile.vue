@@ -5,11 +5,13 @@
       <button class="close" @click="$emit('close')">
         <div class="profile_container">
           <article class="resquick_content">
-            <div class="profile"></div>
+            <div class="profile">
+              <img class="profile" :src="profile" alt="" />
+            </div>
             <div class="profile_nickname">{{ nickname }}</div>
             <hr />
             <div class="profile_introduce">{{ introduce }}</div>
-            <div class="a" @click="$router.push('/profile_change')">
+            <div class="a" @click="$router.push('/login_check')">
               프로필 수정
             </div>
           </article>
@@ -28,7 +30,8 @@ export default {
     return {
       chating: false,
       nickname: '',
-      introduce: '자기소개란 입니다.'
+      introduce: '자기소개란 입니다.',
+      profile: ''
     }
   },
   mounted() {
@@ -54,6 +57,15 @@ export default {
     login_cookie: function () {
       axios.get('/login_confirm_cookie').then((res) => {
         this.nickname = res.data
+        axios
+          .post('/customer', {
+            nickname: res.data
+          })
+          .then((res) => {
+            this.profile = res.data[0].profile
+            this.introduce = res.data[0].introduce
+            console.log(this.profile)
+          })
       })
     }
   }
@@ -113,6 +125,9 @@ export default {
   display: flex;
 }
 .profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 10px 0px;
   width: 150px;
   height: 150px;
@@ -137,7 +152,7 @@ export default {
 .profile_introduce {
   width: 200px;
   height: auto;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   margin: 10px;
   padding: 5px;
   text-align: center;
@@ -163,7 +178,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.666);
+  background-color: rgba(255, 255, 255);
 }
 
 .resquick_content > .a {

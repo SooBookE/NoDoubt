@@ -184,7 +184,6 @@ export default {
 
   mounted() {
     // this.customer_info()
-    this.login_cookie()
   },
 
   methods: {
@@ -313,20 +312,6 @@ export default {
         return false
       }
       this.password_string_confirm_message = ''
-    },
-    login_cookie: function () {
-      axios.get('/login_confirm_cookie').then((res) => {
-        this.nickname = res.data
-        axios
-          .post('/customer', {
-            nickname: res.data
-          })
-          .then((res) => {
-            this.files.push(res.data[0].profile)
-            this.introduce = res.data[0].introduce
-            // console.log(this.profile)
-          })
-      })
     }
   },
 

@@ -107,16 +107,14 @@ export default {
       })
     },
     q3: function () {
-      const kwChk = /^.*(여행).*/
-      if(kwChk.test(this.chat_send)){
-        this.messagearr.push(this.chat_send)
-        axios.post('/gpt', { q: this.chat_send }).then((res) => {
+      this.messagearr.push(this.chat_send)
+      axios.post('/gpt', { q: this.chat_send }).then((res) => {
+        if (res.data == '1') {
+          this.messagearr.push('키워드를 포함해 다시 입력 해주세요!')
+        } else {
           this.messagearr.push(res.data)
-        })
-      }else{
-        alert('키워드를 포함해 작성해주세요.')
-        this.messagearr.push('키워드를 포함해 다시 입력 해주세요!')
-      }
+        }
+      })
       this.chat_send = ''
     }
   }

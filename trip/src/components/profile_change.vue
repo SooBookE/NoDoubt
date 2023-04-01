@@ -94,6 +94,13 @@
                     </div>
                   </label>
 
+                  <div class="preview-container mt-4" v-if="files.length==0">
+                    <img
+                          id="preview-img"
+                          :src="profile"
+                          style="width: 200px"
+                        />
+                  </div>
                   <div class="preview-container mt-4" v-if="files.length">
                     <div
                       v-for="file in files"
@@ -174,7 +181,8 @@ export default {
       url: '',
       url_data: '',
       language: '',
-      B: ''
+      B: '',
+      profile: ''
     }
   },
 
@@ -184,9 +192,24 @@ export default {
 
   mounted() {
     // this.customer_info()
+    this.login_cookie()
   },
 
   methods: {
+    login_cookie: function () {
+      axios.get('/login_confirm_cookie').then((res) => {
+        this.nickname = res.data
+        axios
+          .post('/customer', {
+            nickname: res.data
+          })
+          .then((res) => {
+            this.profile = res.data[0].profile
+            this.introduce = res.data[0].introduce
+            // console.log(this.profile)
+          })
+      })
+    },
     nickname: function () {
       axios.get('/login_confirm_cookie').then((res) => {
         this.customer_nickname = res.data

@@ -118,13 +118,14 @@
 
 <script>
 /* eslint-disable */
-const modal = document.querySelector('.modal')
-const body = document.querySelector('body>*:not(div.modal)')
+const body = document.querySelector('body')
 // body.removeChild(modal)
-body.addEventListener('click', () => {
-  modal.classList.remove('show')
-  // document.querySelecotr(':not(div.modal)').addEventListener('click', () => {
-  // })
+body.addEventListener('click', (event) => {
+  const modal = document.querySelector('.modal')
+  const modal_child = document.querySelector('.modal *')
+    if(event.target!=modal_child||event.target!=modal){
+      modal.classList.remove('show')
+    }
 })
 // import axios from 'axios'
 import * as tf from '@tensorflow/tfjs'
